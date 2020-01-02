@@ -1,0 +1,53 @@
+version: '3.7'
+services:
+    nginx:
+        image: nginx:1.17
+        volumes:
+            - "./docker/config/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+            - "./docker/log/nginx:/var/log/nginx/"
+            - "./:/var/www/yii2-library"
+        ports:
+            - "80:80"
+        restart: always
+        links:     
+            - php-fpm
+        networks:
+            - yii2-library
+    php-fpm:
+        build: ./docker/bin/php-fpm
+        restart: always
+        volumes:
+            - "./:/var/www/yii2-library"
+        links:     
+            - mysql
+        networks:
+            - yii2-library
+    mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: yii2-library
+            MYSQL_ROOT_PASSWORD: Root-123
+            MYSQL_USER: user
+            MYSQL_PASSWORD: user123
+        ports:
+            - "3306:3306"
+        volumes:
+            - "db-yii2-library:/var/lib/mysql"
+        networks:
+            - yii2-library
+    phpmyadmin:
+        depends_on:
+            - mysql
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        ports:
+            - '8080:80'
+        environment:
+            PMA_HOST: mysql
+            MYSQL_ROOT_PASSWORD: Root-123
+        networks:
+            - yii2-library
+networks:
+    yii2-library:
+volumes:
+    db-yii2-library:
