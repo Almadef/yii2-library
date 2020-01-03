@@ -2,10 +2,13 @@
 
 namespace backend\modules\book\controllers;
 
+use common\models\Author;
+use common\models\Category;
 use common\models\Publisher;
 use Yii;
 use common\models\Book;
 use common\models\book\Search;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -42,8 +45,17 @@ final class DefaultController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $authorDataProvider = new ActiveDataProvider([
+            'query' => $model->getAuthors(),
+        ]);
+        $categoryDataProvider = new ActiveDataProvider([
+            'query' => $model->getCategories(),
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'authorDataProvider' => $authorDataProvider,
+            'categoryDataProvider' => $categoryDataProvider,
         ]);
     }
 
@@ -60,8 +72,15 @@ final class DefaultController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $selectCategory = Category::getForSelector();
+        $selectAuthor = Author::getForSelector();
+        $selectPublisher = Publisher::getForSelector();
+
         return $this->render('create', [
             'model' => $model,
+            'selectCategory' => $selectCategory,
+            'selectAuthor' => $selectAuthor,
+            'selectPublisher' => $selectPublisher,
         ]);
     }
 
@@ -80,8 +99,15 @@ final class DefaultController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $selectCategory = Category::getForSelector();
+        $selectAuthor = Author::getForSelector();
+        $selectPublisher = Publisher::getForSelector();
+
         return $this->render('update', [
             'model' => $model,
+            'selectCategory' => $selectCategory,
+            'selectAuthor' => $selectAuthor,
+            'selectPublisher' => $selectPublisher,
         ]);
     }
 

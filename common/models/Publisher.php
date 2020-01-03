@@ -77,7 +77,7 @@ class Publisher extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public static function getForSelector()
+    public static function getForSelector():array
     {
         return ArrayHelper::map(
             self::find()->all(), 'id', 'name'

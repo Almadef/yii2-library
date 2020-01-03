@@ -3,9 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\helpers\DateHelper;
+use \yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Book */
+/* @var $authorDataProvider yii\data\ActiveDataProvider */
+/* @var $categoryDataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Books', 'url' => ['index']];
@@ -57,5 +60,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <h4>Authors</h4>
+    <?= GridView::widget([
+        'dataProvider' => $authorDataProvider,
+        'columns' => [
+            'id',
+            'name',
+            'surname',
+            'patronymic',
+        ],
+    ]); ?>
+
+    <h4>Categories</h4>
+    <?= GridView::widget([
+        'dataProvider' => $categoryDataProvider,
+        'columns' => [
+            'id',
+            'title',
+        ],
+    ]); ?>
 
 </div>

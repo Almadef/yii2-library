@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%category}}".
@@ -66,5 +67,15 @@ class Category extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\category\Query(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    public static function getForSelector():array
+    {
+        return ArrayHelper::map(
+            self::find()->all(), 'id', 'title'
+        );
     }
 }

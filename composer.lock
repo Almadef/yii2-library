@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "181b394e01698c88b04a889cad86c401",
+    "content-hash": "2dca02812017cdfb0c86d49ee0587b28",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -624,6 +624,55 @@
                 "shim"
             ],
             "time": "2019-11-27T13:56:44+00:00"
+        },
+        {
+            "name": "voskobovich/yii2-many-many-behavior",
+            "version": "v3.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/voskobovich/yii2-many-to-many-behavior.git",
+                "reference": "cb130c10aceefe57bd2d3b0544986d84026455ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/voskobovich/yii2-many-to-many-behavior/zipball/cb130c10aceefe57bd2d3b0544986d84026455ae",
+                "reference": "cb130c10aceefe57bd2d3b0544986d84026455ae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "yiisoft/yii2-codeception": "~2.0"
+            },
+            "type": "yii2-behavior",
+            "autoload": {
+                "psr-4": {
+                    "voskobovich\\behaviors\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vitaly Voskobovich",
+                    "email": "vitaly@voskobovich.com",
+                    "homepage": "http://voskobovich.com"
+                }
+            ],
+            "description": "This behavior makes it easy to maintain relations many-to-many in the your ActiveRecord model.",
+            "homepage": "https://github.com/voskobovich/ManyToManyBehavior",
+            "keywords": [
+                "Active Record",
+                "Behavior",
+                "many-to-many",
+                "relation",
+                "yii2"
+            ],
+            "time": "2016-01-14T09:39:52+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -4096,7 +4145,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0"
+        "php": "7.4.*"
     },
     "platform-dev": []
 }

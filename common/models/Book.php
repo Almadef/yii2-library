@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\models\book\Relations;
+use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -20,6 +21,8 @@ use yii\behaviors\TimestampBehavior;
  * @property int $updated_at
  *
  * @property Publisher $publisher
+ * @property array $categories
+ * @property array $authors
  */
 class Book extends \yii\db\ActiveRecord
 {
@@ -49,6 +52,8 @@ class Book extends \yii\db\ActiveRecord
             [['release'], 'unique'],
             [['isbn'], 'unique'],
             [['publisher_id'], 'exist', 'skipOnError' => true, 'targetClass' => Publisher::className(), 'targetAttribute' => ['publisher_id' => 'id']],
+            [['category_ids'], 'each', 'rule' => ['integer']],
+            [['author_ids'], 'each', 'rule' => ['integer']],
         ];
     }
 
@@ -77,6 +82,27 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => ManyToManyBehavior::className(),
+                'relations' => [
+                    'category_ids' => [
+                        'categories',
+                        'viaTableValues' => [
+                            'created_at' => function() {
+                                return time();
+                            },
+                        ],
+                    ],
+                    'author_ids' => [
+                        'authors',
+                        'viaTableValues' => [
+                            'created_at' => function() {
+                                return time();
+                            },
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 
