@@ -7,3 +7,4 @@
     2. `php yii init`;
     3. `php yii migrate-rbac`;
     4. `php yii migrate`;
+5. Если нужно создать дефолтного администратора и библиотекаря, то выполнить комманду `php yii rbac/create-default-user`.
