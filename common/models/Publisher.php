@@ -38,7 +38,6 @@ class Publisher extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['name'], 'unique'],
         ];
     }
 

@@ -35,7 +35,6 @@ class Author extends \yii\db\ActiveRecord
             [['name', 'surname'], 'required'],
             [['name', 'surname', 'patronymic'], 'string', 'max' => 255],
             [['created_at', 'updated_at'], 'integer'],
-            [['name', 'surname'], 'unique'],
         ];
     }
 
@@ -79,7 +78,17 @@ class Author extends \yii\db\ActiveRecord
     public static function getForSelector():array
     {
         return ArrayHelper::map(
-            self::find()->all(), 'id', 'name'
+            self::find()->all(), 'id', function ($model) {
+                return $model->getFullName();
+            },
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName():string
+    {
+        return $this->surname . ' ' . $this->name . ' ' . (isset($this->patronymic) ? $this->patronymic : '');
     }
 }
