@@ -6,6 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\book\Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $selectPublisher array */
 
 $this->title = 'Books';
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,11 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'publisher_id',
             'title',
+            [
+                'attribute' => 'publisher_id',
+                'value' => 'publisher.name',
+                'label' => 'Publisher',
+                'filter' => $selectPublisher,
+            ],
             'release',
             'isbn',
-            //'pages',
+            'pages',
             //'description:ntext',
             //'created_at',
             //'updated_at',

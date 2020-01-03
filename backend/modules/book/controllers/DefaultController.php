@@ -2,6 +2,7 @@
 
 namespace backend\modules\book\controllers;
 
+use common\models\Publisher;
 use Yii;
 use common\models\Book;
 use common\models\book\Search;
@@ -13,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * DefaultController implements the CRUD actions for Book model.
  */
-class DefaultController extends Controller
+final class DefaultController extends Controller
 {
     /**
      * Lists all Book models.
@@ -24,9 +25,12 @@ class DefaultController extends Controller
         $searchModel = new Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $selectPublisher = Publisher::getForSelector();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'selectPublisher' => $selectPublisher,
         ]);
     }
 

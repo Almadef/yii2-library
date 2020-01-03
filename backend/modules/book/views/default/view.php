@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\helpers\DateHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Book */
@@ -30,14 +31,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'publisher_id',
+            [
+                'attribute' => 'publisher_id',
+                'value' => function ($model) {
+                    return $model->publisher->name;
+                },
+                'label' => 'Publisher',
+            ],
             'title',
             'release',
             'isbn',
             'pages',
             'description:ntext',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'created_at',
+                'value' => function ($model) {
+                    return DateHelper::convertUnixToDatetime($model->created_at);
+                },
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => function ($model) {
+                    return DateHelper::convertUnixToDatetime($model->updated_at);
+                },
+            ],
         ],
     ]) ?>
 

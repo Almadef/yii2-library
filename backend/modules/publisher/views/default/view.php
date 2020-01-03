@@ -1,5 +1,6 @@
 <?php
 
+use common\helpers\DateHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -31,8 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'created_at',
+                'value' => function ($model) {
+                    return DateHelper::convertUnixToDatetime($model->created_at);
+                },
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => function ($model) {
+                    return DateHelper::convertUnixToDatetime($model->updated_at);
+                },
+            ],
         ],
     ]) ?>
 

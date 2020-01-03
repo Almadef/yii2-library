@@ -5,6 +5,7 @@ namespace common\models;
 use common\models\publisher\Relations;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%publisher}}".
@@ -71,5 +72,15 @@ class Publisher extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\publisher\Query(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    public static function getForSelector()
+    {
+        return ArrayHelper::map(
+            self::find()->all(), 'id', 'name'
+        );
     }
 }

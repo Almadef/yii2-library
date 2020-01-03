@@ -5,7 +5,7 @@ namespace backend\modules\book;
 /**
  * book module definition class
  */
-class Module extends \yii\base\Module
+final class Module extends \yii\base\Module
 {
     /**
      * {@inheritdoc}

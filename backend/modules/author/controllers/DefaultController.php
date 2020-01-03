@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * DefaultController implements the CRUD actions for Author model.
  */
-class DefaultController extends Controller
+final class DefaultController extends Controller
 {
     /**
      * Lists all Author models.

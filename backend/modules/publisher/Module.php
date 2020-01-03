@@ -5,7 +5,7 @@ namespace backend\modules\publisher;
 /**
  * publisher module definition class
  */
-class Module extends \yii\base\Module
+final class Module extends \yii\base\Module
 {
     /**
      * {@inheritdoc}
