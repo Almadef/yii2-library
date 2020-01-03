@@ -21,6 +21,9 @@ return [
         'book' => [
             'class' => 'backend\modules\book\Module',
         ],
+        'publisher' => [
+            'class' => 'backend\modules\publisher\Module',
+        ],
     ],
     'components' => [
         'request' => [

@@ -1,22 +1,22 @@
 <?php
 
-namespace backend\modules\book\controllers;
+namespace backend\modules\publisher\controllers;
 
 use Yii;
-use common\models\Book;
-use common\models\book\Search;
+use common\models\Publisher;
+use common\models\publisher\Search;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Book model.
+ * DefaultController implements the CRUD actions for Publisher model.
  */
 class DefaultController extends Controller
 {
     /**
-     * Lists all Book models.
+     * Lists all Publisher models.
      * @return mixed
      */
     public function actionIndex()
@@ -31,7 +31,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Displays a single Book model.
+     * Displays a single Publisher model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -44,13 +44,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * Creates a new Book model.
+     * Creates a new Publisher model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Book();
+        $model = new Publisher();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -62,7 +62,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing Book model.
+     * Updates an existing Publisher model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -82,7 +82,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing Book model.
+     * Deletes an existing Publisher model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -98,15 +98,15 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the Book model based on its primary key value.
+     * Finds the Publisher model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Book the loaded model
+     * @return Publisher the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Book::findOne($id)) !== null) {
+        if (($model = Publisher::findOne($id)) !== null) {
             return $model;
         }
 
@@ -131,27 +131,27 @@ class DefaultController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => ['viewBook'],
+                        'roles' => ['viewPublisher'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['viewBook'],
+                        'roles' => ['viewPublisher'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['create'],
-                        'roles' => ['createBook'],
+                        'roles' => ['createPublisher'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['update'],
-                        'roles' => ['updateBook'],
+                        'roles' => ['updatePublisher'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['delete'],
-                        'roles' => ['deleteBook'],
+                        'roles' => ['deletePublisher'],
                     ],
                 ],
             ],
