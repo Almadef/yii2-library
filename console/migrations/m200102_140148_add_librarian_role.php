@@ -30,6 +30,13 @@ class m200102_140148_add_librarian_role extends Migration
             ['librarian', 'updateAuthor'],
             ['librarian', 'deleteAuthor'],
         ])->execute();
+
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
+            ['librarian', 'viewCategory'],
+            ['librarian', 'createCategory'],
+            ['librarian', 'updateCategory'],
+            ['librarian', 'deleteCategory'],
+        ])->execute();
     }
 
     /**

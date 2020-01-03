@@ -23,7 +23,7 @@ class m200102_140150_add_user_role extends Migration
      */
     public function safeDown()
     {
-        echo "m200102_140149_add_admin_role cannot be reverted.\n";
+        echo "m200102_140150_add_user_role cannot be reverted.\n";
 
         return false;
     }

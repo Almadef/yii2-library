@@ -8,97 +8,11 @@ use yii\console\Controller;
 use yii\helpers\Console;
 
 /**
- * Class RbacController
+ * Manages RBAC
  * @package console\controllers
  */
 final class RbacController extends Controller
 {
-    /**
-     * @throws \yii\base\Exception
-     * @throws \Exception
-     */
-    public function actionInit()
-    {
-        $auth = Yii::$app->authManager;
-
-        //Блок прав раздела книги
-        $viewBook = $auth->createPermission('viewBook');
-        $viewBook->description = 'View a book';
-        $auth->add($viewBook);
-
-        $createBook = $auth->createPermission('createBook');
-        $createBook->description = 'Create a book';
-        $auth->add($createBook);
-
-        $updateBook = $auth->createPermission('updateBook');
-        $updateBook->description = 'Update a book';
-        $auth->add($updateBook);
-
-        $deleteBook = $auth->createPermission('deleteBook');
-        $deleteBook->description = 'Delete a book';
-        $auth->add($deleteBook);
-
-        //Блок прав раздела авторы
-        $viewAuthor = $auth->createPermission('viewAuthor');
-        $viewAuthor->description = 'View an author';
-        $auth->add($viewAuthor);
-
-        $createAuthor = $auth->createPermission('createAuthor');
-        $createAuthor->description = 'Create an author';
-        $auth->add($createAuthor);
-
-        $updateAuthor = $auth->createPermission('updateAuthor');
-        $updateAuthor->description = 'Update an author';
-        $auth->add($updateAuthor);
-
-        $deleteAuthor = $auth->createPermission('deleteAuthor');
-        $deleteAuthor->description = 'Delete an author';
-        $auth->add($deleteAuthor);
-
-        //Блок прав раздела пользователи
-        $viewUser = $auth->createPermission('viewUser');
-        $viewUser->description = 'View a user';
-        $auth->add($viewUser);
-
-        $createUser = $auth->createPermission('createUser');
-        $createUser->description = 'Create a user';
-        $auth->add($createUser);
-
-        $updateUser = $auth->createPermission('updateUser');
-        $updateUser->description = 'Update a user';
-        $auth->add($updateUser);
-
-        $deleteUser = $auth->createPermission('deleteUser');
-        $deleteUser->description = 'Delete a user';
-        $auth->add($deleteUser);
-
-
-        // добавляем роль библиотекаря и даём разрешения
-        $librarian = $auth->createRole('librarian');
-        $auth->add($librarian);
-        // на книги
-        $auth->addChild($librarian, $viewBook);
-        $auth->addChild($librarian, $createBook);
-        $auth->addChild($librarian, $updateBook);
-        $auth->addChild($librarian, $deleteBook);
-        // на авторов
-        $auth->addChild($librarian, $viewAuthor);
-        $auth->addChild($librarian, $createAuthor);
-        $auth->addChild($librarian, $updateAuthor);
-        $auth->addChild($librarian, $deleteAuthor);
-
-        // добавляем роль админа и даём разрешения
-        $admin = $auth->createRole('admin');
-        $auth->add($admin);
-        // на права библиотекрая
-        $auth->addChild($admin, $librarian);
-        // на пользователей
-        $auth->addChild($admin, $viewUser);
-        $auth->addChild($admin, $createUser);
-        $auth->addChild($admin, $updateUser);
-        $auth->addChild($admin, $deleteUser);
-    }
-
     /**
      * Create default admin and librarian
      * @throws \Exception

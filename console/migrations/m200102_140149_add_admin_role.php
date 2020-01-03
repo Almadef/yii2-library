@@ -16,6 +16,34 @@ class m200102_140149_add_admin_role extends Migration
         Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}', ['name', 'type', 'description', 'created_at', 'updated_at'], [
             ['admin', 1, 'Admin role', 1577973884, 1577973884],
         ])->execute();
+
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
+            ['admin', 'viewBook'],
+            ['admin', 'createBook'],
+            ['admin', 'updateBook'],
+            ['admin', 'deleteBook'],
+        ])->execute();
+
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
+            ['admin', 'viewAuthor'],
+            ['admin', 'createAuthor'],
+            ['admin', 'updateAuthor'],
+            ['admin', 'deleteAuthor'],
+        ])->execute();
+
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
+            ['admin', 'viewCategory'],
+            ['admin', 'createCategory'],
+            ['admin', 'updateCategory'],
+            ['admin', 'deleteCategory'],
+        ])->execute();
+
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
+            ['admin', 'viewUser'],
+            ['admin', 'createUser'],
+            ['admin', 'updateUser'],
+            ['admin', 'deleteUser'],
+        ])->execute();
     }
 
     /**

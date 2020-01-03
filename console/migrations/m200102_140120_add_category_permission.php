@@ -15,6 +15,9 @@ class m200102_140120_add_category_permission extends Migration
     {
         Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}', ['name', 'type', 'description', 'created_at', 'updated_at'], [
             ['viewCategory', 2, 'View a category', 1577973884, 1577973884],
+            ['createCategory', 2, 'Create a category', 1577973884, 1577973884],
+            ['updateCategory', 2, 'Update a category', 1577973884, 1577973884],
+            ['deleteCategory', 2, 'Delete a category', 1577973884, 1577973884],
         ])->execute();
     }
 
@@ -23,7 +26,7 @@ class m200102_140120_add_category_permission extends Migration
      */
     public function safeDown()
     {
-        echo "m200102_140120_add_book_permission cannot be reverted.\n";
+        echo "m200102_140120_add_Category_permission cannot be reverted.\n";
 
         return false;
     }
@@ -37,7 +40,7 @@ class m200102_140120_add_category_permission extends Migration
 
     public function down()
     {
-        echo "m200102_140120_add_book_permission cannot be reverted.\n";
+        echo "m200102_140120_add_Category_permission cannot be reverted.\n";
 
         return false;
     }
