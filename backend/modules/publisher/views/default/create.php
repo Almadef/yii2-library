@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Publisher */
 
-$this->title = 'Create Publisher';
-$this->params['breadcrumbs'][] = ['label' => 'Publishers', 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Publisher');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Publishers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="publisher-create">

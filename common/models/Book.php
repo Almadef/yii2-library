@@ -64,14 +64,14 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'publisher_id' => 'Publisher ID',
-            'title' => 'Title',
-            'release' => 'Release',
-            'isbn' => 'Isbn',
-            'pages' => 'Pages',
-            'description' => 'Description',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'publisher_id' => Yii::t('app', 'Publisher ID'),
+            'title' => Yii::t('app', 'Title'),
+            'release' => Yii::t('app', 'Release date'),
+            'isbn' => Yii::t('app', 'ISBN code'),
+            'pages' => Yii::t('app', 'Call pages'),
+            'description' => Yii::t('app', 'Description'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
