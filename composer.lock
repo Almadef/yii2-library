@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "683c2073ba060e9d28e15b5c062d9f78",
+    "content-hash": "1e91f68d2430bf0f3b135f60d9b1f2d8",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -368,6 +368,45 @@
                 "html"
             ],
             "time": "2019-10-28T03:44:26+00:00"
+        },
+        {
+            "name": "snewer/yii2-storage",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/snewer/yii2-storage.git",
+                "reference": "593144feaf3b3b78613cfd5807ed7db1a09f9d59"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/snewer/yii2-storage/zipball/593144feaf3b3b78613cfd5807ed7db1a09f9d59",
+                "reference": "593144feaf3b3b78613cfd5807ed7db1a09f9d59",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "snewer\\storage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill Kasyanov",
+                    "email": "snewer0@gmail.com"
+                }
+            ],
+            "keywords": [
+                "storage",
+                "yii2"
+            ],
+            "time": "2018-09-10T08:43:14+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

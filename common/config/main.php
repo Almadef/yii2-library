@@ -12,5 +12,22 @@ return [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
+        'storage' => [
+            'class' => 'snewer\storage\StorageManager',
+            'buckets' => [
+                'book' => [
+                    'class' => 'snewer\storage\drivers\FileSystemDriver',
+                    'basePath' => '@frontend/web/uploads/books/',
+                    'baseUrl' => '@web/uploads/books/',
+                    'depth' => 4
+                ],
+                'cover' => [
+                    'class' => 'snewer\storage\drivers\FileSystemDriver',
+                    'basePath' => '@frontend/web/uploads/covers/',
+                    'baseUrl' => '@web/uploads/covers/',
+                    'depth' => 4
+                ],
+            ]
+        ],
     ],
 ];

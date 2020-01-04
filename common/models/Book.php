@@ -2,10 +2,12 @@
 
 namespace common\models;
 
+use common\behavior\StorageBehavior;
 use common\models\book\Relations;
 use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\web\UploadedFile;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
@@ -29,6 +31,19 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
 class Book extends \yii\db\ActiveRecord
 {
     use Relations;
+
+    const FILE_COVER_EXTENSIONS = 'png, jpg, jpeg';
+    const FILE_MAX_SIZE = 12 * 1024 * 1024;
+
+    /**
+     * @var UploadedFile
+     */
+    public $coverFile;
+
+    /**
+     * @var UploadedFile
+     */
+    public $bookFile;
 
     /**
      * {@inheritdoc}
@@ -54,6 +69,9 @@ class Book extends \yii\db\ActiveRecord
             [['publisher_id'], 'exist', 'skipOnError' => true, 'targetClass' => Publisher::className(), 'targetAttribute' => ['publisher_id' => 'id']],
             [['category_ids'], 'each', 'rule' => ['integer']],
             [['author_ids'], 'each', 'rule' => ['integer']],
+            [['coverFile'], 'file', 'skipOnEmpty' => true, 'extensions' => self::FILE_COVER_EXTENSIONS, 'maxFiles' => 1, 'maxSize' => self::FILE_MAX_SIZE ],
+            [['bookFile'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 1, 'maxSize' => self::FILE_MAX_SIZE ],
+
         ];
     }
 
@@ -109,6 +127,19 @@ class Book extends \yii\db\ActiveRecord
                         ],
                     ],
                 ],
+            ],
+            [
+                'class' => StorageBehavior::className(),
+                'attributes' => [
+                    [
+                        'name' => 'coverFile',
+                        'description' => 'cover'
+                    ],
+                    [
+                        'name' => 'bookFile',
+                        'description' => 'book'
+                    ],
+                ]
             ],
         ];
     }

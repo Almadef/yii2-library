@@ -43,6 +43,10 @@ use yii\widgets\ActiveForm;
         ]
     )->label(Yii::t('app', 'Authors')) ?>
 
+    <?= $form->field($model, 'coverFile')->fileInput() ?>
+
+    <?= $form->field($model, 'bookFile')->fileInput() ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
