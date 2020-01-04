@@ -44,4 +44,8 @@ return [
     'File Size' => 'Размер файла',
     'File Path' => 'Путь к файлу',
     'Watch file' => 'Просмотреть файл',
+    'Cover File' => 'Файл обложки',
+    'Book File' => 'Файл книги',
+    'Deleted cover' => 'Удалить обложку',
+    'Deleted book' => 'Удалить книгу',
 ];

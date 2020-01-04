@@ -5,6 +5,7 @@ namespace backend\modules\book\controllers;
 use common\models\Author;
 use common\models\Category;
 use common\models\Publisher;
+use common\models\Storage;
 use Yii;
 use common\models\Book;
 use common\models\book\Search;
@@ -94,12 +95,19 @@ final class DefaultController extends Controller
      * Updates an existing Book model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
+     * @param int|null $fileDeleteId
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $fileDeleteId = null)
     {
         $model = $this->findModel($id);
+
+        if ($fileDeleteId) {
+            $this->findFileModel($fileDeleteId)->delete();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -147,6 +155,22 @@ final class DefaultController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Finds the Storage model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Storage the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findFileModel($id)
+    {
+        if (($model = Storage::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist. 2');
     }
 
     /**

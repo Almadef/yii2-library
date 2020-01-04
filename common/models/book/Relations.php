@@ -2,6 +2,7 @@
 
 namespace common\models\book;
 
+use common\helpers\StorageHelper;
 use common\models\Author;
 use common\models\Book;
 use common\models\BookAuthor;
@@ -48,6 +49,29 @@ trait Relations
     public function getFiles()
     {
         return $this->hasMany(Storage::className(), ['model_id' => 'id'])
-            ->andWhere(['model_name' => Book::className()]);
+            ->andWhere(['model_name' => Book::className()])
+            ->andWhere(['is_deleted' => false]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFileCover()
+    {
+        return $this->hasOne(Storage::className(), ['model_id' => 'id'])
+            ->andWhere(['model_name' => Book::className()])
+            ->andWhere(['description' => StorageHelper::BOOK_COVER_DESCRIPTION])
+            ->andWhere(['is_deleted' => false]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFileBook()
+    {
+        return $this->hasOne(Storage::className(), ['model_id' => 'id'])
+            ->andWhere(['model_name' => Book::className()])
+            ->andWhere(['description' => StorageHelper::BOOK_BOOK_DESCRIPTION])
+            ->andWhere(['is_deleted' => false]);
     }
 }

@@ -26,6 +26,8 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property bool $is_deleted
  *
  * @property Publisher $publisher
+ * @property Storage $fileCover
+ * @property Storage $fileBook
  * @property array $categories
  * @property array $authors
  * @property array $files
@@ -92,6 +94,8 @@ class Book extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'coverFile' => Yii::t('app', 'Cover File'),
+            'bookFile' => Yii::t('app', 'Book File'),
         ];
     }
 
