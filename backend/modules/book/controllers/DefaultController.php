@@ -1,0 +1,190 @@
+<?php
+
+namespace backend\modules\book\controllers;
+
+use common\models\Author;
+use common\models\Category;
+use common\models\Publisher;
+use Yii;
+use common\models\Book;
+use common\models\book\Search;
+use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+
+/**
+ * DefaultController implements the CRUD actions for Book model.
+ */
+final class DefaultController extends Controller
+{
+    /**
+     * Lists all Book models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new Search();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $selectPublisher = Publisher::getForSelector();
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'selectPublisher' => $selectPublisher,
+        ]);
+    }
+
+    /**
+     * Displays a single Book model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        $model = $this->findModel($id);
+        $authorDataProvider = new ActiveDataProvider([
+            'query' => $model->getAuthors(),
+        ]);
+        $categoryDataProvider = new ActiveDataProvider([
+            'query' => $model->getCategories(),
+        ]);
+        return $this->render('view', [
+            'model' => $model,
+            'authorDataProvider' => $authorDataProvider,
+            'categoryDataProvider' => $categoryDataProvider,
+        ]);
+    }
+
+    /**
+     * Creates a new Book model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Book();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        $selectCategory = Category::getForSelector();
+        $selectAuthor = Author::getForSelector();
+        $selectPublisher = Publisher::getForSelector();
+
+        return $this->render('create', [
+            'model' => $model,
+            'selectCategory' => $selectCategory,
+            'selectAuthor' => $selectAuthor,
+            'selectPublisher' => $selectPublisher,
+        ]);
+    }
+
+    /**
+     * Updates an existing Book model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        $selectCategory = Category::getForSelector();
+        $selectAuthor = Author::getForSelector();
+        $selectPublisher = Publisher::getForSelector();
+
+        return $this->render('update', [
+            'model' => $model,
+            'selectCategory' => $selectCategory,
+            'selectAuthor' => $selectAuthor,
+            'selectPublisher' => $selectPublisher,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Book model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Book model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Book the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Book::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['viewBook'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['viewBook'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['createBook'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['updateBook'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete'],
+                        'roles' => ['deleteBook'],
+                    ],
+                ],
+            ],
+        ];
+    }
+}
