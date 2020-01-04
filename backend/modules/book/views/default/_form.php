@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'publisher_id')->dropDownList($selectPublisher, array('prompt' => 'Выбрать...'))->label(Yii::t('app', 'Publisher')) ?>
+    <?= $form->field($model, 'publisher_id')->dropDownList($selectPublisher, array('prompt' => Yii::t('app', 'Select...')))->label(Yii::t('app', 'Publisher')) ?>
 
     <?= $form->field($model, 'release')->textInput() ?>
 
