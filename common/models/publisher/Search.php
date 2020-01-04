@@ -40,7 +40,8 @@ class Search extends Publisher
      */
     public function search($params)
     {
-        $query = Publisher::find();
+        $query = Publisher::find()
+            ->isNoDeleted();
 
         // add conditions that should always apply here
 

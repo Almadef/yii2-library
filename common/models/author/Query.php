@@ -31,4 +31,12 @@ class Query extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    /**
+     * @return Query
+     */
+    public function isNoDeleted()
+    {
+        return $this->andWhere(['is_deleted' => false]);
+    }
 }

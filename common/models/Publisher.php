@@ -6,6 +6,7 @@ use common\models\publisher\Relations;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * This is the model class for table "{{%publisher}}".
@@ -14,6 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property string $name
  * @property int $created_at
  * @property int $updated_at
+ * @property bool $is_deleted
  *
  * @property Book[] $books
  */
@@ -37,6 +39,7 @@ class Publisher extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
+            [['is_deleted'], 'boolean'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -61,6 +64,13 @@ class Publisher extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'is_deleted' => true
+                ],
+                'replaceRegularDelete' => true
+            ],
         ];
     }
 
@@ -79,7 +89,7 @@ class Publisher extends \yii\db\ActiveRecord
     public static function getForSelector():array
     {
         return ArrayHelper::map(
-            self::find()->all(), 'id', 'name'
+            self::find()->isNoDeleted()->all(), 'id', 'name'
         );
     }
 }

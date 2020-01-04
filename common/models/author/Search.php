@@ -40,7 +40,8 @@ class Search extends Author
      */
     public function search($params)
     {
-        $query = Author::find();
+        $query = Author::find()
+            ->isNoDeleted();
 
         // add conditions that should always apply here
 

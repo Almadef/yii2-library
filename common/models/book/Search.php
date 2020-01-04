@@ -40,7 +40,8 @@ class Search extends Book
      */
     public function search($params)
     {
-        $query = Book::find();
+        $query = Book::find()
+            ->isNoDeleted();
 
         // add conditions that should always apply here
 

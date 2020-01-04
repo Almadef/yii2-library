@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * This is the model class for table "{{%category}}".
@@ -13,6 +14,7 @@ use yii\helpers\ArrayHelper;
  * @property string $title
  * @property int $created_at
  * @property int $updated_at
+ * @property bool $is_deleted
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -33,6 +35,7 @@ class Category extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['title'], 'string', 'max' => 255],
             [['created_at', 'updated_at'], 'integer'],
+            [['is_deleted'], 'boolean'],
         ];
     }
 
@@ -56,6 +59,13 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'is_deleted' => true
+                ],
+                'replaceRegularDelete' => true
+            ],
         ];
     }
 
@@ -74,7 +84,7 @@ class Category extends \yii\db\ActiveRecord
     public static function getForSelector():array
     {
         return ArrayHelper::map(
-            self::find()->all(), 'id', 'title'
+            self::find()->isNoDeleted()->all(), 'id', 'title'
         );
     }
 }

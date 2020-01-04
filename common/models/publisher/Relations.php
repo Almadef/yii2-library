@@ -15,6 +15,6 @@ trait Relations
      */
     public function getBooks()
     {
-        return $this->hasMany(Book::className(), ['publisher_id' => 'id']);
+        return $this->hasMany(Book::className(), ['publisher_id' => 'id'])->andWhere(['is_deleted' => false]);
     }
 }

@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * This is the model class for table "{{%author}}".
@@ -15,6 +16,7 @@ use yii\helpers\ArrayHelper;
  * @property string|null $patronymic
  * @property int $created_at
  * @property int $updated_at
+ * @property bool $is_deleted
  */
 class Author extends \yii\db\ActiveRecord
 {
@@ -35,6 +37,7 @@ class Author extends \yii\db\ActiveRecord
             [['name', 'surname'], 'required'],
             [['name', 'surname', 'patronymic'], 'string', 'max' => 255],
             [['created_at', 'updated_at'], 'integer'],
+            [['is_deleted'], 'boolean'],
         ];
     }
 
@@ -60,6 +63,13 @@ class Author extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'is_deleted' => true
+                ],
+                'replaceRegularDelete' => true
+            ],
         ];
     }
 
@@ -78,7 +88,7 @@ class Author extends \yii\db\ActiveRecord
     public static function getForSelector():array
     {
         return ArrayHelper::map(
-            self::find()->all(), 'id', function ($model) {
+            self::find()->isNoDeleted()->all(), 'id', function ($model) {
                 return $model->getFullName();
             },
         );

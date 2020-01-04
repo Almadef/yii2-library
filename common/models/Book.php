@@ -6,6 +6,7 @@ use common\models\book\Relations;
 use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * This is the model class for table "{{%book}}".
@@ -19,6 +20,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $description
  * @property int $created_at
  * @property int $updated_at
+ * @property bool $is_deleted
  *
  * @property Publisher $publisher
  * @property array $categories
@@ -48,6 +50,7 @@ class Book extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['title'], 'string', 'max' => 255],
             [['isbn'], 'string', 'max' => 64],
+            [['is_deleted'], 'boolean'],
             [['publisher_id'], 'exist', 'skipOnError' => true, 'targetClass' => Publisher::className(), 'targetAttribute' => ['publisher_id' => 'id']],
             [['category_ids'], 'each', 'rule' => ['integer']],
             [['author_ids'], 'each', 'rule' => ['integer']],
@@ -79,6 +82,13 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'is_deleted' => true
+                ],
+                'replaceRegularDelete' => true
+            ],
             [
                 'class' => ManyToManyBehavior::className(),
                 'relations' => [
