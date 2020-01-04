@@ -1,4 +1,12 @@
 <?php
+
+use common\helpers\StorageHelper;
+
+$params = array_merge(
+    require __DIR__ . '/params.php',
+    require __DIR__ . '/params-local.php'
+);
+
 return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -15,16 +23,16 @@ return [
         'storage' => [
             'class' => 'snewer\storage\StorageManager',
             'buckets' => [
-                'book' => [
+                StorageHelper::BOOK_BOOK_DESCRIPTION => [
                     'class' => 'snewer\storage\drivers\FileSystemDriver',
                     'basePath' => '@frontend/web/uploads/books/',
-                    'baseUrl' => '@web/uploads/books/',
+                    'baseUrl' => $params['url.frontend'] . '/uploads/books/',
                     'depth' => 4
                 ],
-                'cover' => [
+                StorageHelper::BOOK_COVER_DESCRIPTION => [
                     'class' => 'snewer\storage\drivers\FileSystemDriver',
                     'basePath' => '@frontend/web/uploads/covers/',
-                    'baseUrl' => '@web/uploads/covers/',
+                    'baseUrl' => $params['url.frontend'] . '/uploads/covers/',
                     'depth' => 4
                 ],
             ]

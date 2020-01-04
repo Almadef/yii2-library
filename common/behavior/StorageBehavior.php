@@ -35,6 +35,9 @@ class StorageBehavior extends Behavior
     public function upload($attribute)
     {
         $file = UploadedFile::getInstance($this->owner, $attribute['name']);
+        if(!isset($file)) {
+            return true;
+        }
         $fileType = pathinfo($file->name, PATHINFO_EXTENSION);
         $binData = file_get_contents($file->tempName);
         $path =  Yii::$app->storage->upload($attribute['description'], $binData, $fileType);
