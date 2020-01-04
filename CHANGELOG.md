@@ -1,4 +1,12 @@
-## Текущая версия 0.3.0
+## Текущая версия 0.4.0
+
+### Версия 0.4.0
+Изменение:
+* Добавил сторож и сохранение книгам обложек и самих книг в эл. форм.
+
+[Задача в GitHub](https://github.com/Almadef/yii2-library/issues/3)
+
+[Pull Request](https://github.com/Almadef/yii2-library/pull/12)
 
 ### Версия 0.3.0
 Изменение:
