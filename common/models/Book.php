@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\behavior\StorageBehavior;
+use common\helpers\StorageHelper;
 use common\models\book\Relations;
 use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
@@ -27,6 +28,7 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property Publisher $publisher
  * @property array $categories
  * @property array $authors
+ * @property array $files
  */
 class Book extends \yii\db\ActiveRecord
 {
@@ -133,11 +135,11 @@ class Book extends \yii\db\ActiveRecord
                 'attributes' => [
                     [
                         'name' => 'coverFile',
-                        'description' => 'cover'
+                        'description' => StorageHelper::BOOK_COVER_DESCRIPTION
                     ],
                     [
                         'name' => 'bookFile',
-                        'description' => 'book'
+                        'description' => StorageHelper::BOOK_BOOK_DESCRIPTION
                     ],
                 ]
             ],

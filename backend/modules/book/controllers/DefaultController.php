@@ -46,16 +46,22 @@ final class DefaultController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+
         $authorDataProvider = new ActiveDataProvider([
             'query' => $model->getAuthors(),
         ]);
         $categoryDataProvider = new ActiveDataProvider([
             'query' => $model->getCategories(),
         ]);
+        $fileDataProvider = new ActiveDataProvider([
+            'query' => $model->getFiles(),
+        ]);
+
         return $this->render('view', [
             'model' => $model,
             'authorDataProvider' => $authorDataProvider,
             'categoryDataProvider' => $categoryDataProvider,
+            'fileDataProvider' => $fileDataProvider,
         ]);
     }
 

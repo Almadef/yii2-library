@@ -1,5 +1,6 @@
 <?php
 
+use common\helpers\StorageHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\helpers\DateHelper;
@@ -9,6 +10,7 @@ use \yii\grid\GridView;
 /* @var $model common\models\Book */
 /* @var $authorDataProvider yii\data\ActiveDataProvider */
 /* @var $categoryDataProvider yii\data\ActiveDataProvider */
+/* @var $fileDataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
@@ -78,6 +80,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             'title',
+        ],
+    ]); ?>
+
+    <h4><?= Yii::t('app', 'Files') ?></h4>
+    <?= GridView::widget([
+        'dataProvider' => $fileDataProvider,
+        'columns' => [
+            'id',
+            'file_name',
+            [
+                'attribute' => 'description',
+                'value' => function ($model) {
+                    return StorageHelper::convertDescriptionToLabel($model->description);
+                },
+            ],
+            'file_type',
+            'file_size',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{document}',
+                'buttons' => [
+                    'document' => function ($url, $model) {
+                        return Html::a('<i class="glyphicon glyphicon-file" aria-hidden="true"></i>',
+                            Yii::$app->storage->getUrl($model->description, $model->file_path),
+                            ['title' => Yii::t('app', 'Watch file'), 'target' => '_blank']);
+                    }
+                ]
+            ],
         ],
     ]); ?>
 
