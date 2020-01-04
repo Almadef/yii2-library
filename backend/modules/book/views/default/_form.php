@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'publisher_id')->dropDownList($selectPublisher, array('prompt' => 'Выбрать...')); ?>
+    <?= $form->field($model, 'publisher_id')->dropDownList($selectPublisher, array('prompt' => Yii::t('app', 'Select...')))->label(Yii::t('app', 'Publisher')) ?>
 
     <?= $form->field($model, 'release')->textInput() ?>
 
@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
             'multiple' => 'multiple',
             'size' => 5,
         ]
-    ); ?>
+    )->label(Yii::t('app', 'Categories')) ?>
 
     <?= $form->field($model, 'author_ids')->dropDownList(
         $selectAuthor,
@@ -41,10 +41,10 @@ use yii\widgets\ActiveForm;
             'multiple' => 'multiple',
             'size' => 5,
         ]
-    ); ?>
+    )->label(Yii::t('app', 'Authors')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

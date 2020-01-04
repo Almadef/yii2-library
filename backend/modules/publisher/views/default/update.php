@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Publisher */
 
-$this->title = 'Update Publisher: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Publishers', 'url' => ['index']];
+$this->title = Yii::t('app', 'Update Publisher') . ': ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Publishers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="publisher-update">
 

@@ -1,4 +1,12 @@
-## Текущая версия 0.2.0
+## Текущая версия 0.3.0
+
+### Версия 0.3.0
+Изменение:
+* Добавил мультиязычность на сайт (русский или английский).
+
+[Задача в GitHub](https://github.com/Almadef/yii2-library/issues/6)
+
+[Pull Request](https://github.com/Almadef/yii2-library/pull/11)
 
 ### Версия 0.2.0
 Изменение:
