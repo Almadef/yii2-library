@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use \common\widgets\MultiLang;
 
 AppAsset::register($this);
 ?>
@@ -36,19 +37,21 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Book', 'url' => ['/book']],
-        ['label' => 'Author', 'url' => ['/author']],
-        ['label' => 'Category', 'url' => ['/category']],
-        ['label' => 'Publisher', 'url' => ['/publisher']],
+        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
+        ['label' => Yii::t('app', 'Books'), 'url' => ['/book']],
+        ['label' => Yii::t('app', 'Authors'), 'url' => ['/author']],
+        ['label' => Yii::t('app', 'Categories'), 'url' => ['/category']],
+        ['label' => Yii::t('app', 'Publishers'), 'url' => ['/publisher']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                \Yii::t('app', 'Logout ({username})', [
+                    'username' => Yii::$app->user->identity->username,
+                ]),
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
@@ -72,8 +75,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
+        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?> | <?= MultiLang::widget() ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
