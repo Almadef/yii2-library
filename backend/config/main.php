@@ -25,6 +25,9 @@ return [
         'publisher' => [
             'class' => 'backend\modules\publisher\Module',
         ],
+        'user' => [
+            'class' => 'backend\modules\user\Module',
+        ],
     ],
     'components' => [
         'request' => [

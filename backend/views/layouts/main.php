@@ -1,6 +1,6 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this Yii\web\View */
 /* @var $content string */
 
 use backend\assets\AppAsset;
@@ -36,20 +36,32 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-        ['label' => Yii::t('app', 'Books'), 'url' => ['/book']],
-        ['label' => Yii::t('app', 'Authors'), 'url' => ['/author']],
-        ['label' => Yii::t('app', 'Categories'), 'url' => ['/category']],
-        ['label' => Yii::t('app', 'Publishers'), 'url' => ['/publisher']],
-    ];
+    $menuItems = array();
+    if (!Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']];
+    }
+    if (Yii::$app->user->can('viewBook')) {
+        $menuItems[] = ['label' => Yii::t('app', 'Books'), 'url' => ['/book']];
+    }
+    if (Yii::$app->user->can('viewAuthor')) {
+        $menuItems[] = ['label' => Yii::t('app', 'Authors'), 'url' => ['/author']];
+    }
+    if (Yii::$app->user->can('viewCategory')) {
+        $menuItems[] = ['label' => Yii::t('app', 'Categories'), 'url' => ['/category']];
+    }
+    if (Yii::$app->user->can('viewPublisher')) {
+        $menuItems[] = ['label' => Yii::t('app', 'Publishers'), 'url' => ['/publisher']];
+    }
+    if (Yii::$app->user->can('viewUser')) {
+        $menuItems[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user']];
+    }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                \Yii::t('app', 'Logout ({username})', [
+                Yii::t('app', 'Logout ({username})', [
                     'username' => Yii::$app->user->identity->username,
                 ]),
                 ['class' => 'btn btn-link logout']

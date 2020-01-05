@@ -119,3 +119,16 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.panel-main {
+    text-align: center;
+}
+
+.panel-heading-main {
+    font-size: 30px;
+}
+
+.glyphicon-main {
+    color: #0f0f0f;
+    font-size: 150px;
+}
