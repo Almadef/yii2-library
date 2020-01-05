@@ -6,6 +6,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * User model
@@ -21,6 +22,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property bool $is_deleted
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -44,6 +46,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'is_deleted' => true
+                ],
+                'replaceRegularDelete' => true
+            ],
         ];
     }
 
@@ -60,10 +69,23 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * {@inheritdoc}
+     * @return \common\models\user\Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new \common\models\user\Query(get_called_class());
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::find()
+            ->byId($id)
+            ->byStatus(self::STATUS_ACTIVE)
+            ->isNoDeleted()
+            ->one();
     }
 
     /**
@@ -82,7 +104,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::find()
+            ->byUsername($username)
+            ->byStatus(self::STATUS_ACTIVE)
+            ->isNoDeleted()
+            ->one();
     }
 
     /**
@@ -96,11 +122,11 @@ class User extends ActiveRecord implements IdentityInterface
         if (!static::isPasswordResetTokenValid($token)) {
             return null;
         }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
+        return static::find()
+            ->byPasswordResetToken($token)
+            ->byStatus(self::STATUS_ACTIVE)
+            ->isNoDeleted()
+            ->one();
     }
 
     /**
@@ -110,10 +136,11 @@ class User extends ActiveRecord implements IdentityInterface
      * @return static|null
      */
     public static function findByVerificationToken($token) {
-        return static::findOne([
-            'verification_token' => $token,
-            'status' => self::STATUS_INACTIVE
-        ]);
+        return static::find()
+            ->byVerificationToken($token)
+            ->byStatus(self::STATUS_ACTIVE)
+            ->isNoDeleted()
+            ->one();
     }
 
     /**
@@ -172,6 +199,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Generates password hash from password and sets it to the model
      *
      * @param string $password
+     * @throws \yii\base\Exception
      */
     public function setPassword($password)
     {
@@ -180,6 +208,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates "remember me" authentication key
+     * @throws \yii\base\Exception
      */
     public function generateAuthKey()
     {
@@ -188,6 +217,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates new password reset token
+     * @throws \yii\base\Exception
      */
     public function generatePasswordResetToken()
     {
@@ -196,6 +226,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates new token for email verification
+     * @throws \yii\base\Exception
      */
     public function generateEmailVerificationToken()
     {
