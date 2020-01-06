@@ -64,4 +64,10 @@ return [
     'Auth Key' => 'Ключ аут',
     'Status' => 'Статус',
     'Role' => 'Роль',
+    'About' => 'О нас',
+    'Contact' => 'Связаться',
+    'Signup' => 'Регистрация',
+    'Books not find' => 'Книги не найдены',
+    'Name: {name}' => 'Название: {name}',
+    'Author(s): {author}' => 'Автор(ы): {author}',
 ];
