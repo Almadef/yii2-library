@@ -52,14 +52,7 @@ $this->title = Yii::t('app', 'Home');
                 </div>
             </div>
             <div class="col-2 col-md-2">
-                <h3 class="text-center"><?= Yii::t('app', 'Categories') ?></h3>
-                <div class="btn-group-vertical btn-full-width" role="group" aria-label="<?= Yii::t('app', 'Categories') ?>">
-                    <?php foreach ($categories as $category): ?>
-                            <?= Html::a($category->title,
-                                Url::to(['site/index', 'category_id' => $category->id]),
-                                ['title' => $category->title, 'class' => 'btn btn-default']) ?>
-                    <?php endforeach; ?>
-                </div>
+                <?= $this->render('_categories', ['categories' => $categories]) ?>
             </div>
         </div>
     </div>
