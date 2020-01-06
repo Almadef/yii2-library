@@ -1,10 +1,13 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Book;
+use common\models\Category;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\data\Pagination;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -72,9 +75,24 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex(int $category_id = null)
     {
-        return $this->render('index');
+        $queryBook = Book::find()
+            ->isNoDeleted();
+        $pages = new Pagination(['totalCount' => $queryBook->count(), 'pageSize' => 8]);
+        $books = $queryBook->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        $categories = Category::find()
+            ->isNoDeleted()
+            ->all();
+
+        return $this->render('index', [
+            'pages' => $pages,
+            'books' => $books,
+            'categories' => $categories,
+        ]);
     }
 
     /**

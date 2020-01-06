@@ -1,53 +1,66 @@
 <?php
 
-/* @var $this yii\web\View */
+use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\widgets\LinkPager;
 
-$this->title = 'My Yii Application';
+/* @var $this yii\web\View */
+/* @var $pages \yii\data\Pagination */
+/* @var $books \common\models\Book[] */
+/* @var $categories \common\models\Category[] */
+
+$this->title = Yii::t('app', 'Home');
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
     <div class="body-content">
-
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <div class="col-10 col-md-10">
+                <?php
+                if (!isset($books)) :
+                    ?>
+                    <h2 class="text-center"><?= Yii::t('app', 'Books not find') ?></h2>
+                <?php
+                else :
+                foreach ($books as $book):
+                    ?>
+                    <div class="col-3 col-sm-3">
+                        <div>
+                            <a href="<?= Url::to(['site/book', 'book_id' => $book->id]) ?>" class="a-no-decoration" style="text-decoration: none;">
+                                <div class="panel panel-primary panel-main">
+                                    <div class="panel-body">
+                                        <?= Html::img(Yii::$app->storage->getUrl($book->fileCover->description,
+                                            $book->fileCover->file_path),
+                                            ['alt' => $book->title, 'height' => 250]) ?>
+                                        <?= mb_strimwidth(Yii::t('app', 'Name: {name}', [
+                                            'name' => $book->title
+                                        ]) . '<br>' . Yii::t('app', 'Author(s): {author}', [
+                                                'author' => $book->getAuthorsString(),
+                                            ]), 0, 70, "...") ?>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                <?php
+                endforeach;
+                endif;
+                ?>
+                <div class="col-12 col-sm-12 text-center">
+                    <?= LinkPager::widget([
+                        'pagination' => $pages,
+                    ]); ?>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-2 col-md-2">
+                <h3 class="text-center"><?= Yii::t('app', 'Categories') ?></h3>
+                <div class="btn-group-vertical btn-full-width" role="group" aria-label="<?= Yii::t('app', 'Categories') ?>">
+                    <?php foreach ($categories as $category): ?>
+                            <?= Html::a($category->title,
+                                Url::to(['site/index', 'category_id' => $category->id]),
+                                ['title' => $category->title, 'class' => 'btn btn-default']) ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
-
     </div>
 </div>

@@ -118,3 +118,22 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.panel-main {
+    color: black;
+    height: 350px;
+}
+
+.panel-sidebar {
+    color: black;
+    height: 350px;
+}
+
+.panel-main img {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.btn-full-width {
+    width: 100%;
+}

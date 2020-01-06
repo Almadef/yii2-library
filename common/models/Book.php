@@ -28,9 +28,9 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property Publisher $publisher
  * @property Storage $fileCover
  * @property Storage $fileBook
- * @property array $categories
- * @property array $authors
- * @property array $files
+ * @property Category[] $categories
+ * @property Author[] $authors
+ * @property Storage[] $files
  */
 class Book extends \yii\db\ActiveRecord
 {
@@ -170,5 +170,18 @@ class Book extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \common\models\book\Query(get_called_class());
+    }
+
+    public function getAuthorsString():string
+    {
+        $authors = $this->authors;
+        $return = '';
+        foreach ($authors as $author) {
+            $return .= $author->getFullName() . ', ';
+        }
+        if ($return !== '') {
+            $return = mb_substr($return, 0, -2);
+        }
+        return $return;
     }
 }
