@@ -2,6 +2,7 @@
 
 namespace backend\modules\user\controllers;
 
+use backend\modules\user\models\SaveUserForm;
 use Yii;
 use common\models\User;
 use common\models\user\Search;
@@ -47,12 +48,19 @@ class DefaultController extends Controller
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws \Exception
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new SaveUserForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            $model->setPassword($model->password);
+//            $model->generateAuthKey();
+//            $model->generateEmailVerificationToken();
+//            $model->save();
+//            $auth = Yii::$app->authManager;
+//            $auth->assign($auth->getRole('user'), $model->getId());
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -67,12 +75,18 @@ class DefaultController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \yii\base\Exception
+     * @throws \Exception
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->setPassword($model->password);
+            $model->generateAuthKey();
+            $model->generateEmailVerificationToken();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

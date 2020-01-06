@@ -26,10 +26,11 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
+    const STATUS_BANNED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    public $password;
 
     /**
      * {@inheritdoc}
@@ -63,7 +64,26 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_BANNED]],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => Yii::t('app', 'Username'),
+            'password_hash' => Yii::t('app', 'Password Hash'),
+            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+            'verification_token' => Yii::t('app', 'Verification Token'),
+            'email' => Yii::t('app', 'Email'),
+            'auth_key' => Yii::t('app', 'Auth Key'),
+            'status' => Yii::t('app', 'Status'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
