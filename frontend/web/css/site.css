@@ -134,6 +134,16 @@ a.desc:after {
     padding-bottom: 10px;
 }
 
+.book-page-cover img {
+    width: 100%;
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+
+.book-page-content {
+    font-size: 18px;
+}
+
 .btn-full-width {
     width: 100%;
 }

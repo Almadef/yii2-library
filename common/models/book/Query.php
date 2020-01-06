@@ -39,4 +39,13 @@ class Query extends \yii\db\ActiveQuery
     {
         return $this->andWhere(['is_deleted' => false]);
     }
+
+    /**
+     * @param $id
+     * @return Query
+     */
+    public function byId($id)
+    {
+        return $this->andWhere(['id' => $id]);
+    }
 }

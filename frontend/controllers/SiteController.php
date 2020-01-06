@@ -63,10 +63,6 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
     }
 
@@ -91,6 +87,28 @@ class SiteController extends Controller
         return $this->render('index', [
             'pages' => $pages,
             'books' => $books,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * Displays book.
+     *
+     * @return mixed
+     */
+    public function actionBook(int $book_id)
+    {
+        $book = Book::find()
+            ->isNoDeleted()
+            ->byId($book_id)
+            ->one();
+
+        $categories = Category::find()
+            ->isNoDeleted()
+            ->all();
+
+        return $this->render('book', [
+            'book' => $book,
             'categories' => $categories,
         ]);
     }
@@ -128,39 +146,6 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 
     /**

@@ -184,4 +184,17 @@ class Book extends \yii\db\ActiveRecord
         }
         return $return;
     }
+
+    public function getCategoriesString():string
+    {
+        $categories = $this->categories;
+        $return = '';
+        foreach ($categories as $category) {
+            $return .= $category->title . ', ';
+        }
+        if ($return !== '') {
+            $return = mb_substr($return, 0, -2);
+        }
+        return $return;
+    }
 }
