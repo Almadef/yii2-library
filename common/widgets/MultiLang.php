@@ -3,23 +3,14 @@
 namespace common\widgets;
 
 use Yii;
-use yii\helpers\Html;
+use \yii\bootstrap\Widget;
 
-class MultiLang extends \yii\bootstrap\Widget
+class MultiLang extends Widget
 {
 
     public function run()
     {
-        if(\Yii::$app->language == 'ru'):
-            echo Html::a('Go to English', array_merge(
-                \Yii::$app->request->get(),
-                [\Yii::$app->controller->route, 'language' => 'en']
-            ));
-        else:
-            echo Html::a('Перейти на русский', array_merge(
-                \Yii::$app->request->get(),
-                [\Yii::$app->controller->route, 'language' => 'ru']
-            ));
-        endif;
+        $nowLanguage = Yii::$app->language;
+        return $this->render('multilang_link', ['nowLanguage' => $nowLanguage]);
     }
 }

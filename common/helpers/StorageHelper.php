@@ -18,7 +18,7 @@ final class StorageHelper
         ];
     }
 
-    public static function convertDescriptionToLabel(string $description):string
+    public static function convertDescriptionToLabel(string $description): string
     {
         return static::descriptionLabels()[$description];
     }

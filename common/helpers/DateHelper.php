@@ -15,7 +15,7 @@ final class DateHelper
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
-    public static function convertUnixToDatetime(int $unixDate):string
+    public static function convertUnixToDatetime(int $unixDate): string
     {
         return Yii::$app->formatter->asDate($unixDate, 'php:Y-m-d H:i:s');
     }

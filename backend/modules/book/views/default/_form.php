@@ -18,7 +18,8 @@ use \yii\helpers\Url;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'publisher_id')->dropDownList($selectPublisher, array('prompt' => Yii::t('app', 'Select...')))->label(Yii::t('app', 'Publisher')) ?>
+    <?= $form->field($model, 'publisher_id')->dropDownList($selectPublisher,
+        array('prompt' => Yii::t('app', 'Select...')))->label(Yii::t('app', 'Publisher')) ?>
 
     <?= $form->field($model, 'release')->textInput() ?>
 
@@ -45,7 +46,7 @@ use \yii\helpers\Url;
     )->label(Yii::t('app', 'Authors')) ?>
 
     <?php
-    if(!isset($model->fileCover)) {
+    if (!isset($model->fileCover)) {
         echo $form->field($model, 'coverFile')->fileInput();
     } else {
         $url = Url::toRoute(['update', 'id' => $model->id, 'fileDeleteId' => $model->fileCover->id]);
@@ -57,7 +58,7 @@ use \yii\helpers\Url;
     ?>
 
     <?php
-    if(!isset($model->fileBook)) {
+    if (!isset($model->fileBook)) {
         echo $form->field($model, 'bookFile')->fileInput();
     } else {
         $url = Url::toRoute(['update', 'id' => $model->id, 'fileDeleteId' => $model->fileBook->id]);

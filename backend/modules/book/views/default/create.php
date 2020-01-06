@@ -8,8 +8,8 @@ use yii\helpers\Html;
 /* @var $selectAuthor array */
 /* @var $selectPublisher array */
 
-$this->title =  Yii::t('app', 'Create Book');
-$this->params['breadcrumbs'][] = ['label' =>  Yii::t('app', 'Books'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Book');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-create">

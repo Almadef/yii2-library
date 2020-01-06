@@ -8,7 +8,9 @@ use yii\helpers\Html;
 /* @var $selectAuthor array */
 /* @var $selectPublisher array */
 
-$this->title = Yii::t('app', 'Update Book') . ': ' . $model->title;
+$this->title = Yii::t('app', 'Update Book: {name}', [
+    'name' => $model->title,
+]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');

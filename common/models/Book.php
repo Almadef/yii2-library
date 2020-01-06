@@ -70,11 +70,24 @@ class Book extends \yii\db\ActiveRecord
             [['title'], 'string', 'max' => 255],
             [['isbn'], 'string', 'max' => 64],
             [['is_deleted'], 'boolean'],
-            [['publisher_id'], 'exist', 'skipOnError' => true, 'targetClass' => Publisher::className(), 'targetAttribute' => ['publisher_id' => 'id']],
+            [
+                ['publisher_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Publisher::className(),
+                'targetAttribute' => ['publisher_id' => 'id']
+            ],
             [['category_ids'], 'each', 'rule' => ['integer']],
             [['author_ids'], 'each', 'rule' => ['integer']],
-            [['coverFile'], 'file', 'skipOnEmpty' => true, 'extensions' => self::FILE_COVER_EXTENSIONS, 'maxFiles' => 1, 'maxSize' => self::FILE_MAX_SIZE ],
-            [['bookFile'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 1, 'maxSize' => self::FILE_MAX_SIZE ],
+            [
+                ['coverFile'],
+                'file',
+                'skipOnEmpty' => true,
+                'extensions' => self::FILE_COVER_EXTENSIONS,
+                'maxFiles' => 1,
+                'maxSize' => self::FILE_MAX_SIZE
+            ],
+            [['bookFile'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 1, 'maxSize' => self::FILE_MAX_SIZE],
 
         ];
     }
@@ -119,7 +132,7 @@ class Book extends \yii\db\ActiveRecord
                     'category_ids' => [
                         'categories',
                         'viaTableValues' => [
-                            'created_at' => function() {
+                            'created_at' => function () {
                                 return time();
                             },
                         ],
@@ -127,7 +140,7 @@ class Book extends \yii\db\ActiveRecord
                     'author_ids' => [
                         'authors',
                         'viaTableValues' => [
-                            'created_at' => function() {
+                            'created_at' => function () {
                                 return time();
                             },
                         ],

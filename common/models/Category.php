@@ -81,7 +81,7 @@ class Category extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public static function getForSelector():array
+    public static function getForSelector(): array
     {
         return ArrayHelper::map(
             self::find()->isNoDeleted()->all(), 'id', 'title'

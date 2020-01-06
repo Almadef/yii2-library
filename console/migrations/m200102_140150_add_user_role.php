@@ -13,9 +13,10 @@ class m200102_140150_add_user_role extends Migration
      */
     public function safeUp()
     {
-        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}', ['name', 'type', 'description', 'created_at', 'updated_at'], [
-            ['user', 1, 'User role', 1577973888, 1577973888],
-        ])->execute();
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}',
+            ['name', 'type', 'description', 'created_at', 'updated_at'], [
+                ['user', 1, 'User role', 1577973888, 1577973888],
+            ])->execute();
     }
 
     /**

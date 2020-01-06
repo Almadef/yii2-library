@@ -8,7 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
-    'name'=>'yii2-library admin',
+    'name' => 'yii2-library admin',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -24,6 +24,9 @@ return [
         ],
         'publisher' => [
             'class' => 'backend\modules\publisher\Module',
+        ],
+        'user' => [
+            'class' => 'backend\modules\user\Module',
         ],
     ],
     'components' => [

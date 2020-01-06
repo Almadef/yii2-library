@@ -38,8 +38,20 @@ class BookAuthor extends \yii\db\ActiveRecord
             [['book_id', 'author_id'], 'required'],
             [['book_id', 'author_id', 'created_at'], 'integer'],
             [['book_id', 'author_id'], 'unique', 'targetAttribute' => ['book_id', 'author_id']],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Author::className(), 'targetAttribute' => ['author_id' => 'id']],
-            [['book_id'], 'exist', 'skipOnError' => true, 'targetClass' => Book::className(), 'targetAttribute' => ['book_id' => 'id']],
+            [
+                ['author_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Author::className(),
+                'targetAttribute' => ['author_id' => 'id']
+            ],
+            [
+                ['book_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Book::className(),
+                'targetAttribute' => ['book_id' => 'id']
+            ],
         ];
     }
 
