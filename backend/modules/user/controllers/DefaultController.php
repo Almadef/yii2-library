@@ -3,8 +3,9 @@
 namespace backend\modules\user\controllers;
 
 use backend\modules\user\models\SaveUserForm;
-use Yii;
+use common\helpers\RoleHelper;
 use common\models\User;
+use Yii;
 use common\models\user\Search;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -25,9 +26,14 @@ class DefaultController extends Controller
         $searchModel = new Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $selectRole = RoleHelper::getForSelector();
+        $selectStatus = User::getStatusForSelector();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'selectRole' => $selectRole,
+            'selectStatus' => $selectStatus,
         ]);
     }
 
@@ -55,17 +61,16 @@ class DefaultController extends Controller
         $model = new SaveUserForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//            $model->setPassword($model->password);
-//            $model->generateAuthKey();
-//            $model->generateEmailVerificationToken();
-//            $model->save();
-//            $auth = Yii::$app->authManager;
-//            $auth->assign($auth->getRole('user'), $model->getId());
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $selectRole = RoleHelper::getForSelector();
+        $selectStatus = User::getStatusForSelector();
+
         return $this->render('create', [
             'model' => $model,
+            'selectRole' => $selectRole,
+            'selectStatus' => $selectStatus,
         ]);
     }
 
@@ -82,16 +87,17 @@ class DefaultController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->setPassword($model->password);
-            $model->generateAuthKey();
-            $model->generateEmailVerificationToken();
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $selectRole = RoleHelper::getForSelector();
+        $selectStatus = User::getStatusForSelector();
+
         return $this->render('update', [
             'model' => $model,
+            'selectRole' => $selectRole,
+            'selectStatus' => $selectStatus,
         ]);
     }
 
@@ -112,15 +118,15 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the SaveUserForm model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return SaveUserForm the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = SaveUserForm::findOne($id)) !== null) {
             return $model;
         }
 

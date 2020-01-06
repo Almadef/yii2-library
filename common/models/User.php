@@ -1,6 +1,8 @@
 <?php
 namespace common\models;
 
+use common\models\auth\Assignment;
+use common\models\user\Relations;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -23,9 +25,13 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property bool $is_deleted
+ *
+ * @property Assignment $role
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use Relations;
+
     const STATUS_BANNED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
@@ -94,6 +100,26 @@ class User extends ActiveRecord implements IdentityInterface
     public static function find()
     {
         return new \common\models\user\Query(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatusForSelector():array
+    {
+        return [
+            self::STATUS_BANNED => Yii::t('app', 'Banned'),
+            self::STATUS_INACTIVE => Yii::t('app', 'Inactive'),
+            self::STATUS_ACTIVE => Yii::t('app', 'Active'),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusName():string
+    {
+        return $this->getStatusForSelector()[$this->status];
     }
 
     /**

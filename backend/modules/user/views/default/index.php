@@ -2,10 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\helpers\RoleHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\user\Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $selectRole array */
+/* @var $selectStatus array */
 
 $this->title = Yii::t('app', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
@@ -28,14 +31,33 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'username',
+            'email:email',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    /**
+                     * @var $model \common\models\User
+                     */
+                    return $model->getStatusName();
+                },
+                'filter' => $selectStatus,
+            ],
+            [
+                'value' => function ($model) {
+                    /**
+                     * @var $model \common\models\User
+                     */
+                    return RoleHelper::getRoleName($model->role->item_name);
+                },
+                'label' => Yii::t('app', 'Role'),
+                'filter' => $selectRole,
+            ],
 //            'password_hash',
 //            'password_reset_token',
-            'email:email',
-            'status',
-            //'created_at',
-            //'updated_at',
-            'auth_key',
-            'verification_token',
+//            'created_at',
+//            'updated_at',
+//            'auth_key',
+//            'verification_token',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

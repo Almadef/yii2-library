@@ -74,7 +74,6 @@ class SaveUserForm extends User
             'message' => 'This email address has already been taken.'
         ];
 
-        $rules[] = ['password', 'required'];
         $rules[] = ['password', 'string', 'min' => 6];
 
         $rules[] = ['role_name', 'required'];
@@ -101,7 +100,10 @@ class SaveUserForm extends User
     {
         $this->generateAuthKey();
         $this->generateEmailVerificationToken();
-        $this->setPassword($this->password);
+        if(isset($this->password)) {
+            $this->setPassword($this->password);
+        }
+
     }
 
     /**
@@ -110,7 +112,6 @@ class SaveUserForm extends User
     protected function saveRole()
     {
         $auth = Yii::$app->authManager;
-//        $user = User::find()->byUsername($this->username)->one();
         $auth->assign($auth->getRole($this->role_name), $this->id);
     }
 }

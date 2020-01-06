@@ -6,6 +6,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $selectRole array */
+/* @var $selectStatus array */
 ?>
 
 <div class="user-form">
@@ -16,9 +18,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList($selectStatus, [
+        'prompt' => Yii::t('app', 'Select...')]) ?>
 
-    <?= $form->field($model, 'role_name')->textInput() ?>
+    <?= $form->field($model, 'role_name')->dropDownList($selectRole, [
+        'prompt' => Yii::t('app', 'Select...'),
+        'options' => [$model->role->item_name => ['Selected' => true]]
+    ])->label(Yii::t('app', 'Role')) ?>
 
     <?= $form->field($model, 'password')->passwordInput() ?>
 
