@@ -53,10 +53,10 @@ final class RbacController extends Controller
                 . 'Admin password: adminadmin' . PHP_EOL
                 . 'Librarian login: librarian' . PHP_EOL
                 . 'Librarian password: librarian' . PHP_EOL);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $transaction->rollBack();
         }
     }

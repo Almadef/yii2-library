@@ -33,7 +33,13 @@ class Assignment extends \yii\db\ActiveRecord
             [['created_at'], 'integer'],
             [['item_name', 'user_id'], 'string', 'max' => 64],
             [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
-            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => Item::className(), 'targetAttribute' => ['item_name' => 'name']],
+            [
+                ['item_name'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Item::className(),
+                'targetAttribute' => ['item_name' => 'name']
+            ],
         ];
     }
 

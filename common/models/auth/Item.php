@@ -43,7 +43,13 @@ class Item extends \yii\db\ActiveRecord
             [['description', 'data'], 'string'],
             [['name', 'rule_name'], 'string', 'max' => 64],
             [['name'], 'unique'],
-            [['rule_name'], 'exist', 'skipOnError' => true, 'targetClass' => Rule::className(), 'targetAttribute' => ['rule_name' => 'name']],
+            [
+                ['rule_name'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Rule::className(),
+                'targetAttribute' => ['rule_name' => 'name']
+            ],
         ];
     }
 
@@ -100,7 +106,8 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getChildren()
     {
-        return $this->hasMany(Item::className(), ['name' => 'child'])->viaTable('{{%auth_item_child}}', ['parent' => 'name']);
+        return $this->hasMany(Item::className(), ['name' => 'child'])->viaTable('{{%auth_item_child}}',
+            ['parent' => 'name']);
     }
 
     /**
@@ -108,7 +115,8 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getParents()
     {
-        return $this->hasMany(Item::className(), ['name' => 'parent'])->viaTable('{{%auth_item_child}}', ['child' => 'name']);
+        return $this->hasMany(Item::className(), ['name' => 'parent'])->viaTable('{{%auth_item_child}}',
+            ['child' => 'name']);
     }
 
     /**

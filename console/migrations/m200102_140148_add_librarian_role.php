@@ -13,9 +13,10 @@ class m200102_140148_add_librarian_role extends Migration
      */
     public function safeUp()
     {
-        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}', ['name', 'type', 'description', 'created_at', 'updated_at'], [
-            ['librarian', 1, 'Librarian role', 1577973884, 1577973884],
-        ])->execute();
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}',
+            ['name', 'type', 'description', 'created_at', 'updated_at'], [
+                ['librarian', 1, 'Librarian role', 1577973884, 1577973884],
+            ])->execute();
 
         Yii::$app->db->createCommand()->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
             ['librarian', 'viewBook'],

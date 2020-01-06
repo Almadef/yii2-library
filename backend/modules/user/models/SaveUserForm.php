@@ -100,7 +100,7 @@ class SaveUserForm extends User
      */
     protected function saveParamsUpdate()
     {
-        if(!isset($this->password) && $this->password !== '') {
+        if (!isset($this->password) && $this->password !== '') {
             $this->setPassword($this->password);
         }
     }

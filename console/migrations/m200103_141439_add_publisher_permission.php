@@ -13,12 +13,13 @@ class m200103_141439_add_publisher_permission extends Migration
      */
     public function safeUp()
     {
-        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}', ['name', 'type', 'description', 'created_at', 'updated_at'], [
-            ['viewPublisher', 2, 'View a publisher', 1577973884, 1577973884],
-            ['createPublisher', 2, 'Create a publisher', 1577973884, 1577973884],
-            ['updatePublisher', 2, 'Update a publisher', 1577973884, 1577973884],
-            ['deletePublisher', 2, 'Delete a publisher', 1577973884, 1577973884],
-        ])->execute();
+        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}',
+            ['name', 'type', 'description', 'created_at', 'updated_at'], [
+                ['viewPublisher', 2, 'View a publisher', 1577973884, 1577973884],
+                ['createPublisher', 2, 'Create a publisher', 1577973884, 1577973884],
+                ['updatePublisher', 2, 'Update a publisher', 1577973884, 1577973884],
+                ['deletePublisher', 2, 'Delete a publisher', 1577973884, 1577973884],
+            ])->execute();
 
         Yii::$app->db->createCommand()->batchInsert('{{%auth_item_child}}', ['parent', 'child'], [
             ['admin', 'viewPublisher'],

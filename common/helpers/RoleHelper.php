@@ -17,7 +17,7 @@ final class RoleHelper
     /**
      * @return array
      */
-    public static function getForSelector():array
+    public static function getForSelector(): array
     {
         return [
             self::ROLE_ADMIN => Yii::t('app', 'Admin'),
@@ -30,7 +30,7 @@ final class RoleHelper
      * @param string $role
      * @return string
      */
-    public static function getRoleName(string $role):string
+    public static function getRoleName(string $role): string
     {
         return self::getForSelector()[$role];
     }

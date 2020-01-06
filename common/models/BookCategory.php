@@ -38,8 +38,20 @@ class BookCategory extends \yii\db\ActiveRecord
             [['book_id', 'category_id'], 'required'],
             [['book_id', 'category_id', 'created_at'], 'integer'],
             [['book_id', 'category_id'], 'unique', 'targetAttribute' => ['book_id', 'category_id']],
-            [['book_id'], 'exist', 'skipOnError' => true, 'targetClass' => Book::className(), 'targetAttribute' => ['book_id' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [
+                ['book_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Book::className(),
+                'targetAttribute' => ['book_id' => 'id']
+            ],
+            [
+                ['category_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Category::className(),
+                'targetAttribute' => ['category_id' => 'id']
+            ],
         ];
     }
 

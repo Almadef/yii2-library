@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 use common\models\auth\Assignment;
@@ -105,7 +106,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return array
      */
-    public static function getStatusForSelector():array
+    public static function getStatusForSelector(): array
     {
         return [
             self::STATUS_BANNED => Yii::t('app', 'Banned'),
@@ -117,7 +118,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function getStatusName():string
+    public function getStatusName(): string
     {
         return $this->getStatusForSelector()[$this->status];
     }
@@ -181,7 +182,8 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token verify email token
      * @return static|null
      */
-    public static function findByVerificationToken($token) {
+    public static function findByVerificationToken($token)
+    {
         return static::find()
             ->byVerificationToken($token)
             ->byStatus(self::STATUS_ACTIVE)
@@ -201,7 +203,7 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }

@@ -85,19 +85,19 @@ class Author extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public static function getForSelector():array
+    public static function getForSelector(): array
     {
         return ArrayHelper::map(
             self::find()->isNoDeleted()->all(), 'id', function ($model) {
-                return $model->getFullName();
-            },
-        );
+            return $model->getFullName();
+        },
+            );
     }
 
     /**
      * @return string
      */
-    public function getFullName():string
+    public function getFullName(): string
     {
         return $this->surname . ' ' . $this->name . ' ' . (isset($this->patronymic) ? $this->patronymic : '');
     }

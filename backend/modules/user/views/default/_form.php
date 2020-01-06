@@ -19,7 +19,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList($selectStatus, [
-        'prompt' => Yii::t('app', 'Select...')]) ?>
+        'prompt' => Yii::t('app', 'Select...')
+    ]) ?>
 
     <?= $form->field($model, 'role_name')->dropDownList($selectRole, [
         'prompt' => Yii::t('app', 'Select...'),

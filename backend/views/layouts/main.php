@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this Yii\web\View */
+
 /* @var $content string */
 
 use backend\assets\AppAsset;
@@ -87,7 +88,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?> | <?= MultiLang::widget() ?></p>
+        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?>
+            | <?= MultiLang::widget() ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
