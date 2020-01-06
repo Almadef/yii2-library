@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\helpers\DateHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = $model->id;
+$this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -31,14 +32,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
             'email:email',
-            'status',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    /**
+                     * @var $model \common\models\User
+                     */
+                    return $model->getStatusName();
+                },
+            ],
+            [
+                'value' => function ($model) {
+                    return $model->role->item_name;
+                },
+                'label' => Yii::t('app', 'Role'),
+            ],
+            'password_hash',
+            'auth_key',
             'verification_token',
+            'password_reset_token',
+            [
+                'attribute' => 'created_at',
+                'value' => function ($model) {
+                    return DateHelper::convertUnixToDatetime($model->created_at);
+                },
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => function ($model) {
+                    return DateHelper::convertUnixToDatetime($model->updated_at);
+                },
+            ],
         ],
     ]) ?>
 

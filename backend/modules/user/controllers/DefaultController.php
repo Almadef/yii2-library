@@ -58,7 +58,7 @@ class DefaultController extends Controller
      */
     public function actionCreate()
     {
-        $model = new SaveUserForm();
+        $model = new SaveUserForm(['scenario' => 'create']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
