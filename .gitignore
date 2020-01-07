@@ -1,5 +1,6 @@
 # docker
 docker/config/nginx/default.conf
+docker/config/sphinx/sphinx.conf
 docker/log/
 
 # yii console commands

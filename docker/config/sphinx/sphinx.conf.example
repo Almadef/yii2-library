@@ -1,0 +1,49 @@
+source parent_source
+{
+    type			        = mysql
+
+    sql_host			    = mysql
+    sql_user			    = user
+    sql_pass			    = user123
+    sql_db		    	    = yii2-library
+    sql_port			    = 3306
+
+    mysql_connect_flags		= 32 # enable compression
+    sql_query_pre		    = SET NAMES utf8
+    sql_query_pre       	= SET CHARACTER SET utf8
+}
+
+source src_book:parent_source
+{
+    sql_query = \
+        SELECT id, title \
+        FROM `yii2-library_book` \
+        WHERE is_deleted = 0
+}
+
+index idx_book
+{
+	source			= src_book
+	path			= /opt/sphinx/data/idx_book
+}
+
+indexer
+{
+    mem_limit = 128M
+}
+
+searchd
+{
+	listen			= 9312
+	listen			= 9306:mysql41
+	log			    = /opt/sphinx/log/searchd.log
+	query_log		= /opt/sphinx/log/query.log
+	read_timeout	= 5
+	max_children	= 30
+	pid_file		= /opt/sphinx/log/searchd.pid
+	seamless_rotate	= 1
+	preopen_indexes	= 1
+	unlink_old		= 1
+	workers			= threads # for RT to work
+	binlog_path		= /opt/sphinx/data
+}
