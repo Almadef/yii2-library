@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use common\models\Book;
@@ -17,7 +18,6 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use yii\sphinx\Query;
 
 /**
  * Site controller
@@ -72,16 +72,36 @@ class SiteController extends Controller
      *
      * @param string|null $search
      * @param int|null $category_id
+     * @param int|null $author_id
+     * @param int|null $publisher_id
      * @return mixed
      */
-    public function actionIndex(string $search = null, int $category_id = null)
-    {
+    public function actionIndex(
+        string $search = null,
+        int $category_id = null,
+        int $author_id = null,
+        int $publisher_id = null
+    ) {
         $queryBook = Book::find()
             ->isNoDeleted();
-        if(isset($search)) {
+
+        if (isset($search)) {
             $idsBook = IdxBook::search($search);
             $queryBook->byId($idsBook);
         }
+        if (isset($category_id)) {
+            $queryBook->joinWith('categories');
+            $queryBook->andWhere(['{{%category}}.id' => $category_id]);
+        }
+        if (isset($author_id)) {
+            $queryBook->joinWith('authors');
+            $queryBook->andWhere(['{{%author}}.id' => $author_id]);
+        }
+        if (isset($publisher_id)) {
+            $queryBook->joinWith('publisher');
+            $queryBook->andWhere(['{{%publisher}}.id' => $publisher_id]);
+        }
+
         $pages = new Pagination(['totalCount' => $queryBook->count(), 'pageSize' => 8]);
         $books = $queryBook->offset($pages->offset)
             ->limit($pages->limit)
@@ -165,7 +185,8 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success',
+                'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
 
@@ -188,7 +209,8 @@ class SiteController extends Controller
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error',
+                    'Sorry, we are unable to reset password for the provided email address.');
             }
         }
 
@@ -227,8 +249,8 @@ class SiteController extends Controller
      * Verify email address
      *
      * @param string $token
-     * @throws BadRequestHttpException
      * @return yii\web\Response
+     * @throws BadRequestHttpException
      */
     public function actionVerifyEmail($token)
     {
@@ -261,7 +283,8 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
                 return $this->goHome();
             }
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
+            Yii::$app->session->setFlash('error',
+                'Sorry, we are unable to resend verification email for the provided email address.');
         }
 
         return $this->render('resendVerificationEmail', [

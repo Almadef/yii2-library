@@ -16,7 +16,7 @@ $this->title = Yii::t('app', 'Home');
         <div class="row">
             <div class="col-10 col-md-10">
                 <?php
-                if (!isset($books)) :
+                if (empty($books)) :
                     ?>
                     <h2 class="text-center"><?= Yii::t('app', 'Books not find') ?></h2>
                 <?php

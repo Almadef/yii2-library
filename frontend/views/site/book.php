@@ -34,10 +34,10 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                 <div class="col-8 col-sm-8">
                     <div class="book-page-content">
                         <h1><?= $book->title ?></h1>
-                        <p><?= Yii::t('app', 'Author(s): {author}', ['author' => $book->getAuthorsString()]) ?></p>
-                        <p><?= Yii::t('app', 'Publisher: {name}', ['name' => $book->publisher->name]) ?></p>
+                        <p><?= Yii::t('app', 'Author(s): {author}', ['author' => $book->getAuthorsStringLink()]) ?></p>
+                        <p><?= Yii::t('app', 'Publisher: {name}', ['name' => Html::a($book->publisher->name, Url::to(['site/index', 'publisher_id' => $book->publisher->id]))]) ?></p>
                         <p><?= Yii::t('app', 'Category(ies): {category}',
-                                ['category' => $book->getCategoriesString()]) ?></p>
+                                ['category' => $book->getCategoriesStringLink()]) ?></p>
                         <p><?= Yii::t('app', 'Pages: {pages}', ['pages' => $book->pages]) ?></p>
                         <p><?= Yii::t('app', 'Release date: {release}',
                                 ['release' => Yii::$app->formatter->asDate($book->release, 'php:Y m d')]) ?></p>

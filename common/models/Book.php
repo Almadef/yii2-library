@@ -8,6 +8,8 @@ use common\models\book\Relations;
 use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\UploadedFile;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
@@ -36,7 +38,13 @@ class Book extends \yii\db\ActiveRecord
 {
     use Relations;
 
+    /**
+     * @var string
+     */
     const FILE_COVER_EXTENSIONS = 'png, jpg, jpeg';
+    /**
+     * @var string
+     */
     const FILE_MAX_SIZE = 12 * 1024 * 1024;
 
     /**
@@ -172,6 +180,9 @@ class Book extends \yii\db\ActiveRecord
         return new \common\models\book\Query(get_called_class());
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorsString():string
     {
         $authors = $this->authors;
@@ -185,12 +196,31 @@ class Book extends \yii\db\ActiveRecord
         return $return;
     }
 
-    public function getCategoriesString():string
+    /**
+     * @return string
+     */
+    public function getAuthorsStringLink():string
+    {
+        $authors = $this->authors;
+        $return = '';
+        foreach ($authors as $author) {
+            $return .=  Html::a($author->getFullName(), Url::to(['site/index', 'author_id' => $author->id])) . ', ';
+        }
+        if ($return !== '') {
+            $return = mb_substr($return, 0, -2);
+        }
+        return $return;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategoriesStringLink():string
     {
         $categories = $this->categories;
         $return = '';
         foreach ($categories as $category) {
-            $return .= $category->title . ', ';
+            $return .=  Html::a($category->title, Url::to(['site/index', 'category_id' => $category->id])) . ', ';
         }
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);

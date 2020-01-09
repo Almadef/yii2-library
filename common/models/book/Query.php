@@ -37,7 +37,7 @@ class Query extends \yii\db\ActiveQuery
      */
     public function isNoDeleted()
     {
-        return $this->andWhere(['is_deleted' => false]);
+        return $this->andWhere(['{{%book}}.is_deleted' => false]);
     }
 
     /**
@@ -46,6 +46,6 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byId($id)
     {
-        return $this->andWhere(['id' => $id]);
+        return $this->andWhere(['{{%book}}.id' => $id]);
     }
 }
