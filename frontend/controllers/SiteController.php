@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\models\Book;
 use common\models\Category;
+use common\models\IdxBook;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -16,7 +17,7 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use yii\sphinx\Query;
 
 /**
  * Site controller
@@ -69,12 +70,18 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
+     * @param string|null $search
+     * @param int|null $category_id
      * @return mixed
      */
-    public function actionIndex(int $category_id = null)
+    public function actionIndex(string $search = null, int $category_id = null)
     {
         $queryBook = Book::find()
             ->isNoDeleted();
+        if(isset($search)) {
+            $idsBook = IdxBook::search($search);
+            $queryBook->byId($idsBook);
+        }
         $pages = new Pagination(['totalCount' => $queryBook->count(), 'pageSize' => 8]);
         $books = $queryBook->offset($pages->offset)
             ->limit($pages->limit)

@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -29,6 +30,11 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    $this->beginBlock('search');
+    echo Html::beginForm(Url::to(['site/index']), 'get', ['class' => 'navbar-form navbar-left']);
+    echo Html::input('text', 'search' ,'', ['class' => 'form-control']);
+    echo Html::endForm();
+    $this->endBlock();
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -58,9 +64,15 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-right'],
+        'items' => array($this->blocks['search']),
+    ]);
     NavBar::end();
     ?>
-
+    <form class="pull-xs-right">
+        <input type="text" class="form-control" placeholder="Search...">
+    </form>
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

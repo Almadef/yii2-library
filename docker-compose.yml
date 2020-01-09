@@ -41,7 +41,7 @@ services:
         ports:
             - "36307:36307"
         volumes:
-            - "./docker/log/index:/opt/sphinx/data"
+            - "sphinx-yii2-library:/opt/sphinx/data"
             - "./docker/log/sphinx:/opt/sphinx/log"
             - "./docker/config/sphinx/sphinx.conf:/opt/sphinx/conf/sphinx.conf"
         links:
