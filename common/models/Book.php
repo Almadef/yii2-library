@@ -183,7 +183,7 @@ class Book extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getAuthorsString():string
+    public function getAuthorsString(): string
     {
         $authors = $this->authors;
         $return = '';
@@ -199,12 +199,12 @@ class Book extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getAuthorsStringLink():string
+    public function getAuthorsStringLink(): string
     {
         $authors = $this->authors;
         $return = '';
         foreach ($authors as $author) {
-            $return .=  Html::a($author->getFullName(), Url::to(['site/index', 'author_id' => $author->id])) . ', ';
+            $return .= Html::a($author->getFullName(), Url::to(['site/index', 'author_id' => $author->id])) . ', ';
         }
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);
@@ -215,12 +215,12 @@ class Book extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getCategoriesStringLink():string
+    public function getCategoriesStringLink(): string
     {
         $categories = $this->categories;
         $return = '';
         foreach ($categories as $category) {
-            $return .=  Html::a($category->title, Url::to(['site/index', 'category_id' => $category->id])) . ', ';
+            $return .= Html::a($category->title, Url::to(['site/index', 'category_id' => $category->id])) . ', ';
         }
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);

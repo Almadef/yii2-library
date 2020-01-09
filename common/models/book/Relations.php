@@ -22,7 +22,8 @@ trait Relations
      */
     public function getPublisher()
     {
-        return $this->hasOne(Publisher::className(), ['id' => 'publisher_id'])->andWhere(['{{%publisher}}.is_deleted' => false]);
+        return $this->hasOne(Publisher::className(),
+            ['id' => 'publisher_id'])->andWhere(['{{%publisher}}.is_deleted' => false]);
     }
 
     /**

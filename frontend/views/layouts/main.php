@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use common\widgets\MultiLang;
@@ -32,7 +33,7 @@ AppAsset::register($this);
     <?php
     $this->beginBlock('search');
     echo Html::beginForm(Url::to(['site/index']), 'get', ['class' => 'navbar-form navbar-left']);
-    echo Html::input('text', 'search' ,'', ['class' => 'form-control']);
+    echo Html::input('text', 'search', '', ['class' => 'form-control']);
     echo Html::endForm();
     $this->endBlock();
     NavBar::begin([
