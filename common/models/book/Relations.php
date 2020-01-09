@@ -22,7 +22,8 @@ trait Relations
      */
     public function getPublisher()
     {
-        return $this->hasOne(Publisher::className(), ['id' => 'publisher_id'])->andWhere(['is_deleted' => false]);
+        return $this->hasOne(Publisher::className(),
+            ['id' => 'publisher_id'])->andWhere(['{{%publisher}}.is_deleted' => false]);
     }
 
     /**
@@ -31,7 +32,7 @@ trait Relations
     public function getCategories()
     {
         return $this->hasMany(Category::className(), ['id' => 'category_id'])
-            ->viaTable(BookCategory::tableName(), ['book_id' => 'id'])->andWhere(['is_deleted' => false]);
+            ->viaTable(BookCategory::tableName(), ['book_id' => 'id'])->andWhere(['{{%category}}.is_deleted' => false]);
     }
 
     /**
@@ -40,7 +41,7 @@ trait Relations
     public function getAuthors()
     {
         return $this->hasMany(Author::className(), ['id' => 'author_id'])
-            ->viaTable(BookAuthor::tableName(), ['book_id' => 'id'])->andWhere(['is_deleted' => false]);
+            ->viaTable(BookAuthor::tableName(), ['book_id' => 'id'])->andWhere(['{{%author}}.is_deleted' => false]);
     }
 
     /**

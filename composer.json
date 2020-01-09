@@ -21,7 +21,8 @@
         "voskobovich/yii2-many-many-behavior": "3.2.*",
         "yii2tech/ar-softdelete": "1.0.4",
         "codemix/yii2-localeurls": "1.7.*",
-        "snewer/yii2-storage": "4.0.*"
+        "snewer/yii2-storage": "4.0.*",
+        "yiisoft/yii2-sphinx": "2.0.*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

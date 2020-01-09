@@ -9,6 +9,12 @@ return [
             'charset' => 'utf8',
             'tablePrefix' => 'yii2-library_',
         ],
+        'sphinx' => [
+            'class' => 'yii\sphinx\Connection',
+            'dsn' => 'mysql:host=sphinx;port=9306;',
+            'username' => '',
+            'password' => '',
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',

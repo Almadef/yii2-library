@@ -35,6 +35,19 @@ services:
             - "db-yii2-library:/var/lib/mysql"
         networks:
             - yii2-library
+    sphinx:
+        build: ./docker/bin/sphinx
+        restart: always
+        ports:
+            - "36307:36307"
+        volumes:
+            - "sphinx-yii2-library:/opt/sphinx/data"
+            - "./docker/log/sphinx:/opt/sphinx/log"
+            - "./docker/config/sphinx/sphinx.conf:/opt/sphinx/conf/sphinx.conf"
+        links:
+            - mysql
+        networks:
+            - yii2-library
     phpmyadmin:
         depends_on:
             - mysql
@@ -51,3 +64,4 @@ networks:
     yii2-library:
 volumes:
     db-yii2-library:
+    sphinx-yii2-library:
