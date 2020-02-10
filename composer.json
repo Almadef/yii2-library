@@ -21,20 +21,20 @@
         "voskobovich/yii2-many-many-behavior": "3.2.*",
         "yii2tech/ar-softdelete": "1.0.4",
         "codemix/yii2-localeurls": "1.7.*",
-        "snewer/yii2-storage": "4.0.*",
+        "snewer/yii2-storage": "4.0.0",
         "yiisoft/yii2-sphinx": "2.0.*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.1.0",
         "yiisoft/yii2-faker": "~2.0.0",
-        "codeception/codeception": "4.0.x-dev | ^4.0",
         "codeception/module-asserts": "^1.0",
         "codeception/module-yii2": "^1.0",
         "codeception/module-filesystem": "^1.0",
         "phpunit/phpunit": "~5.7.27 || ~6.5.5",
         "codeception/verify": "~0.5.0 || ~1.1.0",
-        "symfony/browser-kit": ">=2.7 <=4.2.4"
+        "symfony/browser-kit": ">=2.7 <=4.2.4",
+        "codeception/codeception": "4.1.*"
     },
     "config": {
         "process-timeout": 1800,
