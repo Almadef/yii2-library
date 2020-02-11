@@ -31,6 +31,19 @@ services:
             - "db-yii2-library:/var/lib/mysql"
         networks:
             - yii2-library
+    mysql-test:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: yii2-library-test
+            MYSQL_ROOT_PASSWORD: Root-123
+            MYSQL_USER: user
+            MYSQL_PASSWORD: user123
+        ports:
+            - "127.0.0.1:3307:3306"
+        volumes:
+            - "db-yii2-library-test:/var/lib/mysql"
+        networks:
+            - yii2-library
     sphinx:
         build: ./docker/bin/sphinx
         restart: always
@@ -58,4 +71,5 @@ networks:
     yii2-library:
 volumes:
     db-yii2-library:
+    db-yii2-library-test:
     sphinx-yii2-library:
