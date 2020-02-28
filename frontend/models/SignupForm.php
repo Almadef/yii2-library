@@ -1,7 +1,6 @@
 <?php
 namespace frontend\models;
 
-use common\helpers\RoleHelper;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -57,8 +56,6 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         if($user->save() && $this->sendEmail($user)){
-            $auth = Yii::$app->authManager;
-            $auth->assign($auth->getRole(RoleHelper::ROLE_USER), $user->getId());
             return true;
         }
         return false;
