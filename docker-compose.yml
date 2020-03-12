@@ -8,12 +8,10 @@ services:
             - "./:/var/www/yii2-library"
         ports:
             - "80:80"
-        restart: always
         networks:
             - yii2-library
     php-fpm:
         build: ./docker/bin/php-fpm
-        restart: always
         volumes:
             - "./:/var/www/yii2-library"
         networks:
@@ -46,7 +44,6 @@ services:
             - yii2-library
     sphinx:
         build: ./docker/bin/sphinx
-        restart: always
         volumes:
             - "sphinx-yii2-library:/opt/sphinx/data"
             - "./docker/log/sphinx:/opt/sphinx/log"
@@ -56,15 +53,29 @@ services:
         networks:
             - yii2-library
     phpmyadmin:
-        depends_on:
-            - mysql
         image: phpmyadmin/phpmyadmin
-        restart: always
         ports:
             - '127.0.0.1:8080:80'
         environment:
             PMA_HOST: mysql
-            MYSQL_ROOT_PASSWORD: Root-123
+            PMA_PORT: 3306
+            PMA_USER : root
+            PMA_PASSWORD : Root-123
+        depends_on:
+            - mysql
+        networks:
+            - yii2-library
+    phpmyadmin-test:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - '127.0.0.1:8081:80'
+        environment:
+            PMA_HOST: mysql-test
+            PMA_PORT: 3306
+            PMA_USER: root
+            PMA_PASSWORD: Root-123
+        depends_on:
+            - mysql-test
         networks:
             - yii2-library
 networks:
