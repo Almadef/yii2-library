@@ -1,4 +1,11 @@
-## Текущая версия 0.8.1
+### Версия 0.9.0
+Изменение:
+* Починка тестов;
+* Добавление в docker-окружение тестовой БД.
+
+[Задача в GitHub](https://github.com/Almadef/yii2-library/issues/21)
+
+[Pull Request](https://github.com/Almadef/yii2-library/pull/22)
 
 ### Версия 0.8.1
 Изменение:
