@@ -56,10 +56,14 @@ return [
         ],
         'urlManager' => [
             'class' => 'codemix\localeurls\UrlManager',
-            'languages' => ['ru', 'en'],
-            'enableDefaultLanguageUrlCode' => true,
+            'languages' => [
+                'en-us' => 'en',
+                'ru-ru' => 'ru'
+            ],
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableLanguagePersistence' => false,
+            'enableLanguageDetection' => false,
             'rules' => [
             ],
         ],

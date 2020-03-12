@@ -186,7 +186,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return static::find()
             ->byVerificationToken($token)
-            ->byStatus(self::STATUS_ACTIVE)
+            ->byStatus(self::STATUS_INACTIVE)
             ->isNoDeleted()
             ->one();
     }

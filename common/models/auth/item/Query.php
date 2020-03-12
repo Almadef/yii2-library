@@ -31,4 +31,14 @@ class Query extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function byType($type)
+    {
+        return $this->andWhere(['type' => $type]);
+    }
+
+    public function byName($name)
+    {
+        return $this->andWhere(['name' => $name]);
+    }
 }

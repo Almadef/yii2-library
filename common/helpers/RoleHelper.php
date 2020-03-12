@@ -12,7 +12,6 @@ final class RoleHelper
 {
     const ROLE_ADMIN = 'admin';
     const ROLE_LIBRARIAN = 'librarian';
-    const ROLE_USER = 'user';
 
     /**
      * @return array
@@ -22,7 +21,6 @@ final class RoleHelper
         return [
             self::ROLE_ADMIN => Yii::t('app', 'Admin'),
             self::ROLE_LIBRARIAN => Yii::t('app', 'Librarian'),
-            self::ROLE_USER => Yii::t('app', 'User'),
         ];
     }
 
