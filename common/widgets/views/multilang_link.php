@@ -1,11 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 
-$url = substr(Url::to(), 6);
-if (Yii::$app->language == 'ru') {
-    echo Html::a('Go to English', '/en-us' . $url);
-} elseif (Yii::$app->language == 'en') {
-    echo Html::a('Перейти на русский', '/ru-ru' . $url);
+/** @var string $nowLanguage */
+/** @var string $nowUrl */
+
+if ($nowLanguage == 'ru' || $nowLanguage == 'ru-RU') {
+    echo Html::a('Go to English', [$nowUrl, 'language' => 'en']);
+} elseif ($nowLanguage == 'en' || $nowLanguage == 'en-US') {
+    echo Html::a('Перейти на русский', [$nowUrl, 'language' => 'ru']);
 }
