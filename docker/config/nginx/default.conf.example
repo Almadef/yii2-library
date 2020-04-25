@@ -4,7 +4,7 @@
 
         listen 80; ## listen for ipv4
 
-        server_name yii2-library-develop;
+        server_name yii2.library.develop;
         root        /var/www/yii2-library/frontend/web/;
         index       index.php;
 
@@ -43,7 +43,7 @@
 
         listen 80; ## listen for ipv4
 
-        server_name admin-yii2-library-develop;
+        server_name admin.yii2.library.develop;
         root        /var/www/yii2-library/backend/web/;
         index       index.php;
 
