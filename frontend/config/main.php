@@ -10,6 +10,7 @@ return [
     'id' => 'app-frontend',
     'name' => 'yii2-library',
     'basePath' => dirname(__DIR__),
+    'homeUrl' => ['/'],
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
@@ -36,27 +37,6 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'urlManager' => [
-            'class' => 'codemix\localeurls\UrlManager',
-            'languages' => [
-                'en-us' => 'en',
-                'ru-ru' => 'ru'
-            ],
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableLanguagePersistence' => false,
-            'enableLanguageDetection' => false,
-            'rules' => [
-            ],
-        ],
-        'i18n' => [
-            'translations' => [
-                'app*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@common/messages',
-                ],
-            ],
         ],
     ],
     'params' => $params,
