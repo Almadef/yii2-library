@@ -10,7 +10,7 @@ return [
     'id' => 'app-frontend',
     'name' => 'yii2-library',
     'basePath' => dirname(__DIR__),
-    'homeUrl' => ['/'],
+    'homeUrl' => ['/library'],
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [

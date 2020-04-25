@@ -32,7 +32,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     $this->beginBlock('search');
-    echo Html::beginForm(Url::to(['site']), 'get', ['class' => 'navbar-form navbar-left']);
+    echo Html::beginForm(Url::to(['/library']), 'get', ['class' => 'navbar-form navbar-left']);
     echo Html::input('text', 'search', '', ['class' => 'form-control']);
     echo Html::endForm();
     $this->endBlock();
@@ -44,7 +44,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
+        ['label' => Yii::t('app', 'Home'), 'url' => Yii::$app->homeUrl],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
@@ -75,9 +75,6 @@ AppAsset::register($this);
         <input type="text" class="form-control" placeholder="Search...">
     </form>
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>

@@ -56,7 +56,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getAuthItems()
     {
-        return $this->hasMany(Item::className(), ['rule_name' => 'name']);
+        return $this->hasMany(Item::class, ['rule_name' => 'name']);
     }
 
     /**

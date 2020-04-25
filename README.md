@@ -16,7 +16,7 @@
     4. `php yii migrate`;
 6. Если нужно создать дефолтного администратора и библиотекаря, то выполнить комманду `php yii rbac/create-default-user`;
 7. Выйти из контейнера `exit`;
-8. После заполнения контента выполнить команду `docker-compose run --rm sphinx indexer --config "/opt/sphinx/conf/sphinx.conf" --all --rotate`.
+8. После заполнения контента выполнить команду `docker-compose run --rm sphinx indexer --config "/opt/sphinx/conf/sphinx.conf" --all --rotate && docker-compose up -d sphinx`.
 
 ### Тестирование
 Для тестирования используется БД mysql-test, перед началом тестов нужно выполнить комманды:

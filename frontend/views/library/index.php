@@ -25,7 +25,7 @@ $this->title = Yii::t('app', 'Home');
                         ?>
                         <div class="col-3 col-sm-3">
                             <div>
-                                <a href="<?= Url::to(['site/book', 'book_id' => $book->id]) ?>" class="a-no-decoration"
+                                <a href="<?= Url::to(['library/book', 'book_id' => $book->id]) ?>" class="a-no-decoration"
                                    style="text-decoration: none;">
                                     <div class="panel panel-primary panel-main">
                                         <div class="panel-body">

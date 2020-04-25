@@ -9,7 +9,7 @@ use yii\helpers\Html;
 <div class="btn-group-vertical btn-full-width" role="group" aria-label="<?= Yii::t('app', 'Categories') ?>">
     <?php foreach ($categories as $category): ?>
         <?= Html::a($category->title,
-            Url::to(['site/index', 'category_id' => $category->id]),
+            Url::to(['library/index', 'category_id' => $category->id]),
             ['title' => $category->title, 'class' => 'btn btn-default']) ?>
     <?php endforeach; ?>
 </div>

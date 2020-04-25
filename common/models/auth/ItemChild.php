@@ -36,14 +36,14 @@ class ItemChild extends \yii\db\ActiveRecord
                 ['parent'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Item::className(),
+                'targetClass' => Item::class,
                 'targetAttribute' => ['parent' => 'name']
             ],
             [
                 ['child'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Item::className(),
+                'targetClass' => Item::class,
                 'targetAttribute' => ['child' => 'name']
             ],
         ];
@@ -65,7 +65,7 @@ class ItemChild extends \yii\db\ActiveRecord
      */
     public function getParent0()
     {
-        return $this->hasOne(Item::className(), ['name' => 'parent']);
+        return $this->hasOne(Item::class, ['name' => 'parent']);
     }
 
     /**
@@ -73,7 +73,7 @@ class ItemChild extends \yii\db\ActiveRecord
      */
     public function getChild0()
     {
-        return $this->hasOne(Item::className(), ['name' => 'child']);
+        return $this->hasOne(Item::class, ['name' => 'child']);
     }
 
     /**

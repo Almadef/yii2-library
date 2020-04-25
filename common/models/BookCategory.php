@@ -42,14 +42,14 @@ class BookCategory extends \yii\db\ActiveRecord
                 ['book_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Book::className(),
+                'targetClass' => Book::class,
                 'targetAttribute' => ['book_id' => 'id']
             ],
             [
                 ['category_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Category::className(),
+                'targetClass' => Category::class,
                 'targetAttribute' => ['category_id' => 'id']
             ],
         ];
@@ -73,7 +73,7 @@ class BookCategory extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
             'attributes' => [
                 ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
             ],

@@ -16,7 +16,7 @@ trait Relations
      */
     public function getAuthor()
     {
-        return $this->hasOne(Author::className(), ['id' => 'author_id']);
+        return $this->hasOne(Author::class, ['id' => 'author_id']);
     }
 
     /**
@@ -24,6 +24,6 @@ trait Relations
      */
     public function getBook()
     {
-        return $this->hasOne(Book::className(), ['id' => 'book_id']);
+        return $this->hasOne(Book::class, ['id' => 'book_id']);
     }
 }

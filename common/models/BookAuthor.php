@@ -42,14 +42,14 @@ class BookAuthor extends \yii\db\ActiveRecord
                 ['author_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Author::className(),
+                'targetClass' => Author::class,
                 'targetAttribute' => ['author_id' => 'id']
             ],
             [
                 ['book_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Book::className(),
+                'targetClass' => Book::class,
                 'targetAttribute' => ['book_id' => 'id']
             ],
         ];
@@ -73,7 +73,7 @@ class BookAuthor extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
             'attributes' => [
                 ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
             ],

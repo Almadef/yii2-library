@@ -50,7 +50,7 @@ class Item extends \yii\db\ActiveRecord
                 ['rule_name'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Rule::className(),
+                'targetClass' => Rule::class,
                 'targetAttribute' => ['rule_name' => 'name']
             ],
         ];
@@ -77,7 +77,7 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getAuthAssignments()
     {
-        return $this->hasMany(Assignment::className(), ['item_name' => 'name']);
+        return $this->hasMany(Assignment::class, ['item_name' => 'name']);
     }
 
     /**
@@ -85,7 +85,7 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getRuleName()
     {
-        return $this->hasOne(Rule::className(), ['name' => 'rule_name']);
+        return $this->hasOne(Rule::class, ['name' => 'rule_name']);
     }
 
     /**
@@ -93,7 +93,7 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getAuthItemChildren()
     {
-        return $this->hasMany(ItemChild::className(), ['parent' => 'name']);
+        return $this->hasMany(ItemChild::class, ['parent' => 'name']);
     }
 
     /**
@@ -101,7 +101,7 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getAuthItemChildren0()
     {
-        return $this->hasMany(ItemChild::className(), ['child' => 'name']);
+        return $this->hasMany(ItemChild::class, ['child' => 'name']);
     }
 
     /**
@@ -109,7 +109,7 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getChildren()
     {
-        return $this->hasMany(Item::className(), ['name' => 'child'])->viaTable('{{%auth_item_child}}',
+        return $this->hasMany(Item::class, ['name' => 'child'])->viaTable('{{%auth_item_child}}',
             ['parent' => 'name']);
     }
 
@@ -118,7 +118,7 @@ class Item extends \yii\db\ActiveRecord
      */
     public function getParents()
     {
-        return $this->hasMany(Item::className(), ['name' => 'parent'])->viaTable('{{%auth_item_child}}',
+        return $this->hasMany(Item::class, ['name' => 'parent'])->viaTable('{{%auth_item_child}}',
             ['child' => 'name']);
     }
 

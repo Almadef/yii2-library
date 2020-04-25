@@ -37,7 +37,7 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                         <p><?= Yii::t('app', 'Author(s): {author}', ['author' => $book->getAuthorsStringLink()]) ?></p>
                         <p><?= Yii::t('app', 'Publisher: {name}', [
                                 'name' => Html::a($book->publisher->name,
-                                    Url::to(['site/index', 'publisher_id' => $book->publisher->id]))
+                                    Url::to(['library/index', 'publisher_id' => $book->publisher->id]))
                             ]) ?></p>
                         <p><?= Yii::t('app', 'Category(ies): {category}',
                                 ['category' => $book->getCategoriesStringLink()]) ?></p>

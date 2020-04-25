@@ -22,7 +22,7 @@ trait Relations
      */
     public function getPublisher()
     {
-        return $this->hasOne(Publisher::className(),
+        return $this->hasOne(Publisher::class,
             ['id' => 'publisher_id'])->andWhere(['{{%publisher}}.is_deleted' => false]);
     }
 
@@ -31,7 +31,7 @@ trait Relations
      */
     public function getCategories()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])
+        return $this->hasMany(Category::class, ['id' => 'category_id'])
             ->viaTable(BookCategory::tableName(), ['book_id' => 'id'])->andWhere(['{{%category}}.is_deleted' => false]);
     }
 
@@ -40,7 +40,7 @@ trait Relations
      */
     public function getAuthors()
     {
-        return $this->hasMany(Author::className(), ['id' => 'author_id'])
+        return $this->hasMany(Author::class, ['id' => 'author_id'])
             ->viaTable(BookAuthor::tableName(), ['book_id' => 'id'])->andWhere(['{{%author}}.is_deleted' => false]);
     }
 
@@ -49,8 +49,8 @@ trait Relations
      */
     public function getFiles()
     {
-        return $this->hasMany(Storage::className(), ['model_id' => 'id'])
-            ->andWhere(['model_name' => Book::className()])
+        return $this->hasMany(Storage::class, ['model_id' => 'id'])
+            ->andWhere(['model_name' => Book::class])
             ->andWhere(['is_deleted' => false]);
     }
 
@@ -59,8 +59,8 @@ trait Relations
      */
     public function getFileCover()
     {
-        return $this->hasOne(Storage::className(), ['model_id' => 'id'])
-            ->andWhere(['model_name' => Book::className()])
+        return $this->hasOne(Storage::class, ['model_id' => 'id'])
+            ->andWhere(['model_name' => Book::class])
             ->andWhere(['description' => StorageHelper::BOOK_COVER_DESCRIPTION])
             ->andWhere(['is_deleted' => false]);
     }
@@ -70,8 +70,8 @@ trait Relations
      */
     public function getFileBook()
     {
-        return $this->hasOne(Storage::className(), ['model_id' => 'id'])
-            ->andWhere(['model_name' => Book::className()])
+        return $this->hasOne(Storage::class, ['model_id' => 'id'])
+            ->andWhere(['model_name' => Book::class])
             ->andWhere(['description' => StorageHelper::BOOK_BOOK_DESCRIPTION])
             ->andWhere(['is_deleted' => false]);
     }

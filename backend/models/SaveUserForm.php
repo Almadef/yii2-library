@@ -115,7 +115,8 @@ final class SaveUserForm extends User
         $auth = Yii::$app->authManager;
         if ($this->role_name !== RoleHelper::ROLE_USER) {
             $auth->assign($auth->getRole($this->role_name), $this->id);
-        }}
+        }
+    }
 
     /**
      *

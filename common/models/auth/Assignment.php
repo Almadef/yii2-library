@@ -37,7 +37,7 @@ class Assignment extends \yii\db\ActiveRecord
                 ['item_name'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Item::className(),
+                'targetClass' => Item::class,
                 'targetAttribute' => ['item_name' => 'name']
             ],
         ];
@@ -60,7 +60,7 @@ class Assignment extends \yii\db\ActiveRecord
      */
     public function getItemName()
     {
-        return $this->hasOne(Item::className(), ['name' => 'item_name']);
+        return $this->hasOne(Item::class, ['name' => 'item_name']);
     }
 
     /**

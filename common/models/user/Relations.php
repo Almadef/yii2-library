@@ -15,6 +15,6 @@ trait Relations
      */
     public function getRole()
     {
-        return $this->hasOne(Assignment::className(), ['user_id' => 'id']);
+        return $this->hasOne(Assignment::class, ['user_id' => 'id']);
     }
 }
