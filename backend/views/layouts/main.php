@@ -1,7 +1,6 @@
 <?php
 
 /* @var $this Yii\web\View */
-
 /* @var $content string */
 
 use backend\assets\AppAsset;
@@ -39,7 +38,7 @@ AppAsset::register($this);
     ]);
     $menuItems = array();
     if (!Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']];
+        $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site']];
     }
     if (Yii::$app->user->can('viewBook')) {
         $menuItems[] = ['label' => Yii::t('app', 'Books'), 'url' => ['/book']];

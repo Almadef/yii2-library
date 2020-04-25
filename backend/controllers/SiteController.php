@@ -11,7 +11,7 @@ use common\models\LoginForm;
 /**
  * Site controller
  */
-class SiteController extends Controller
+final class SiteController extends Controller
 {
     /**
      * {@inheritdoc}

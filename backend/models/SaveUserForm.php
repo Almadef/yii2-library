@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\user\models;
+namespace backend\models;
 
 use common\models\User;
 use Yii;
@@ -23,7 +23,7 @@ use Yii;
  * @property string $role_name
  * @property bool $is_deleted
  */
-class SaveUserForm extends User
+final class SaveUserForm extends User
 {
     /**
      * @var string

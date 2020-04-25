@@ -1,22 +1,22 @@
 <?php
 
-namespace backend\modules\category\controllers;
+namespace backend\controllers;
 
 use Yii;
-use common\models\Category;
-use common\models\category\Search;
+use common\models\Author;
+use common\models\author\Search;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Category model.
+ * AuthorController implements the CRUD actions for Author model.
  */
-final class DefaultController extends Controller
+final class AuthorController extends Controller
 {
     /**
-     * Lists all Category models.
+     * Lists all Author models.
      * @return mixed
      */
     public function actionIndex()
@@ -31,7 +31,7 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Displays a single Category model.
+     * Displays a single Author model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -44,13 +44,13 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Creates a new Category model.
+     * Creates a new Author model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Author();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -62,7 +62,7 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing Category model.
+     * Updates an existing Author model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -82,7 +82,7 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing Category model.
+     * Deletes an existing Author model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -98,15 +98,15 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Finds the Category model based on its primary key value.
+     * Finds the Author model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Category the loaded model
+     * @return Author the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = Author::findOne($id)) !== null) {
             return $model;
         }
 
@@ -131,27 +131,27 @@ final class DefaultController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => ['viewCategory'],
+                        'roles' => ['viewAuthor'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['viewCategory'],
+                        'roles' => ['viewAuthor'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['create'],
-                        'roles' => ['createCategory'],
+                        'roles' => ['createAuthor'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['update'],
-                        'roles' => ['updateCategory'],
+                        'roles' => ['updateAuthor'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['delete'],
-                        'roles' => ['deleteCategory'],
+                        'roles' => ['deleteAuthor'],
                     ],
                 ],
             ],

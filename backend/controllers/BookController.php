@@ -1,22 +1,27 @@
 <?php
 
-namespace backend\modules\author\controllers;
+namespace backend\controllers;
 
-use Yii;
 use common\models\Author;
-use common\models\author\Search;
+use common\models\Category;
+use common\models\Publisher;
+use common\models\Storage;
+use Yii;
+use common\models\Book;
+use common\models\book\Search;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Author model.
+ * BookController implements the CRUD actions for Book model.
  */
-final class DefaultController extends Controller
+final class BookController extends Controller
 {
     /**
-     * Lists all Author models.
+     * Lists all Book models.
      * @return mixed
      */
     public function actionIndex()
@@ -24,65 +29,104 @@ final class DefaultController extends Controller
         $searchModel = new Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $selectPublisher = Publisher::getForSelector();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'selectPublisher' => $selectPublisher,
         ]);
     }
 
     /**
-     * Displays a single Author model.
+     * Displays a single Book model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $authorDataProvider = new ActiveDataProvider([
+            'query' => $model->getAuthors(),
+        ]);
+        $categoryDataProvider = new ActiveDataProvider([
+            'query' => $model->getCategories(),
+        ]);
+        $fileDataProvider = new ActiveDataProvider([
+            'query' => $model->getFiles(),
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'authorDataProvider' => $authorDataProvider,
+            'categoryDataProvider' => $categoryDataProvider,
+            'fileDataProvider' => $fileDataProvider,
         ]);
     }
 
     /**
-     * Creates a new Author model.
+     * Creates a new Book model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Author();
+        $model = new Book();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        $selectCategory = Category::getForSelector();
+        $selectAuthor = Author::getForSelector();
+        $selectPublisher = Publisher::getForSelector();
 
         return $this->render('create', [
             'model' => $model,
+            'selectCategory' => $selectCategory,
+            'selectAuthor' => $selectAuthor,
+            'selectPublisher' => $selectPublisher,
         ]);
     }
 
     /**
-     * Updates an existing Author model.
+     * Updates an existing Book model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
+     * @param int|null $fileDeleteId
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $fileDeleteId = null)
     {
         $model = $this->findModel($id);
+
+        if ($fileDeleteId) {
+            $this->findFileModel($fileDeleteId)->delete();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $selectCategory = Category::getForSelector();
+        $selectAuthor = Author::getForSelector();
+        $selectPublisher = Publisher::getForSelector();
+
         return $this->render('update', [
             'model' => $model,
+            'selectCategory' => $selectCategory,
+            'selectAuthor' => $selectAuthor,
+            'selectPublisher' => $selectPublisher,
         ]);
     }
 
     /**
-     * Deletes an existing Author model.
+     * Deletes an existing Book model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -98,19 +142,35 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Finds the Author model based on its primary key value.
+     * Finds the Book model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Author the loaded model
+     * @return Book the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Author::findOne($id)) !== null) {
+        if (($model = Book::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Finds the Storage model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Storage the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findFileModel($id)
+    {
+        if (($model = Storage::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist. 2');
     }
 
     /**
@@ -131,27 +191,27 @@ final class DefaultController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => ['viewAuthor'],
+                        'roles' => ['viewBook'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['viewAuthor'],
+                        'roles' => ['viewBook'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['create'],
-                        'roles' => ['createAuthor'],
+                        'roles' => ['createBook'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['update'],
-                        'roles' => ['updateAuthor'],
+                        'roles' => ['updateBook'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['delete'],
-                        'roles' => ['deleteAuthor'],
+                        'roles' => ['deleteBook'],
                     ],
                 ],
             ],

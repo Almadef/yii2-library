@@ -1,22 +1,24 @@
 <?php
 
-namespace backend\modules\publisher\controllers;
+namespace backend\controllers;
 
+use backend\models\SaveUserForm;
+use common\helpers\RoleHelper;
+use common\models\User;
 use Yii;
-use common\models\Publisher;
-use common\models\publisher\Search;
+use common\models\user\Search;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Publisher model.
+ * UserController implements the CRUD actions for User model.
  */
-final class DefaultController extends Controller
+final class UserController extends Controller
 {
     /**
-     * Lists all Publisher models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
@@ -24,14 +26,19 @@ final class DefaultController extends Controller
         $searchModel = new Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $selectRole = RoleHelper::getForSelector();
+        $selectStatus = User::getStatusForSelector();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'selectRole' => $selectRole,
+            'selectStatus' => $selectStatus,
         ]);
     }
 
     /**
-     * Displays a single Publisher model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -44,29 +51,37 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Creates a new Publisher model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws \Exception
      */
     public function actionCreate()
     {
-        $model = new Publisher();
+        $model = new SaveUserForm(['scenario' => 'create']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $selectRole = RoleHelper::getForSelector();
+        $selectStatus = User::getStatusForSelector();
+
         return $this->render('create', [
             'model' => $model,
+            'selectRole' => $selectRole,
+            'selectStatus' => $selectStatus,
         ]);
     }
 
     /**
-     * Updates an existing Publisher model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \yii\base\Exception
+     * @throws \Exception
      */
     public function actionUpdate($id)
     {
@@ -76,13 +91,18 @@ final class DefaultController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $selectRole = RoleHelper::getForSelector();
+        $selectStatus = User::getStatusForSelector();
+
         return $this->render('update', [
             'model' => $model,
+            'selectRole' => $selectRole,
+            'selectStatus' => $selectStatus,
         ]);
     }
 
     /**
-     * Deletes an existing Publisher model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -98,19 +118,19 @@ final class DefaultController extends Controller
     }
 
     /**
-     * Finds the Publisher model based on its primary key value.
+     * Finds the SaveUserForm model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Publisher the loaded model
+     * @return SaveUserForm the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Publisher::findOne($id)) !== null) {
+        if (($model = SaveUserForm::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
     /**
@@ -131,27 +151,27 @@ final class DefaultController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => ['viewPublisher'],
+                        'roles' => ['viewUser'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['viewPublisher'],
+                        'roles' => ['viewUser'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['create'],
-                        'roles' => ['createPublisher'],
+                        'roles' => ['createUser'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['update'],
-                        'roles' => ['updatePublisher'],
+                        'roles' => ['updateUser'],
                     ],
                     [
                         'allow' => true,
                         'actions' => ['delete'],
-                        'roles' => ['deletePublisher'],
+                        'roles' => ['deleteUser'],
                     ],
                 ],
             ],
