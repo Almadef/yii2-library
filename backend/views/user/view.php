@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\helpers\DateHelper;
+use common\helpers\RoleHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -44,7 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'value' => function ($model) {
-                    return $model->role->item_name;
+                    if (isset($model->role)) {
+                        $roleName = RoleHelper::getRoleName($model->role->item_name);
+                    } else {
+                        $roleName = RoleHelper::getRoleName(RoleHelper::ROLE_USER);
+                    }
+                    return $roleName;
                 },
                 'label' => Yii::t('app', 'Role'),
             ],

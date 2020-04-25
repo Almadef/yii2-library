@@ -86,6 +86,11 @@ final class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if (isset($model->role)) {
+            $model->role_name = $model->role->item_name;
+        } else {
+            $model->role_name = RoleHelper::ROLE_USER;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -140,13 +145,13 @@ final class UserController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,

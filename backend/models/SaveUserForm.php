@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\helpers\RoleHelper;
 use common\models\User;
 use Yii;
 
@@ -100,7 +101,7 @@ final class SaveUserForm extends User
      */
     protected function saveParamsUpdate()
     {
-        if (!isset($this->password) && $this->password !== '') {
+        if (isset($this->password) && $this->password !== '') {
             $this->setPassword($this->password);
         }
     }
@@ -112,8 +113,9 @@ final class SaveUserForm extends User
     protected function saveRoleInsert()
     {
         $auth = Yii::$app->authManager;
-        $auth->assign($auth->getRole($this->role_name), $this->id);
-    }
+        if ($this->role_name !== RoleHelper::ROLE_USER) {
+            $auth->assign($auth->getRole($this->role_name), $this->id);
+        }}
 
     /**
      *
@@ -123,6 +125,8 @@ final class SaveUserForm extends User
     {
         $auth = Yii::$app->authManager;
         $auth->revokeAll($this->id);
-        $auth->assign($auth->getRole($this->role_name), $this->id);
+        if ($this->role_name !== RoleHelper::ROLE_USER) {
+            $auth->assign($auth->getRole($this->role_name), $this->id);
+        }
     }
 }
