@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\behavior\StorageBehavior;
 use common\helpers\StorageHelper;
+use common\models\book\Query;
 use common\models\book\Relations;
 use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
@@ -173,11 +174,11 @@ class Book extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\book\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\book\Query(get_called_class());
+        return new Query(get_called_class());
     }
 
     /**

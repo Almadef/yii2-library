@@ -2,6 +2,8 @@
 
 namespace common\models\book_category;
 
+use common\models\BookCategory;
+
 /**
  * This is the ActiveQuery class for [[\common\models\BookCategory]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\BookCategory[]|array
+     * @return BookCategory[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\BookCategory|array|null
+     * @return BookCategory|array|null
      */
     public function one($db = null)
     {

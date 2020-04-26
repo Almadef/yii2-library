@@ -2,6 +2,8 @@
 
 namespace common\models\category;
 
+use common\models\Category;
+
 /**
  * This is the ActiveQuery class for [[\common\models\Category]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Category[]|array
+     * @return Category[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Category|array|null
+     * @return Category|array|null
      */
     public function one($db = null)
     {

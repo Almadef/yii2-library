@@ -3,6 +3,7 @@
 namespace common\models\user;
 
 use common\models\auth\Assignment;
+use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
@@ -11,7 +12,7 @@ use common\models\auth\Assignment;
 trait Relations
 {
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRole()
     {

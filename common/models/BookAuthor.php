@@ -2,8 +2,8 @@
 
 namespace common\models;
 
+use common\models\book_author\Query;
 use common\models\book_author\Relations;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -83,10 +83,10 @@ class BookAuthor extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\book_author\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\book_author\Query(get_called_class());
+        return new Query(get_called_class());
     }
 }

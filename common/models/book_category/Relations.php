@@ -4,6 +4,7 @@ namespace common\models\book_category;
 
 use common\models\Book;
 use common\models\Category;
+use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
@@ -12,7 +13,7 @@ use common\models\Category;
 trait Relations
 {
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBook()
     {
@@ -20,7 +21,7 @@ trait Relations
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategory()
     {

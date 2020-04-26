@@ -2,6 +2,8 @@
 
 namespace common\models\storage;
 
+use common\models\Storage;
+
 /**
  * This is the ActiveQuery class for [[\common\models\Storage]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Storage[]|array
+     * @return Storage[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Storage|array|null
+     * @return Storage|array|null
      */
     public function one($db = null)
     {

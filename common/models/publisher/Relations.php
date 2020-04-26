@@ -3,6 +3,7 @@
 namespace common\models\publisher;
 
 use common\models\Book;
+use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
@@ -11,7 +12,7 @@ use common\models\Book;
 trait Relations
 {
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBooks()
     {

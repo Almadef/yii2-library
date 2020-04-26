@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\category\Query;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
@@ -71,11 +72,11 @@ class Category extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\category\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\category\Query(get_called_class());
+        return new Query(get_called_class());
     }
 
     /**

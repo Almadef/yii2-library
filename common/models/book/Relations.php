@@ -10,6 +10,7 @@ use common\models\BookCategory;
 use common\models\Category;
 use common\models\Publisher;
 use common\models\Storage;
+use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
@@ -18,7 +19,7 @@ use common\models\Storage;
 trait Relations
 {
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPublisher()
     {
@@ -27,7 +28,7 @@ trait Relations
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategories()
     {
@@ -36,7 +37,7 @@ trait Relations
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAuthors()
     {
@@ -45,7 +46,7 @@ trait Relations
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFiles()
     {
@@ -55,7 +56,7 @@ trait Relations
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFileCover()
     {
@@ -66,7 +67,7 @@ trait Relations
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getFileBook()
     {

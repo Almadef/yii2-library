@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\author\Query;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
@@ -75,11 +76,11 @@ class Author extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\author\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\author\Query(get_called_class());
+        return new Query(get_called_class());
     }
 
     /**

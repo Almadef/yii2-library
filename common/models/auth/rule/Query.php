@@ -2,6 +2,8 @@
 
 namespace common\models\auth\rule;
 
+use common\models\auth\Rule;
+
 /**
  * This is the ActiveQuery class for [[\common\models\auth\Rule]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\auth\Rule[]|array
+     * @return Rule[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\auth\Rule|array|null
+     * @return Rule|array|null
      */
     public function one($db = null)
     {

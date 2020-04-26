@@ -2,8 +2,8 @@
 
 namespace common\models;
 
+use common\models\book_category\Query;
 use common\models\book_category\Relations;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -83,10 +83,10 @@ class BookCategory extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\book_category\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\book_category\Query(get_called_class());
+        return new Query(get_called_class());
     }
 }

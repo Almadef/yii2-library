@@ -2,6 +2,8 @@
 
 namespace common\models\auth;
 
+use common\models\auth\item\Query;
+use common\models\auth\item\Relations;
 use Yii;
 
 /**
@@ -24,6 +26,8 @@ use Yii;
  */
 class Item extends \yii\db\ActiveRecord
 {
+    use Relations;
+
     const TYPE_ROLE = 1;
     const TYPE_PERMISSION = 2;
 
@@ -73,61 +77,11 @@ class Item extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthAssignments()
-    {
-        return $this->hasMany(Assignment::class, ['item_name' => 'name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRuleName()
-    {
-        return $this->hasOne(Rule::class, ['name' => 'rule_name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthItemChildren()
-    {
-        return $this->hasMany(ItemChild::class, ['parent' => 'name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthItemChildren0()
-    {
-        return $this->hasMany(ItemChild::class, ['child' => 'name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getChildren()
-    {
-        return $this->hasMany(Item::class, ['name' => 'child'])->viaTable('{{%auth_item_child}}',
-            ['parent' => 'name']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParents()
-    {
-        return $this->hasMany(Item::class, ['name' => 'parent'])->viaTable('{{%auth_item_child}}',
-            ['child' => 'name']);
-    }
-
-    /**
      * {@inheritdoc}
-     * @return \common\models\auth\item\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\auth\item\Query(get_called_class());
+        return new Query(get_called_class());
     }
 }

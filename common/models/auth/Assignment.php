@@ -3,6 +3,8 @@
 namespace common\models\auth;
 
 use Yii;
+use common\models\auth\assignment\Query;
+use common\models\auth\assignment\Relations;
 
 /**
  * This is the model class for table "{{%auth_assignment}}".
@@ -15,6 +17,8 @@ use Yii;
  */
 class Assignment extends \yii\db\ActiveRecord
 {
+    use Relations;
+
     /**
      * {@inheritdoc}
      */
@@ -56,19 +60,11 @@ class Assignment extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItemName()
-    {
-        return $this->hasOne(Item::class, ['name' => 'item_name']);
-    }
-
-    /**
      * {@inheritdoc}
-     * @return \common\models\auth\assignment\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\auth\assignment\Query(get_called_class());
+        return new Query(get_called_class());
     }
 }

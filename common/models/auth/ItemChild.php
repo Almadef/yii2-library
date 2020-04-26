@@ -2,6 +2,8 @@
 
 namespace common\models\auth;
 
+use common\models\auth\item_child\Query;
+use common\models\auth\item_child\Relations;
 use Yii;
 
 /**
@@ -15,6 +17,8 @@ use Yii;
  */
 class ItemChild extends \yii\db\ActiveRecord
 {
+    use Relations;
+
     /**
      * {@inheritdoc}
      */
@@ -61,27 +65,11 @@ class ItemChild extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParent0()
-    {
-        return $this->hasOne(Item::class, ['name' => 'parent']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getChild0()
-    {
-        return $this->hasOne(Item::class, ['name' => 'child']);
-    }
-
-    /**
      * {@inheritdoc}
-     * @return \common\models\auth\item_child\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\auth\item_child\Query(get_called_class());
+        return new Query(get_called_class());
     }
 }
