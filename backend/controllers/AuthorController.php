@@ -2,10 +2,16 @@
 
 namespace backend\controllers;
 
+use backend\actions\CreateAction;
+use backend\actions\DeleteAction;
+use backend\actions\IndexAction;
+use backend\actions\UpdateAction;
+use backend\actions\ViewAction;
 use Yii;
 use common\models\Author;
 use common\models\author\Search;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,95 +22,41 @@ use yii\filters\VerbFilter;
 final class AuthorController extends Controller
 {
     /**
-     * Lists all Author models.
-     * @return mixed
+     * @return array
      */
-    public function actionIndex()
+    public function actions()
     {
-        $searchModel = new Search();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        return ArrayHelper::merge(parent::actions(), [
+            'index' => IndexAction::class,
+            'view' => ViewAction::class,
+            'create' => CreateAction::class,
+            'update' => UpdateAction::class,
+            'delete' => DeleteAction::class,
         ]);
     }
 
     /**
-     * Displays a single Author model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Search
      */
-    public function actionView($id)
+    public function getSearchModel()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return new Search();
     }
 
     /**
-     * Creates a new Author model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return string
      */
-    public function actionCreate()
+    public function getModelClass()
     {
-        $model = new Author();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return Author::class;
     }
 
     /**
-     * Updates an existing Author model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return Author|null
+     * @throws NotFoundHttpException
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Author model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Author model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Author the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = Author::findOne($id)) !== null) {
             return $model;

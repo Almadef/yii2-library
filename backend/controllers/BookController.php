@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\actions\DeleteAction;
 use common\models\Author;
 use common\models\Category;
 use common\models\Publisher;
@@ -11,6 +12,7 @@ use common\models\Book;
 use common\models\book\Search;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -126,19 +128,13 @@ final class BookController extends Controller
     }
 
     /**
-     * Deletes an existing Book model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @return array
      */
-    public function actionDelete($id)
+    public function actions()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return ArrayHelper::merge(parent::actions(), [
+            'delete' => DeleteAction::class,
+        ]);
     }
 
     /**
@@ -148,7 +144,7 @@ final class BookController extends Controller
      * @return Book the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = Book::findOne($id)) !== null) {
             return $model;

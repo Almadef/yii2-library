@@ -6,9 +6,15 @@ use Yii;
 use common\models\Publisher;
 use common\models\publisher\Search;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\actions\IndexAction;
+use backend\actions\ViewAction;
+use backend\actions\CreateAction;
+use backend\actions\UpdateAction;
+use backend\actions\DeleteAction;
 
 /**
  * PublisherController implements the CRUD actions for Publisher model.
@@ -16,95 +22,41 @@ use yii\filters\VerbFilter;
 final class PublisherController extends Controller
 {
     /**
-     * Lists all Publisher models.
-     * @return mixed
+     * @return array
      */
-    public function actionIndex()
+    public function actions()
     {
-        $searchModel = new Search();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        return ArrayHelper::merge(parent::actions(), [
+            'index' => IndexAction::class,
+            'view' => ViewAction::class,
+            'create' => CreateAction::class,
+            'update' => UpdateAction::class,
+            'delete' => DeleteAction::class,
         ]);
     }
 
     /**
-     * Displays a single Publisher model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Search
      */
-    public function actionView($id)
+    public function getSearchModel()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return new Search();
     }
 
     /**
-     * Creates a new Publisher model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return string
      */
-    public function actionCreate()
+    public function getModelClass()
     {
-        $model = new Publisher();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return Publisher::class;
     }
 
     /**
-     * Updates an existing Publisher model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return Publisher|null
+     * @throws NotFoundHttpException
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Publisher model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Publisher model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Publisher the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = Publisher::findOne($id)) !== null) {
             return $model;
