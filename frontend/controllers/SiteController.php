@@ -6,6 +6,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -20,6 +21,11 @@ use frontend\models\SignupForm;
  */
 class SiteController extends Controller
 {
+    public function actionIndex()
+    {
+        return $this->redirect(Url::to(['/library']));
+    }
+
     /**
      * Logs in a user.
      *
@@ -27,10 +33,6 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
