@@ -1,7 +1,8 @@
 <?php
 
-namespace backend\modules\user\models;
+namespace backend\models;
 
+use common\helpers\RoleHelper;
 use common\models\User;
 use Yii;
 
@@ -23,16 +24,12 @@ use Yii;
  * @property string $role_name
  * @property bool $is_deleted
  */
-class SaveUserForm extends User
+final class SaveUserForm extends User
 {
     /**
      * @var string
      */
-    public $password;
-    /**
-     * @var string
-     */
-    public $role_name;
+    public string $role_name;
 
     /**
      *
@@ -100,7 +97,7 @@ class SaveUserForm extends User
      */
     protected function saveParamsUpdate()
     {
-        if (!isset($this->password) && $this->password !== '') {
+        if (isset($this->password) && $this->password !== '') {
             $this->setPassword($this->password);
         }
     }
@@ -112,7 +109,9 @@ class SaveUserForm extends User
     protected function saveRoleInsert()
     {
         $auth = Yii::$app->authManager;
-        $auth->assign($auth->getRole($this->role_name), $this->id);
+        if ($this->role_name !== RoleHelper::ROLE_USER) {
+            $auth->assign($auth->getRole($this->role_name), $this->id);
+        }
     }
 
     /**
@@ -123,6 +122,8 @@ class SaveUserForm extends User
     {
         $auth = Yii::$app->authManager;
         $auth->revokeAll($this->id);
-        $auth->assign($auth->getRole($this->role_name), $this->id);
+        if ($this->role_name !== RoleHelper::ROLE_USER) {
+            $auth->assign($auth->getRole($this->role_name), $this->id);
+        }
     }
 }

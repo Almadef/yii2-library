@@ -1,21 +1,25 @@
 <?php
 
-namespace backend\modules\user\controllers;
+namespace backend\controllers;
 
-use backend\modules\user\models\SaveUserForm;
+use backend\actions\DeleteAction;
+use backend\actions\ViewAction;
+use backend\models\SaveUserForm;
 use common\helpers\RoleHelper;
 use common\models\User;
 use Yii;
 use common\models\user\Search;
+use yii\base\Exception;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for User model.
+ * UserController implements the CRUD actions for User model.
  */
-class DefaultController extends Controller
+final class UserController extends Controller
 {
     /**
      * Lists all User models.
@@ -34,19 +38,6 @@ class DefaultController extends Controller
             'dataProvider' => $dataProvider,
             'selectRole' => $selectRole,
             'selectStatus' => $selectStatus,
-        ]);
-    }
-
-    /**
-     * Displays a single User model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
     }
 
@@ -80,12 +71,16 @@ class DefaultController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
-     * @throws \yii\base\Exception
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if (isset($model->role)) {
+            $model->role_name = $model->role->item_name;
+        } else {
+            $model->role_name = RoleHelper::ROLE_USER;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -102,35 +97,28 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @return array
      */
-    public function actionDelete($id)
+    public function actions()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return ArrayHelper::merge(parent::actions(), [
+            'view' => ViewAction::class,
+            'delete' => DeleteAction::class,
+        ]);
     }
 
     /**
-     * Finds the SaveUserForm model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return SaveUserForm the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return SaveUserForm|null
+     * @throws NotFoundHttpException
      */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = SaveUserForm::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist.'));
     }
 
     /**
@@ -140,13 +128,13 @@ class DefaultController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,

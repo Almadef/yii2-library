@@ -10,25 +10,9 @@ return [
     'id' => 'app-backend',
     'name' => 'yii2-library admin',
     'basePath' => dirname(__DIR__),
+    'homeUrl' => ['/'],
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [
-        'author' => [
-            'class' => 'backend\modules\author\Module',
-        ],
-        'category' => [
-            'class' => 'backend\modules\category\Module',
-        ],
-        'book' => [
-            'class' => 'backend\modules\book\Module',
-        ],
-        'publisher' => [
-            'class' => 'backend\modules\publisher\Module',
-        ],
-        'user' => [
-            'class' => 'backend\modules\user\Module',
-        ],
-    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -53,27 +37,6 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'urlManager' => [
-            'class' => 'codemix\localeurls\UrlManager',
-            'languages' => [
-                'en-us' => 'en',
-                'ru-ru' => 'ru'
-            ],
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableLanguagePersistence' => false,
-            'enableLanguageDetection' => false,
-            'rules' => [
-            ],
-        ],
-        'i18n' => [
-            'translations' => [
-                'app*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@common/messages',
-                ],
-            ],
         ],
     ],
     'params' => $params,

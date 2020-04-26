@@ -2,8 +2,8 @@
 
 namespace common\models;
 
+use common\models\book_category\Query;
 use common\models\book_category\Relations;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -42,14 +42,14 @@ class BookCategory extends \yii\db\ActiveRecord
                 ['book_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Book::className(),
+                'targetClass' => Book::class,
                 'targetAttribute' => ['book_id' => 'id']
             ],
             [
                 ['category_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Category::className(),
+                'targetClass' => Category::class,
                 'targetAttribute' => ['category_id' => 'id']
             ],
         ];
@@ -73,7 +73,7 @@ class BookCategory extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
             'attributes' => [
                 ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
             ],
@@ -83,10 +83,10 @@ class BookCategory extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\book_category\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\book_category\Query(get_called_class());
+        return new Query(get_called_class());
     }
 }

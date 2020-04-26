@@ -2,6 +2,8 @@
 
 namespace common\models\book;
 
+use common\models\Book;
+
 /**
  * This is the ActiveQuery class for [[\common\models\Book]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Book[]|array
+     * @return Book[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Book|array|null
+     * @return Book|array|null
      */
     public function one($db = null)
     {

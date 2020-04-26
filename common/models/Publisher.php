@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\publisher\Query;
 use common\models\publisher\Relations;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -63,9 +64,9 @@ class Publisher extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
             [
-                'class' => SoftDeleteBehavior::className(),
+                'class' => SoftDeleteBehavior::class,
                 'softDeleteAttributeValues' => [
                     'is_deleted' => true
                 ],
@@ -76,11 +77,11 @@ class Publisher extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\publisher\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\publisher\Query(get_called_class());
+        return new Query(get_called_class());
     }
 
     /**

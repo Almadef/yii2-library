@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\behavior\StorageBehavior;
 use common\helpers\StorageHelper;
+use common\models\book\Query;
 use common\models\book\Relations;
 use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
@@ -82,7 +83,7 @@ class Book extends \yii\db\ActiveRecord
                 ['publisher_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Publisher::className(),
+                'targetClass' => Publisher::class,
                 'targetAttribute' => ['publisher_id' => 'id']
             ],
             [['category_ids'], 'each', 'rule' => ['integer']],
@@ -126,16 +127,16 @@ class Book extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
             [
-                'class' => SoftDeleteBehavior::className(),
+                'class' => SoftDeleteBehavior::class,
                 'softDeleteAttributeValues' => [
                     'is_deleted' => true
                 ],
                 'replaceRegularDelete' => true
             ],
             [
-                'class' => ManyToManyBehavior::className(),
+                'class' => ManyToManyBehavior::class,
                 'relations' => [
                     'category_ids' => [
                         'categories',
@@ -156,7 +157,7 @@ class Book extends \yii\db\ActiveRecord
                 ],
             ],
             [
-                'class' => StorageBehavior::className(),
+                'class' => StorageBehavior::class,
                 'attributes' => [
                     [
                         'name' => 'coverFile',
@@ -173,11 +174,11 @@ class Book extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\book\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\book\Query(get_called_class());
+        return new Query(get_called_class());
     }
 
     /**
@@ -204,7 +205,7 @@ class Book extends \yii\db\ActiveRecord
         $authors = $this->authors;
         $return = '';
         foreach ($authors as $author) {
-            $return .= Html::a($author->getFullName(), Url::to(['site/index', 'author_id' => $author->id])) . ', ';
+            $return .= Html::a($author->getFullName(), Url::to(['library/index', 'author_id' => $author->id])) . ', ';
         }
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);
@@ -220,7 +221,7 @@ class Book extends \yii\db\ActiveRecord
         $categories = $this->categories;
         $return = '';
         foreach ($categories as $category) {
-            $return .= Html::a($category->title, Url::to(['site/index', 'category_id' => $category->id])) . ', ';
+            $return .= Html::a($category->title, Url::to(['library/index', 'category_id' => $category->id])) . ', ';
         }
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);

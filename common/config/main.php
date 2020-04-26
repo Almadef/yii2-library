@@ -20,6 +20,31 @@ return [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
+        'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => [
+                'en-us' => 'en',
+                'ru-ru' => 'ru'
+            ],
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableLanguagePersistence' => false,
+            'enableLanguageDetection' => false,
+            'rules' => [
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                ],
+                'error*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                ],
+            ],
+        ],
         'storage' => [
             'class' => 'snewer\storage\StorageManager',
             'buckets' => [

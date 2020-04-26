@@ -2,6 +2,8 @@
 
 namespace common\models\book_author;
 
+use common\models\BookAuthor;
+
 /**
  * This is the ActiveQuery class for [[\common\models\BookAuthor]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\BookAuthor[]|array
+     * @return BookAuthor[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\BookAuthor|array|null
+     * @return BookAuthor|array|null
      */
     public function one($db = null)
     {

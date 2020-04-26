@@ -16,9 +16,17 @@ source parent_source
 source src_book:parent_source
 {
     sql_query = \
-        SELECT id, title \
-        FROM `yii2-library_book` \
-        WHERE is_deleted = 0
+        SELECT b.id, b.title, c.title, p.name, a.name, a.surname, a.patronymic \
+        FROM `yii2-library_book` b \
+        INNER JOIN `yii2-library_book_author` ba on ba.book_id = b.id \
+        INNER JOIN `yii2-library_author` a on a.id = ba.author_id \
+        INNER JOIN `yii2-library_book_category` bc on bc.book_id = b.id \
+        INNER JOIN `yii2-library_category` c on c.id = bc.category_id \
+        INNER JOIN `yii2-library_publisher` p on p.id = b.publisher_id \
+        WHERE b.is_deleted = 0 and \
+        c.is_deleted = 0 and \
+        a.is_deleted = 0 and \
+        p.is_deleted = 0
 }
 
 index idx_book

@@ -39,7 +39,7 @@ AppAsset::register($this);
     ]);
     $menuItems = array();
     if (!Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']];
+        $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => Yii::$app->homeUrl];
     }
     if (Yii::$app->user->can('viewBook')) {
         $menuItems[] = ['label' => Yii::t('app', 'Books'), 'url' => ['/book']];

@@ -2,6 +2,8 @@
 
 namespace common\models\publisher;
 
+use common\models\Publisher;
+
 /**
  * This is the ActiveQuery class for [[\common\models\Publisher]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Publisher[]|array
+     * @return Publisher[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Publisher|array|null
+     * @return Publisher|array|null
      */
     public function one($db = null)
     {

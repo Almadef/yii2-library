@@ -3,6 +3,7 @@
 namespace common\models\user;
 
 use common\models\auth\Assignment;
+use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
@@ -11,10 +12,10 @@ use common\models\auth\Assignment;
 trait Relations
 {
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRole()
     {
-        return $this->hasOne(Assignment::className(), ['user_id' => 'id']);
+        return $this->hasOne(Assignment::class, ['user_id' => 'id']);
     }
 }

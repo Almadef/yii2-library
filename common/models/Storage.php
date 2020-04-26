@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\storage\Query;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
@@ -69,9 +70,9 @@ class Storage extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
             [
-                'class' => SoftDeleteBehavior::className(),
+                'class' => SoftDeleteBehavior::class,
                 'softDeleteAttributeValues' => [
                     'is_deleted' => true
                 ],
@@ -82,10 +83,10 @@ class Storage extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\storage\Query the active query used by this AR class.
+     * @return Query the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\storage\Query(get_called_class());
+        return new Query(get_called_class());
     }
 }

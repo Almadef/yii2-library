@@ -2,6 +2,8 @@
 
 namespace common\models\auth\item_child;
 
+use common\models\auth\ItemChild;
+
 /**
  * This is the ActiveQuery class for [[\common\models\auth\ItemChild]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\auth\ItemChild[]|array
+     * @return ItemChild[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\auth\ItemChild|array|null
+     * @return ItemChild|array|null
      */
     public function one($db = null)
     {

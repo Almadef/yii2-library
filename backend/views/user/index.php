@@ -47,7 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     /**
                      * @var $model \common\models\User
                      */
-                    return RoleHelper::getRoleName($model->role->item_name);
+                    if (isset($model->role)) {
+                        $roleName = RoleHelper::getRoleName($model->role->item_name);
+                    } else {
+                        $roleName = RoleHelper::getRoleName(RoleHelper::ROLE_USER);
+                    }
+                    return $roleName;
                 },
                 'label' => Yii::t('app', 'Role'),
                 'filter' => $selectRole,

@@ -2,6 +2,8 @@
 
 namespace common\models\auth\assignment;
 
+use common\models\auth\Assignment;
+
 /**
  * This is the ActiveQuery class for [[\common\models\auth\Assignment]].
  *
@@ -16,7 +18,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\auth\Assignment[]|array
+     * @return Assignment[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +27,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\auth\Assignment|array|null
+     * @return Assignment|array|null
      */
     public function one($db = null)
     {

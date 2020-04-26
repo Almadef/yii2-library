@@ -4,6 +4,7 @@ namespace common\models\book_author;
 
 use common\models\Author;
 use common\models\Book;
+use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
@@ -12,18 +13,18 @@ use common\models\Book;
 trait Relations
 {
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAuthor()
     {
-        return $this->hasOne(Author::className(), ['id' => 'author_id']);
+        return $this->hasOne(Author::class, ['id' => 'author_id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBook()
     {
-        return $this->hasOne(Book::className(), ['id' => 'book_id']);
+        return $this->hasOne(Book::class, ['id' => 'book_id']);
     }
 }
