@@ -5,15 +5,18 @@ namespace frontend\controllers;
 use common\models\Book;
 use common\models\Category;
 use common\models\IdxLibrary;
+use common\models\UserBook;
+use Yii;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 /**
  * LibraryController controller
  */
-class LibraryController extends Controller
+final class LibraryController extends Controller
 {
-     /**
+    /**
      * Displays homepage.
      *
      * @param string|null $search
@@ -27,7 +30,8 @@ class LibraryController extends Controller
         int $category_id = null,
         int $author_id = null,
         int $publisher_id = null
-    ) {
+    )
+    {
         $queryBook = Book::find()
             ->isNoDeleted();
 
@@ -65,6 +69,36 @@ class LibraryController extends Controller
     }
 
     /**
+     * @return mixed
+     */
+    public function actionFavourites()
+    {
+        $userId = Yii::$app->user->id;
+        $queryBook = Book::find()
+            ->joinWith([
+                'userBook' => function ($query) use ($userId) {
+                    $query->byUserId($userId);
+                },
+            ])
+            ->isNoDeleted();
+
+        $pages = new Pagination(['totalCount' => $queryBook->count(), 'pageSize' => 8]);
+        $books = $queryBook->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        $categories = Category::find()
+            ->isNoDeleted()
+            ->all();
+
+        return $this->render('index', [
+            'pages' => $pages,
+            'books' => $books,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
      * Displays book.
      *
      * @param int $book_id
@@ -81,9 +115,36 @@ class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
+        $fvBtn['is'] = UserBook::find()
+            ->byBookId($book_id)
+            ->byUserId(Yii::$app->user->id)
+            ->exists();
+        $fvBtn['lng'] = Yii::$app->language;
+
         return $this->render('book', [
             'book' => $book,
             'categories' => $categories,
+            'fvBtn' => $fvBtn,
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['favourites'],
+                'rules' => [
+                    [
+                        'actions' => ['favourites'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
     }
 }

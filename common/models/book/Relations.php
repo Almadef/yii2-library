@@ -10,6 +10,7 @@ use common\models\BookCategory;
 use common\models\Category;
 use common\models\Publisher;
 use common\models\Storage;
+use common\models\UserBook;
 use yii\db\ActiveQuery;
 
 /**
@@ -75,5 +76,13 @@ trait Relations
             ->andWhere(['model_name' => Book::class])
             ->andWhere(['description' => StorageHelper::BOOK_BOOK_DESCRIPTION])
             ->andWhere(['is_deleted' => false]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUserBook()
+    {
+        return $this->hasMany(UserBook::class, ['book_id' => 'id']);
     }
 }
