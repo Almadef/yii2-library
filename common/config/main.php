@@ -24,7 +24,9 @@ return [
             'class' => 'codemix\localeurls\UrlManager',
             'languages' => [
                 'en-us' => 'en',
-                'ru-ru' => 'ru'
+                'ru-ru' => 'ru',
+                'ru' => 'ru',
+                'en' => 'en',
             ],
             'enablePrettyUrl' => true,
             'showScriptName' => false,

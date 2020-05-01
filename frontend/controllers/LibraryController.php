@@ -5,13 +5,15 @@ namespace frontend\controllers;
 use common\models\Book;
 use common\models\Category;
 use common\models\IdxLibrary;
+use common\models\UserBook;
+use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
 
 /**
  * LibraryController controller
  */
-class LibraryController extends Controller
+final class LibraryController extends Controller
 {
      /**
      * Displays homepage.
@@ -81,9 +83,16 @@ class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
+        $fvBtn['is'] = UserBook::find()
+            ->byBookId($book_id)
+            ->byUserId(Yii::$app->user->id)
+            ->exists();
+        $fvBtn['lng'] = Yii::$app->language;
+
         return $this->render('book', [
             'book' => $book,
             'categories' => $categories,
+            'fvBtn' => $fvBtn,
         ]);
     }
 }

@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $book \common\models\Book */
 /* @var $categories \common\models\Category[] */
+/* @var $fvBtn array */
 
 $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
 ?>
@@ -27,6 +28,21 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                                 'title' => Yii::t('app', 'Read book'),
                                 'target' => '_blank',
                                 'class' => 'btn btn-primary'
+                            ]);
+                        ?>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <?=
+                        Html::a(Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
+                            '#',
+                            [
+                                'title' => Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
+                                'class' => 'btn btn-' . (($fvBtn['is']) ? 'danger' : 'success'),
+                                'id' => 'favorite-btn',
+                                'data-lng' => $fvBtn['lng'],
+                                'data-book_id' => $book->id,
+                                'data-action' => ($fvBtn['is']) ? 'del' : 'add',
                             ]);
                         ?>
                     </div>

@@ -19,7 +19,7 @@ use frontend\models\SignupForm;
 /**
  * Site controller
  */
-class SiteController extends Controller
+final class SiteController extends Controller
 {
     public function actionIndex()
     {
