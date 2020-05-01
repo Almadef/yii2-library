@@ -39,7 +39,7 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byBookId($bookId)
     {
-        return $this->andWhere(['book_id' => $bookId]);
+        return $this->andWhere(['{{%user_book}}.book_id' => $bookId]);
     }
     /**
      * @param $userId
@@ -47,6 +47,6 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byUserId($userId)
     {
-        return $this->andWhere(['user_id' => $userId]);
+        return $this->andWhere(['{{%user_book}}.user_id' => $userId]);
     }
 }

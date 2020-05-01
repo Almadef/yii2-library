@@ -33,17 +33,17 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                     </div>
                     <br>
                     <div class="text-center">
-                        <?=
-                        Html::a(Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
-                            '#',
-                            [
-                                'title' => Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
-                                'class' => 'btn btn-' . (($fvBtn['is']) ? 'danger' : 'success'),
-                                'id' => 'favorite-btn',
-                                'data-lng' => $fvBtn['lng'],
-                                'data-book_id' => $book->id,
-                                'data-action' => ($fvBtn['is']) ? 'del' : 'add',
-                            ]);
+                        <?= (Yii::$app->user->isGuest) ? '' :
+                            Html::a(Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
+                                '#',
+                                [
+                                    'title' => Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
+                                    'class' => 'btn btn-' . (($fvBtn['is']) ? 'danger' : 'success'),
+                                    'id' => 'favorite-btn',
+                                    'data-lng' => $fvBtn['lng'],
+                                    'data-book_id' => $book->id,
+                                    'data-action' => ($fvBtn['is']) ? 'del' : 'add',
+                                ]);
                         ?>
                     </div>
                 </div>

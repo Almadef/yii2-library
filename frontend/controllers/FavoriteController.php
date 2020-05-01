@@ -19,20 +19,20 @@ final class FavoriteController extends Controller
      */
     public function actionAdd()
     {
-        $book_id = Yii::$app->request->post('book_id');
-        $user_id = Yii::$app->user->id;
+        $bookId = Yii::$app->request->post('book_id');
+        $userId = Yii::$app->user->id;
 
         $isFavorite = UserBook::find()
-            ->byBookId($book_id)
-            ->byUserId($user_id)
+            ->byBookId($bookId)
+            ->byUserId($userId)
             ->exists();
 
         if ($isFavorite) {
             return $this->getErrorResponse('Book is favorite');
         } else {
             $userBook = new UserBook();
-            $userBook->book_id = $book_id;
-            $userBook->user_id = $user_id;
+            $userBook->book_id = $bookId;
+            $userBook->user_id = $userId;
             $userBook->save();
 
             $this->addToResponseData(Yii::t('app', 'Delete from favorites'), 'textBtn');
@@ -47,10 +47,10 @@ final class FavoriteController extends Controller
      */
     public function actionDel()
     {
-        $book_id = Yii::$app->request->post('book_id');
+        $bookId = Yii::$app->request->post('book_id');
 
         $favorite = UserBook::find()
-            ->byBookId($book_id)
+            ->byBookId($bookId)
             ->byUserId(Yii::$app->user->id)
             ->one();
 

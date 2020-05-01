@@ -8,6 +8,7 @@ use common\models\IdxLibrary;
 use common\models\UserBook;
 use Yii;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 /**
@@ -15,7 +16,7 @@ use yii\web\Controller;
  */
 final class LibraryController extends Controller
 {
-     /**
+    /**
      * Displays homepage.
      *
      * @param string|null $search
@@ -29,7 +30,8 @@ final class LibraryController extends Controller
         int $category_id = null,
         int $author_id = null,
         int $publisher_id = null
-    ) {
+    )
+    {
         $queryBook = Book::find()
             ->isNoDeleted();
 
@@ -49,6 +51,36 @@ final class LibraryController extends Controller
             $queryBook->joinWith('publisher');
             $queryBook->andWhere(['{{%publisher}}.id' => $publisher_id]);
         }
+
+        $pages = new Pagination(['totalCount' => $queryBook->count(), 'pageSize' => 8]);
+        $books = $queryBook->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        $categories = Category::find()
+            ->isNoDeleted()
+            ->all();
+
+        return $this->render('index', [
+            'pages' => $pages,
+            'books' => $books,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function actionFavourites()
+    {
+        $userId = Yii::$app->user->id;
+        $queryBook = Book::find()
+            ->joinWith([
+                'userBook' => function ($query) use ($userId) {
+                    $query->byUserId($userId);
+                },
+            ])
+            ->isNoDeleted();
 
         $pages = new Pagination(['totalCount' => $queryBook->count(), 'pageSize' => 8]);
         $books = $queryBook->offset($pages->offset)
@@ -94,5 +126,25 @@ final class LibraryController extends Controller
             'categories' => $categories,
             'fvBtn' => $fvBtn,
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['favourites'],
+                'rules' => [
+                    [
+                        'actions' => ['favourites'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
     }
 }

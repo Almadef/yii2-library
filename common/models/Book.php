@@ -34,6 +34,7 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property Category[] $categories
  * @property Author[] $authors
  * @property Storage[] $files
+ * @property UserBook[] $userBook
  */
 class Book extends \yii\db\ActiveRecord
 {

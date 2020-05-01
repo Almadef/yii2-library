@@ -95,4 +95,5 @@ return [
     'Please fill out your email. A verification email will be sent there.' => 'Пожалуйста, укажите вашу электронную почту. Туда будет отправлено письмо с подтверждением.',
     'Delete from favorites' => 'Удалить из избранного',
     'Add to favorites' => 'Добавить в избранное',
+    'Favourites' => 'Избранное',
 ];
