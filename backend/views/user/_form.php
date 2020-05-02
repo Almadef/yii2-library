@@ -1,5 +1,6 @@
 <?php
 
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,14 +19,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput() ?>
 
-    <?= $form->field($model, 'status')->dropDownList($selectStatus, [
-        'prompt' => Yii::t('app', 'Select...')
+    <?= $form->field($model, 'status')->widget(Select2::class, [
+        'data' => $selectStatus,
+        'options' => [
+            'placeholder' => Yii::t('app', 'Select...'),
+        ],
     ]) ?>
 
-    <?= $form->field($model, 'role_name')->dropDownList($selectRole, [
-        'prompt' => Yii::t('app', 'Select...'),
-        'options' => [$model->role_name => ['Selected' => true]]
-    ])->label(Yii::t('app', 'Role')) ?>
+    <?= $form->field($model, 'role_name')->widget(Select2::class, [
+        'data' => $selectRole,
+        'options' => [
+            'placeholder' => Yii::t('app', 'Select...'),
+            $model->role_name => ['Selected' => true]
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'password')->passwordInput() ?>
 
