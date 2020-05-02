@@ -29,7 +29,7 @@ final class SaveUserForm extends User
     /**
      * @var string
      */
-    public string $role_name;
+    public $role_name;
 
     /**
      *

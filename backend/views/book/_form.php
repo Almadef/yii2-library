@@ -1,8 +1,10 @@
 <?php
 
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use \yii\helpers\Url;
+use vova07\imperavi\Widget as ImperaviRedactor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Book */
@@ -18,8 +20,12 @@ use \yii\helpers\Url;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'publisher_id')->dropDownList($selectPublisher,
-        array('prompt' => Yii::t('app', 'Select...')))->label(Yii::t('app', 'Publisher')) ?>
+    <?= $form->field($model, 'publisher_id')->widget(Select2::class, [
+        'data' => $selectPublisher,
+        'options' => [
+            'placeholder' => Yii::t('app', 'Select...'),
+        ],
+    ])->label(Yii::t('app', 'Publisher')) ?>
 
     <?= $form->field($model, 'release')->textInput() ?>
 
@@ -27,23 +33,34 @@ use \yii\helpers\Url;
 
     <?= $form->field($model, 'pages')->textInput() ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'category_ids')->dropDownList(
-        $selectCategory,
-        [
-            'multiple' => 'multiple',
-            'size' => 5,
+    <?= $form->field($model, 'description')->widget(ImperaviRedactor::class, [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
+            'pastePlainText' => true,
+            'buttonSource' => true,
+            'plugins' => [
+                'fontcolor',
+                'fullscreen',
+            ]
         ]
-    )->label(Yii::t('app', 'Categories')) ?>
+    ]);?>
 
-    <?= $form->field($model, 'author_ids')->dropDownList(
-        $selectAuthor,
-        [
-            'multiple' => 'multiple',
-            'size' => 5,
-        ]
-    )->label(Yii::t('app', 'Authors')) ?>
+    <?= $form->field($model, 'category_ids')->widget(Select2::class, [
+        'data' => $selectCategory,
+        'options' => [
+            'placeholder' => Yii::t('app', 'Select...'),
+            'multiple' => true
+        ],
+    ])->label(Yii::t('app', 'Categories')) ?>
+
+    <?= $form->field($model, 'author_ids')->widget(Select2::class, [
+        'data' => $selectAuthor,
+        'options' => [
+            'placeholder' => Yii::t('app', 'Select...'),
+            'multiple' => true
+        ],
+    ])->label(Yii::t('app', 'Authors')) ?>
 
     <?php
     if (!isset($model->fileCover)) {
