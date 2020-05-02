@@ -4,6 +4,7 @@ use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use \yii\helpers\Url;
+use vova07\imperavi\Widget as ImperaviRedactor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Book */
@@ -32,7 +33,18 @@ use \yii\helpers\Url;
 
     <?= $form->field($model, 'pages')->textInput() ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->widget(ImperaviRedactor::class, [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
+            'pastePlainText' => true,
+            'buttonSource' => true,
+            'plugins' => [
+                'fontcolor',
+                'fullscreen',
+            ]
+        ]
+    ]);?>
 
     <?= $form->field($model, 'category_ids')->widget(Select2::class, [
         'data' => $selectCategory,
