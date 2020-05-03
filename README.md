@@ -2,7 +2,8 @@
 * nginx 1.17
 * php-fpm 7.4
 * mysql 5.7
-* sphinx 3.1.1-612d99f
+* sphinx 3.1
+* memcached 1.6
 
 ### План разворачивания dev-окружения через docker-compose
 1. В docker/config/nginx создать default.conf;
