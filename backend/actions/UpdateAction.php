@@ -22,6 +22,7 @@ final class UpdateAction extends Action
         $model = $this->controller->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->controller->clearCache();
             return $this->controller->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->controller->render('update', [

@@ -21,6 +21,8 @@ use backend\actions\DeleteAction;
  */
 final class PublisherController extends Controller
 {
+    use CacheManagement;
+
     /**
      * @return array
      */
@@ -49,6 +51,14 @@ final class PublisherController extends Controller
     public function getModelClass()
     {
         return Publisher::class;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return ['library_index'];
     }
 
     /**

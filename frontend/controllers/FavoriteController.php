@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\api\Controller;
 use common\models\UserBook;
 use Yii;
+use yii\caching\TagDependency;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -35,6 +36,8 @@ final class FavoriteController extends Controller
             $userBook->user_id = $userId;
             $userBook->save();
 
+            TagDependency::invalidate(Yii::$app->cache, ['library_favourites_' . $userId]);
+
             $this->addToResponseData(Yii::t('app', 'Delete from favorites'), 'textBtn');
             return $this->getSuccessResponse();
         }
@@ -48,14 +51,18 @@ final class FavoriteController extends Controller
     public function actionDel()
     {
         $bookId = Yii::$app->request->post('book_id');
+        $userId = Yii::$app->user->id;
 
         $favorite = UserBook::find()
             ->byBookId($bookId)
-            ->byUserId(Yii::$app->user->id)
+            ->byUserId($userId)
             ->one();
 
         if (!isset($isFavorite)) {
             $favorite->delete();
+
+            TagDependency::invalidate(Yii::$app->cache, ['library_favourites_' . $userId]);
+
             $this->addToResponseData(Yii::t('app', 'Add to favorites'), 'textBtn');
             return $this->getSuccessResponse();
         } else {

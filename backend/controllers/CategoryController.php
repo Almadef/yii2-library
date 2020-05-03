@@ -21,6 +21,8 @@ use yii\filters\VerbFilter;
  */
 final class CategoryController extends Controller
 {
+    use CacheManagement;
+
     /**
      * @return array
      */
@@ -49,6 +51,14 @@ final class CategoryController extends Controller
     public function getModelClass()
     {
         return Category::class;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return ['library_index'];
     }
 
     /**

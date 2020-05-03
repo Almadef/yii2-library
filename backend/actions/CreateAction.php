@@ -22,6 +22,7 @@ final class CreateAction extends Action
         $model = new $modelClass();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->controller->clearCache();
             return $this->controller->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->controller->render('create', [
