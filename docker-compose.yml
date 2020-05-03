@@ -52,6 +52,14 @@ services:
             - mysql
         networks:
             - yii2-library
+    memcached:
+        image: memcached:1.6
+        ports:
+            - "127.0.0.1:11211:11211"
+        command:
+            - '--memory-limit=64'
+        networks:
+            - yii2-library
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:

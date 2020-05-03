@@ -22,6 +22,8 @@ use yii\filters\VerbFilter;
  */
 final class BookController extends Controller
 {
+    use CacheManagement;
+
     /**
      * Lists all Book models.
      * @return mixed
@@ -78,6 +80,7 @@ final class BookController extends Controller
         $model = new Book();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->clearCache();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -108,10 +111,12 @@ final class BookController extends Controller
         $model = $this->findModel($id);
 
         if ($fileDeleteId) {
+            $this->clearCache();
             $this->findFileModel($fileDeleteId)->delete();
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->clearCache();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -135,6 +140,14 @@ final class BookController extends Controller
         return ArrayHelper::merge(parent::actions(), [
             'delete' => DeleteAction::class,
         ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return ['library_index'];
     }
 
     /**

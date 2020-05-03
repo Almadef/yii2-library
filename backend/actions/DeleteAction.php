@@ -20,7 +20,7 @@ final class DeleteAction extends Action
     public function run($id)
     {
         $this->controller->findModel($id)->delete();
-
+        $this->controller->clearCache();
         return $this->controller->redirect(['index']);
     }
 }

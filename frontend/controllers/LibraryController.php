@@ -7,6 +7,7 @@ use common\models\Category;
 use common\models\IdxLibrary;
 use common\models\UserBook;
 use Yii;
+use yii\caching\TagDependency;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -134,6 +135,51 @@ final class LibraryController extends Controller
     public function behaviors()
     {
         return [
+            'cache_index' => [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['index'],
+                'duration' => 0,
+                'variations' => [
+                    Yii::$app->language,
+                    Yii::$app->request->get('search'),
+                    Yii::$app->request->get('category_id'),
+                    Yii::$app->request->get('author_id'),
+                    Yii::$app->request->get('publisher_id'),
+                    Yii::$app->request->get('page'),
+                ],
+                'dependency' => [
+                    'class' => TagDependency::class,
+                    'tags' => 'library_index'
+                ],
+            ],
+            'cache_favourites' => [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['favourites'],
+                'duration' => 0,
+                'variations' => [
+                    Yii::$app->language,
+                    Yii::$app->request->get('page'),
+                    Yii::$app->user->id,
+                ],
+                'dependency' => [
+                    'class' => TagDependency::class,
+                    'tags' => ['library_index', 'library_favourites_' . Yii::$app->user->id]
+                ],
+            ],
+            'cache_book' => [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['book'],
+                'duration' => 0,
+                'variations' => [
+                    Yii::$app->language,
+                    Yii::$app->request->get('book_id'),
+                    Yii::$app->user->id,
+                ],
+                'dependency' => [
+                    'class' => TagDependency::class,
+                    'tags' => ['library_index', 'library_favourites_' . Yii::$app->user->id]
+                ],
+            ],
             'access' => [
                 'class' => AccessControl::class,
                 'only' => ['favourites'],

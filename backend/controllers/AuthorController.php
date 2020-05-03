@@ -21,6 +21,8 @@ use yii\filters\VerbFilter;
  */
 final class AuthorController extends Controller
 {
+    use CacheManagement;
+    
     /**
      * @return array
      */
@@ -49,6 +51,14 @@ final class AuthorController extends Controller
     public function getModelClass()
     {
         return Author::class;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return ['library_index'];
     }
 
     /**
