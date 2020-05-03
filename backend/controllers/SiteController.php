@@ -59,6 +59,20 @@ final class SiteController extends Controller
     }
 
     /**
+     * @return \yii\web\Response
+     */
+    public function actionClearCache()
+    {
+        try {
+            Yii::$app->cache->flush();
+            Yii::$app->session->setFlash('success', Yii::t('app', 'The cache is cleared'));
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', Yii::t('error', 'Cache could not be cleared'));
+        }
+        return $this->goHome();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function actions()
@@ -87,6 +101,11 @@ final class SiteController extends Controller
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['clear-cache'],
+                        'allow' => true,
+                        'roles' => ['clearCache'],
                     ],
                 ],
             ],

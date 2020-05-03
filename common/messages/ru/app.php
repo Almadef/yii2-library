@@ -96,4 +96,6 @@ return [
     'Delete from favorites' => 'Удалить из избранного',
     'Add to favorites' => 'Добавить в избранное',
     'Favourites' => 'Избранное',
+    'Clear cache' => 'Очистка кэша',
+    'The cache is cleared' => 'Кэш очищен',
 ];
