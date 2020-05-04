@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\helpers\LanguagesHelper;
 use common\models\category\Query;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -12,7 +13,8 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * This is the model class for table "{{%category}}".
  *
  * @property int $id
- * @property string $title
+ * @property string $title_ru
+ * @property string $title_en
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
@@ -33,8 +35,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['title'], 'string', 'max' => 255],
+            [['title_ru', 'title_en'], 'required'],
+            [['title_ru', 'title_en'], 'string', 'max' => 255],
             [['created_at', 'updated_at'], 'integer'],
             [['is_deleted'], 'boolean'],
         ];
@@ -47,7 +49,8 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => Yii::t('app', 'Title'),
+            'title_ru' => Yii::t('app', 'Title (ru)'),
+            'title_en' => Yii::t('app', 'Title (en)'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
@@ -85,7 +88,16 @@ class Category extends \yii\db\ActiveRecord
     public static function getForSelector(): array
     {
         return ArrayHelper::map(
-            self::find()->isNoDeleted()->all(), 'id', 'title'
+            self::find()->isNoDeleted()->all(), 'id', LanguagesHelper::getCurrentAttribute('title')
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        $title = LanguagesHelper::getCurrentAttribute('title');
+        return $this->$title;
     }
 }

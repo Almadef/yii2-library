@@ -21,7 +21,7 @@ final class LanguagesHelper
     {
         switch(Yii::$app->language) {
             case 'ru': case 'ru-ru': return self::RU;
-            case 'en': case 'en-en': return self::EN;
+            case 'en': case 'en-us': return self::EN;
             default: throw new \Exception('Languages no find');
         }
     }

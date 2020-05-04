@@ -18,7 +18,7 @@ class Search extends Category
     {
         return [
             [['id', 'created_at', 'updated_at'], 'integer'],
-            [['title'], 'safe'],
+            [['title_ru', 'title_en'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class Search extends Category
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere(['like', 'title_ru', $this->title_ru]);
+        $query->andFilterWhere(['like', 'title_en', $this->title_en]);
 
         return $dataProvider;
     }
