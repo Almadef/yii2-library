@@ -32,6 +32,8 @@ return [
     'Updated At' => 'Изменен',
     'Title' => 'Название',
     'Name' => 'Имя',
+    'Name (ru)' => 'Имя (ру)',
+    'Name (en)' => 'Имя (анг)',
     'Surname' => 'Фамилия',
     'Publisher ID' => 'ID издателя',
     'Publisher' => 'Издатель',

@@ -18,7 +18,7 @@ class Search extends Publisher
     {
         return [
             [['id', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'safe'],
+            [['name_ru', 'name_en'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class Search extends Publisher
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name_ru', $this->name_ru]);
+        $query->andFilterWhere(['like', 'name_en', $this->name_en]);
 
         return $dataProvider;
     }

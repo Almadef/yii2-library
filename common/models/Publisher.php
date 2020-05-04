@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\helpers\LanguagesHelper;
 use common\models\publisher\Query;
 use common\models\publisher\Relations;
 use Yii;
@@ -13,7 +14,8 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * This is the model class for table "{{%publisher}}".
  *
  * @property int $id
- * @property string $name
+ * @property string $name_ru
+ * @property string $name_en
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
@@ -38,10 +40,10 @@ class Publisher extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name_ru', 'name_en'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['is_deleted'], 'boolean'],
-            [['name'], 'string', 'max' => 255],
+            [['name_ru', 'name_en'], 'string', 'max' => 255],
         ];
     }
 
@@ -52,7 +54,8 @@ class Publisher extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => Yii::t('app', 'Name'),
+            'name_ru' => Yii::t('app', 'Name (ru)'),
+            'name_en' => Yii::t('app', 'Name (en)'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
@@ -90,7 +93,16 @@ class Publisher extends \yii\db\ActiveRecord
     public static function getForSelector(): array
     {
         return ArrayHelper::map(
-            self::find()->isNoDeleted()->all(), 'id', 'name'
+            self::find()->isNoDeleted()->all(), 'id', LanguagesHelper::getCurrentAttribute('name')
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        $name = LanguagesHelper::getCurrentAttribute('name');
+        return $this->$name;
     }
 }
