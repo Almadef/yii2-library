@@ -1,5 +1,6 @@
 <?php
 
+use common\helpers\LanguagesHelper;
 use common\helpers\StorageHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -12,7 +13,7 @@ use \yii\grid\GridView;
 /* @var $categoryDataProvider yii\data\ActiveDataProvider */
 /* @var $fileDataProvider yii\data\ActiveDataProvider */
 
-$this->title = $model->title;
+$this->title = $model->getTitle();
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -36,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'title_ru',
+            'title_en',
             [
                 'attribute' => 'publisher_id',
                 'value' => function ($model) {
@@ -43,11 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'label' => Yii::t('app', 'Publisher'),
             ],
-            'title',
             'release',
             'isbn',
             'pages',
-            'description:ntext',
+            'description_ru:ntext',
+            'description_en:ntext',
             [
                 'attribute' => 'created_at',
                 'value' => function ($model) {
@@ -68,9 +71,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $authorDataProvider,
         'columns' => [
             'id',
-            'name',
-            'surname',
-            'patronymic',
+            LanguagesHelper::getCurrentAttribute('name'),
+            LanguagesHelper::getCurrentAttribute('surname'),
+            LanguagesHelper::getCurrentAttribute('patronymic'),
         ],
     ]); ?>
 
@@ -79,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $categoryDataProvider,
         'columns' => [
             'id',
-            'title',
+            LanguagesHelper::getCurrentAttribute('title'),
         ],
     ]); ?>
 

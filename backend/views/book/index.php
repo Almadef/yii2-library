@@ -19,29 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Book'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'title',
+            'title_ru',
+            'title_en',
             [
                 'attribute' => 'publisher_id',
                 'value' => 'publisher.name',
                 'label' => Yii::t('app', 'Publisher'),
                 'filter' => $selectPublisher,
             ],
-            'release',
             'isbn',
-            'pages',
-            //'description:ntext',
-            //'created_at',
-            //'updated_at',
-
+            'release',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

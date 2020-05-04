@@ -18,7 +18,7 @@ class Search extends Book
     {
         return [
             [['id', 'publisher_id', 'pages', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'release', 'isbn', 'description'], 'safe'],
+            [['title_ru', 'title_en', 'release', 'isbn', 'description_ru', 'description_en'], 'safe'],
         ];
     }
 
@@ -67,9 +67,13 @@ class Search extends Book
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'isbn', $this->isbn])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'isbn', $this->isbn]);
+
+        $query->andFilterWhere(['like', 'title_ru', $this->title_ru])
+            ->andFilterWhere(['like', 'description_ru', $this->description_ru]);
+
+        $query->andFilterWhere(['like', 'title_en', $this->title_en])
+            ->andFilterWhere(['like', 'description_en', $this->description_en]);
 
         return $dataProvider;
     }

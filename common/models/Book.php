@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\behavior\StorageBehavior;
+use common\helpers\LanguagesHelper;
 use common\helpers\StorageHelper;
 use common\models\book\Query;
 use common\models\book\Relations;
@@ -19,11 +20,13 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  *
  * @property int $id
  * @property int $publisher_id
- * @property string $title
+ * @property string $title_ru
+ * @property string $title_en
  * @property string $release
  * @property string $isbn
  * @property int $pages
- * @property string|null $description
+ * @property string|null $description_ru
+ * @property string|null $description_en
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
@@ -73,11 +76,11 @@ class Book extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['publisher_id', 'title', 'release', 'isbn', 'pages'], 'required'],
+            [['publisher_id', 'title_ru', 'title_en', 'release', 'isbn', 'pages'], 'required'],
             [['publisher_id', 'pages', 'created_at', 'updated_at'], 'integer'],
             [['release'], 'safe'],
-            [['description'], 'string'],
-            [['title'], 'string', 'max' => 255],
+            [['description_ru', 'description_en'], 'string'],
+            [['title_ru', 'title_en'], 'string', 'max' => 255],
             [['isbn'], 'string', 'max' => 64],
             [['is_deleted'], 'boolean'],
             [
@@ -110,11 +113,13 @@ class Book extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'publisher_id' => Yii::t('app', 'Publisher ID'),
-            'title' => Yii::t('app', 'Title'),
+            'title_ru' => Yii::t('app', 'Title (ru)'),
+            'title_en' => Yii::t('app', 'Title (en)'),
             'release' => Yii::t('app', 'Release date'),
             'isbn' => Yii::t('app', 'ISBN code'),
             'pages' => Yii::t('app', 'Call pages'),
-            'description' => Yii::t('app', 'Description'),
+            'description_ru' => Yii::t('app', 'Description (ru)'),
+            'description_en' => Yii::t('app', 'Description (en)'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'coverFile' => Yii::t('app', 'Cover File'),
@@ -222,11 +227,21 @@ class Book extends \yii\db\ActiveRecord
         $categories = $this->categories;
         $return = '';
         foreach ($categories as $category) {
-            $return .= Html::a($category->title, Url::to(['library/index', 'category_id' => $category->id])) . ', ';
+            $return .= Html::a($category->getTitle(), Url::to(['library/index', 'category_id' => $category->id])) . ', ';
         }
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);
         }
         return $return;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function getTitle(): string
+    {
+        $title = LanguagesHelper::getCurrentAttribute('title');
+        return $this->$title;
     }
 }

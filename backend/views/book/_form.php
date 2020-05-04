@@ -1,5 +1,6 @@
 <?php
 
+use common\helpers\LanguagesHelper;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -18,7 +19,8 @@ use vova07\imperavi\Widget as ImperaviRedactor;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title_ru')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'publisher_id')->widget(Select2::class, [
         'data' => $selectPublisher,
@@ -33,9 +35,21 @@ use vova07\imperavi\Widget as ImperaviRedactor;
 
     <?= $form->field($model, 'pages')->textInput() ?>
 
-    <?= $form->field($model, 'description')->widget(ImperaviRedactor::class, [
+    <?= $form->field($model, 'description_ru')->widget(ImperaviRedactor::class, [
         'settings' => [
-            'lang' => 'ru',
+            'lang' => LanguagesHelper::getCurrentLanguage(),
+            'minHeight' => 200,
+            'pastePlainText' => true,
+            'buttonSource' => true,
+            'plugins' => [
+                'fontcolor',
+                'fullscreen',
+            ]
+        ]
+    ]);?>
+    <?= $form->field($model, 'description_en')->widget(ImperaviRedactor::class, [
+        'settings' => [
+            'lang' => LanguagesHelper::getCurrentLanguage(),
             'minHeight' => 200,
             'pastePlainText' => true,
             'buttonSource' => true,

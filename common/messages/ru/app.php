@@ -45,6 +45,8 @@ return [
     'ISBN code' => 'Код ISBN',
     'Call pages' => 'Кол. страниц',
     'Description' => 'Описание',
+    'Description (ru)' => 'Описание (ру)',
+    'Description (en)' => 'Описание (анг)',
     'Patronymic' => 'Отчество',
     'Patronymic (ru)' => 'Отчество (ру)',
     'Patronymic (en)' => 'Отчество (анг)',
