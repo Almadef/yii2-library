@@ -18,7 +18,7 @@ class Search extends Author
     {
         return [
             [['id', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'surname', 'patronymic'], 'safe'],
+            [['name_ru', 'surname_ru', 'patronymic_ru', 'name_en', 'surname_en', 'patronymic_en'], 'safe'],
         ];
     }
 
@@ -64,9 +64,13 @@ class Search extends Author
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'surname', $this->surname])
-            ->andFilterWhere(['like', 'patronymic', $this->patronymic]);
+        $query->andFilterWhere(['like', 'name_ru', $this->name_ru])
+            ->andFilterWhere(['like', 'surname_ru', $this->surname_ru])
+            ->andFilterWhere(['like', 'patronymic_ru', $this->patronymic_ru]);
+
+        $query->andFilterWhere(['like', 'name_en', $this->name_en])
+            ->andFilterWhere(['like', 'surname_en', $this->surname_en])
+            ->andFilterWhere(['like', 'patronymic_en', $this->patronymic_en]);
 
         return $dataProvider;
     }

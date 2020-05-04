@@ -31,9 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
-            'surname',
-            'patronymic',
+            'name_ru',
+            'name_en',
+            'surname_ru',
+            'surname_en',
+            'patronymic_ru',
+            'patronymic_en',
             [
                 'attribute' => 'created_at',
                 'value' => function ($model) {

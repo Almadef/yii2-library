@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\helpers\LanguagesHelper;
 use common\models\author\Query;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -12,9 +13,12 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * This is the model class for table "{{%author}}".
  *
  * @property int $id
- * @property string $name
- * @property string $surname
- * @property string|null $patronymic
+ * @property string $name_ru
+ * @property string $name_en
+ * @property string $surname_ru
+ * @property string $surname_en
+ * @property string|null $patronymic_ru
+ * @property string|null $patronymic_en
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
@@ -35,8 +39,8 @@ class Author extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'surname'], 'required'],
-            [['name', 'surname', 'patronymic'], 'string', 'max' => 255],
+            [['name_ru', 'surname_ru', 'name_en', 'surname_en'], 'required'],
+            [['name_ru', 'surname_ru', 'patronymic_ru', 'name_en', 'surname_en', 'patronymic_en'], 'string', 'max' => 255],
             [['created_at', 'updated_at'], 'integer'],
             [['is_deleted'], 'boolean'],
         ];
@@ -49,9 +53,12 @@ class Author extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => Yii::t('app', 'Name'),
-            'surname' => Yii::t('app', 'Surname'),
-            'patronymic' => Yii::t('app', 'Patronymic'),
+            'name_ru' => Yii::t('app', 'Name (ru)'),
+            'name_en' => Yii::t('app', 'Name (en)'),
+            'surname_ru' => Yii::t('app', 'Surname (ru)'),
+            'surname_en' => Yii::t('app', 'Surname (en)'),
+            'patronymic_ru' => Yii::t('app', 'Patronymic (ru)'),
+            'patronymic_en' => Yii::t('app', 'Patronymic (en)'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
@@ -90,9 +97,9 @@ class Author extends \yii\db\ActiveRecord
     {
         return ArrayHelper::map(
             self::find()->isNoDeleted()->all(), 'id', function ($model) {
-            return $model->getFullName();
-        },
-            );
+                return $model->getFullName();
+            },
+        );
     }
 
     /**
@@ -100,6 +107,34 @@ class Author extends \yii\db\ActiveRecord
      */
     public function getFullName(): string
     {
-        return $this->surname . ' ' . $this->name . ' ' . (isset($this->patronymic) ? $this->patronymic : '');
+        return $this->getSurname() . ' ' . $this->getName() . ' ' . $this->getPatronymic();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname(): string
+    {
+        $surname = LanguagesHelper::getCurrentAttribute('surname');
+        return $this->$surname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        $name = LanguagesHelper::getCurrentAttribute('name');
+        return $this->$name;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getPatronymic()
+    {
+        $patronymic = LanguagesHelper::getCurrentAttribute('patronymic');
+        return $this->$patronymic;
     }
 }
