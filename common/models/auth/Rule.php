@@ -16,7 +16,7 @@ use Yii;
  *
  * @property Item[] $authItems
  */
-class Rule extends \yii\db\ActiveRecord
+final class Rule extends \yii\db\ActiveRecord
 {
     use Relations;
 

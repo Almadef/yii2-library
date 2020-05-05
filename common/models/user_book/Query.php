@@ -2,23 +2,16 @@
 
 namespace common\models\user_book;
 
-use common\models\UserBook;
-
 /**
- * This is the ActiveQuery class for [[\common\models\UserBook]].
+ * This is the ActiveQuery class for [[\common\models\user_book\ActiveRecord]].
  *
- * @see \common\models\UserBook
+ * @see \common\models\user_book\ActiveRecord
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
-     * @return UserBook[]|array
+     * @return ActiveRecord[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +20,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return UserBook|array|null
+     * @return ActiveRecord|array|null
      */
     public function one($db = null)
     {

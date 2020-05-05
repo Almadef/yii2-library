@@ -1,11 +1,10 @@
 <?php
 
-namespace common\models;
+namespace common\models\book_category;
 
-use common\models\book_category\Query;
-use common\models\book_category\Relations;
+use common\models\Book;
+use common\models\Category;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%book_category}}".
@@ -17,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property Book $book
  * @property Category $category
  */
-class BookCategory extends \yii\db\ActiveRecord
+abstract class ActiveRecord extends \yii\db\ActiveRecord
 {
     use Relations;
 

@@ -11,7 +11,7 @@ use yii\sphinx\MatchExpression;
  *
  * @property int $id
  */
-class IdxLibrary extends ActiveRecord
+final class IdxLibrary extends ActiveRecord
 {
     /**
      * @return string the name of the index associated with this ActiveRecord class.

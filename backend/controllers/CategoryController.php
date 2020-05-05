@@ -7,6 +7,8 @@ use backend\actions\DeleteAction;
 use backend\actions\IndexAction;
 use backend\actions\UpdateAction;
 use backend\actions\ViewAction;
+use backend\controllers\interfaces\MergeBaseActionInterface;
+use backend\controllers\traits\CacheManagementTraits;
 use Yii;
 use common\models\Category;
 use common\models\category\Search;
@@ -19,9 +21,9 @@ use yii\filters\VerbFilter;
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
-final class CategoryController extends Controller
+final class CategoryController extends Controller implements MergeBaseActionInterface
 {
-    use CacheManagement;
+    use CacheManagementTraits;
 
     /**
      * @return array

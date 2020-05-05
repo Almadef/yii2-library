@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use backend\actions\DeleteAction;
 use backend\actions\ViewAction;
+use backend\controllers\interfaces\MergeBaseActionInterface;
+use backend\controllers\traits\CacheManagementTraits;
 use backend\models\SaveUserForm;
 use common\helpers\RoleHelper;
 use common\models\User;
@@ -19,8 +21,10 @@ use yii\filters\VerbFilter;
 /**
  * UserController implements the CRUD actions for User model.
  */
-final class UserController extends Controller
+final class UserController extends Controller implements MergeBaseActionInterface
 {
+    use CacheManagementTraits;
+
     /**
      * Lists all User models.
      * @return mixed
@@ -105,6 +109,22 @@ final class UserController extends Controller
             'view' => ViewAction::class,
             'delete' => DeleteAction::class,
         ]);
+    }
+
+    /**
+     * @return Search
+     */
+    public function getSearchModel()
+    {
+        return new Search();
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelClass()
+    {
+        return User::class;
     }
 
     /**

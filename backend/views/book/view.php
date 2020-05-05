@@ -13,7 +13,7 @@ use \yii\grid\GridView;
 /* @var $categoryDataProvider yii\data\ActiveDataProvider */
 /* @var $fileDataProvider yii\data\ActiveDataProvider */
 
-$this->title = $model->getTitle();
+$this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

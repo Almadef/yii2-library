@@ -3,7 +3,8 @@
 namespace frontend\controllers;
 
 use common\api\Controller;
-use common\models\UserBook;
+use common\models\Book;
+use common\models\User;
 use Yii;
 use yii\caching\TagDependency;
 use yii\filters\AccessControl;
@@ -23,18 +24,21 @@ final class FavoriteController extends Controller
         $bookId = Yii::$app->request->post('book_id');
         $userId = Yii::$app->user->id;
 
-        $isFavorite = UserBook::find()
-            ->byBookId($bookId)
-            ->byUserId($userId)
-            ->exists();
+        $book = Book::findOne($bookId);
+        if (!isset($book)) {
+            return $this->getErrorResponse('Book no find');
+        }
 
-        if ($isFavorite) {
+        $user = User::findOne($userId);
+
+        $userBook = $user->getBooks()
+            ->andWhere(['{{%book}}.id' => $bookId])
+            ->one();
+
+        if (isset($userBook)) {
             return $this->getErrorResponse('Book is favorite');
         } else {
-            $userBook = new UserBook();
-            $userBook->book_id = $bookId;
-            $userBook->user_id = $userId;
-            $userBook->save();
+            $user->link('books', $book);
 
             TagDependency::invalidate(Yii::$app->cache, ['library_favourites_' . $userId]);
 
@@ -53,13 +57,19 @@ final class FavoriteController extends Controller
         $bookId = Yii::$app->request->post('book_id');
         $userId = Yii::$app->user->id;
 
-        $favorite = UserBook::find()
-            ->byBookId($bookId)
-            ->byUserId($userId)
+        $book = Book::findOne($bookId);
+        if (!isset($book)) {
+            return $this->getErrorResponse('Book no find');
+        }
+
+        $user = User::findOne($userId);
+
+        $userBook = $user->getBooks()
+            ->andWhere(['{{%book}}.id' => $bookId])
             ->one();
 
-        if (!isset($isFavorite)) {
-            $favorite->delete();
+        if (isset($userBook)) {
+            $user->unlink('books', $book, true);
 
             TagDependency::invalidate(Yii::$app->cache, ['library_favourites_' . $userId]);
 

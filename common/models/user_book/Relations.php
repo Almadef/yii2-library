@@ -12,7 +12,6 @@ use yii\db\ActiveQuery;
  */
 trait Relations
 {
-
     /**
      * Gets query for [[Book]].
      *

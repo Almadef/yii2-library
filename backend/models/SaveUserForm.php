@@ -3,7 +3,9 @@
 namespace backend\models;
 
 use common\helpers\RoleHelper;
+use common\helpers\UserHelper;
 use common\models\User;
+use common\models\user\ActiveRecord;
 use Yii;
 
 /**
@@ -24,8 +26,13 @@ use Yii;
  * @property string $role_name
  * @property bool $is_deleted
  */
-final class SaveUserForm extends User
+final class SaveUserForm extends ActiveRecord
 {
+    /**
+     * @var string
+     */
+    public $password;
+
     /**
      * @var string
      */
@@ -86,10 +93,9 @@ final class SaveUserForm extends User
      */
     protected function saveParamsInsert()
     {
-        $this->generateAuthKey();
-        $this->generateEmailVerificationToken();
-        $this->setPassword($this->password);
-
+        $this->auth_key = UserHelper::generateAuthKey();
+        $this->verification_token = UserHelper::generateEmailVerificationToken();
+        $this->password_hash = UserHelper::generatePasswordHash($this->password);
     }
 
     /**
@@ -98,7 +104,7 @@ final class SaveUserForm extends User
     protected function saveParamsUpdate()
     {
         if (isset($this->password) && $this->password !== '') {
-            $this->setPassword($this->password);
+            $this->password_hash = UserHelper::generatePasswordHash($this->password);
         }
     }
 

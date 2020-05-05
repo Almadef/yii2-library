@@ -38,13 +38,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => function ($model) {
                     /**
-                     * @var $model \common\models\User
+                     * @var $model \common\models\user\Search
                      */
-                    return $model->getStatusName();
+                    return \common\helpers\UserHelper::getStatusName($model->status);
                 },
             ],
             [
                 'value' => function ($model) {
+                    /**
+                     * @var $model \common\models\user\Search
+                     */
                     if (isset($model->role)) {
                         $roleName = RoleHelper::getRoleName($model->role->item_name);
                     } else {
@@ -61,12 +64,18 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'created_at',
                 'value' => function ($model) {
+                    /**
+                     * @var $model \common\models\user\Search
+                     */
                     return DateHelper::convertUnixToDatetime($model->created_at);
                 },
             ],
             [
                 'attribute' => 'updated_at',
                 'value' => function ($model) {
+                    /**
+                     * @var $model \common\models\user\Search
+                     */
                     return DateHelper::convertUnixToDatetime($model->updated_at);
                 },
             ],

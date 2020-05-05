@@ -4,12 +4,11 @@ namespace common\models\book;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Book;
 
 /**
- * Search represents the model behind the search form of `common\models\Book`.
+ * Search represents the model behind the search form of `common\models\book\ActiveRecord`.
  */
-class Search extends Book
+final class Search extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -27,7 +26,6 @@ class Search extends Book
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -40,10 +38,8 @@ class Search extends Book
      */
     public function search($params)
     {
-        $query = Book::find()
+        $query = self::find()
             ->isNoDeleted();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -52,12 +48,9 @@ class Search extends Book
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'publisher_id' => $this->publisher_id,

@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use backend\actions\DeleteAction;
+use backend\controllers\interfaces\MergeBaseActionInterface;
+use backend\controllers\traits\CacheManagementTraits;
 use common\models\Author;
 use common\models\Category;
 use common\models\Publisher;
@@ -20,13 +22,14 @@ use yii\filters\VerbFilter;
 /**
  * BookController implements the CRUD actions for Book model.
  */
-final class BookController extends Controller
+final class BookController extends Controller implements MergeBaseActionInterface
 {
-    use CacheManagement;
+    use CacheManagementTraits;
 
     /**
      * Lists all Book models.
      * @return mixed
+     * @throws \Exception
      */
     public function actionIndex()
     {
@@ -140,6 +143,22 @@ final class BookController extends Controller
         return ArrayHelper::merge(parent::actions(), [
             'delete' => DeleteAction::class,
         ]);
+    }
+
+    /**
+     * @return Search
+     */
+    public function getSearchModel()
+    {
+        return new Search();
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelClass()
+    {
+        return Book::class;
     }
 
     /**

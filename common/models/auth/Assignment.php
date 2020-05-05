@@ -15,7 +15,7 @@ use common\models\auth\assignment\Relations;
  *
  * @property Item $itemName
  */
-class Assignment extends \yii\db\ActiveRecord
+final class Assignment extends \yii\db\ActiveRecord
 {
     use Relations;
 

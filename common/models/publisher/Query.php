@@ -2,23 +2,18 @@
 
 namespace common\models\publisher;
 
-use common\models\Publisher;
+use common\models\interfaces\QuerySafeDeleteInterface;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Publisher]].
+ * This is the ActiveQuery class for [[\common\models\publisher\ActiveRecord]].
  *
  * @see \common\models\Publisher
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends \yii\db\ActiveQuery implements QuerySafeDeleteInterface
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
-     * @return Publisher[]|array
+     * @return ActiveRecord[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +22,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Publisher|array|null
+     * @return ActiveRecord|array|null
      */
     public function one($db = null)
     {
@@ -35,10 +30,10 @@ class Query extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return Query
+     * {@inheritdoc}
      */
     public function isNoDeleted()
     {
-        return $this->andWhere(['is_deleted' => false]);
+        return $this->andWhere(['{{%publisher}}.is_deleted' => false]);
     }
 }

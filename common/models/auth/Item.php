@@ -24,7 +24,7 @@ use Yii;
  * @property Item[] $children
  * @property Item[] $parents
  */
-class Item extends \yii\db\ActiveRecord
+final class Item extends \yii\db\ActiveRecord
 {
     use Relations;
 

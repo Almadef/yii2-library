@@ -2,29 +2,24 @@
 
 namespace common\models;
 
-use common\behavior\StorageBehavior;
-use common\helpers\LanguagesHelper;
-use common\helpers\StorageHelper;
-use common\models\book\Query;
-use common\models\book\Relations;
-use voskobovich\behaviors\ManyToManyBehavior;
-use Yii;
-use yii\behaviors\TimestampBehavior;
+use common\models\book\ActiveRecord;
+use common\models\book\Multilang;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\UploadedFile;
-use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
- * This is the model class for table "{{%book}}".
+ * Class Book
+ * @package common\models
  *
  * @property int $id
  * @property int $publisher_id
+ * @property string $title
  * @property string $title_ru
  * @property string $title_en
  * @property string $release
  * @property string $isbn
  * @property int $pages
+ * @property string|null $description
  * @property string|null $description_ru
  * @property string|null $description_en
  * @property int $created_at
@@ -37,197 +32,23 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property Category[] $categories
  * @property Author[] $authors
  * @property Storage[] $files
- * @property UserBook[] $userBook
+ * @property User $currentUser
+ * @property User[] $users
  */
-class Book extends \yii\db\ActiveRecord
+final class Book extends ActiveRecord
 {
-    use Relations;
-
-    /**
-     * @var string
-     */
-    const FILE_COVER_EXTENSIONS = 'png, jpg, jpeg';
-    /**
-     * @var string
-     */
-    const FILE_MAX_SIZE = 12 * 1024 * 1024;
-
-    /**
-     * @var UploadedFile
-     */
-    public $coverFile;
-
-    /**
-     * @var UploadedFile
-     */
-    public $bookFile;
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%book}}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['publisher_id', 'title_ru', 'title_en', 'release', 'isbn', 'pages'], 'required'],
-            [['publisher_id', 'pages', 'created_at', 'updated_at'], 'integer'],
-            [['release'], 'safe'],
-            [['description_ru', 'description_en'], 'string'],
-            [['title_ru', 'title_en'], 'string', 'max' => 255],
-            [['isbn'], 'string', 'max' => 64],
-            [['is_deleted'], 'boolean'],
-            [
-                ['publisher_id'],
-                'exist',
-                'skipOnError' => true,
-                'targetClass' => Publisher::class,
-                'targetAttribute' => ['publisher_id' => 'id']
-            ],
-            [['category_ids'], 'each', 'rule' => ['integer']],
-            [['author_ids'], 'each', 'rule' => ['integer']],
-            [
-                ['coverFile'],
-                'file',
-                'skipOnEmpty' => true,
-                'extensions' => self::FILE_COVER_EXTENSIONS,
-                'maxFiles' => 1,
-                'maxSize' => self::FILE_MAX_SIZE
-            ],
-            [['bookFile'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 1, 'maxSize' => self::FILE_MAX_SIZE],
-
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'publisher_id' => Yii::t('app', 'Publisher ID'),
-            'title_ru' => Yii::t('app', 'Title (ru)'),
-            'title_en' => Yii::t('app', 'Title (en)'),
-            'release' => Yii::t('app', 'Release date'),
-            'isbn' => Yii::t('app', 'ISBN code'),
-            'pages' => Yii::t('app', 'Call pages'),
-            'description_ru' => Yii::t('app', 'Description (ru)'),
-            'description_en' => Yii::t('app', 'Description (en)'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'coverFile' => Yii::t('app', 'Cover File'),
-            'bookFile' => Yii::t('app', 'Book File'),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::class,
-            [
-                'class' => SoftDeleteBehavior::class,
-                'softDeleteAttributeValues' => [
-                    'is_deleted' => true
-                ],
-                'replaceRegularDelete' => true
-            ],
-            [
-                'class' => ManyToManyBehavior::class,
-                'relations' => [
-                    'category_ids' => [
-                        'categories',
-                        'viaTableValues' => [
-                            'created_at' => function () {
-                                return time();
-                            },
-                        ],
-                    ],
-                    'author_ids' => [
-                        'authors',
-                        'viaTableValues' => [
-                            'created_at' => function () {
-                                return time();
-                            },
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'class' => StorageBehavior::class,
-                'attributes' => [
-                    [
-                        'name' => 'coverFile',
-                        'description' => StorageHelper::BOOK_COVER_DESCRIPTION
-                    ],
-                    [
-                        'name' => 'bookFile',
-                        'description' => StorageHelper::BOOK_BOOK_DESCRIPTION
-                    ],
-                ]
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
-    }
+    use Multilang;
 
     /**
      * @return string
+     * @throws \Exception
      */
     public function getAuthorsString(): string
     {
         $authors = $this->authors;
         $return = '';
         foreach ($authors as $author) {
-            $return .= $author->getFullName() . ', ';
-        }
-        if ($return !== '') {
-            $return = mb_substr($return, 0, -2);
-        }
-        return $return;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAuthorsStringLink(): string
-    {
-        $authors = $this->authors;
-        $return = '';
-        foreach ($authors as $author) {
-            $return .= Html::a($author->getFullName(), Url::to(['library/index', 'author_id' => $author->id])) . ', ';
-        }
-        if ($return !== '') {
-            $return = mb_substr($return, 0, -2);
-        }
-        return $return;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCategoriesStringLink(): string
-    {
-        $categories = $this->categories;
-        $return = '';
-        foreach ($categories as $category) {
-            $return .= Html::a($category->getTitle(), Url::to(['library/index', 'category_id' => $category->id])) . ', ';
+            $return .= $author->fullName . ', ';
         }
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);
@@ -239,9 +60,33 @@ class Book extends \yii\db\ActiveRecord
      * @return string
      * @throws \Exception
      */
-    public function getTitle(): string
+    public function getAuthorsStringLink(): string
     {
-        $title = LanguagesHelper::getCurrentAttribute('title');
-        return $this->$title;
+        $authors = $this->authors;
+        $return = '';
+        foreach ($authors as $author) {
+            $return .= Html::a($author->fullName, Url::to(['library/index', 'author_id' => $author->id])) . ', ';
+        }
+        if ($return !== '') {
+            $return = mb_substr($return, 0, -2);
+        }
+        return $return;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function getCategoriesStringLink(): string
+    {
+        $categories = $this->categories;
+        $return = '';
+        foreach ($categories as $category) {
+            $return .= Html::a($category->title, Url::to(['library/index', 'category_id' => $category->id])) . ', ';
+        }
+        if ($return !== '') {
+            $return = mb_substr($return, 0, -2);
+        }
+        return $return;
     }
 }

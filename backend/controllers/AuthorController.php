@@ -7,6 +7,8 @@ use backend\actions\DeleteAction;
 use backend\actions\IndexAction;
 use backend\actions\UpdateAction;
 use backend\actions\ViewAction;
+use backend\controllers\interfaces\MergeBaseActionInterface;
+use backend\controllers\traits\CacheManagementTraits;
 use Yii;
 use common\models\Author;
 use common\models\author\Search;
@@ -19,9 +21,9 @@ use yii\filters\VerbFilter;
 /**
  * AuthorController implements the CRUD actions for Author model.
  */
-final class AuthorController extends Controller
+final class AuthorController extends Controller implements MergeBaseActionInterface
 {
-    use CacheManagement;
+    use CacheManagementTraits;
     
     /**
      * @return array

@@ -3,19 +3,15 @@
 namespace common\models\author;
 
 use common\models\Author;
+use common\models\interfaces\QuerySafeDeleteInterface;
 
 /**
  * This is the ActiveQuery class for [[\common\models\Author]].
  *
  * @see \common\models\Author
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends \yii\db\ActiveQuery implements QuerySafeDeleteInterface
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return Author[]|array
@@ -35,10 +31,10 @@ class Query extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return Query
+     * {@inheritdoc}
      */
     public function isNoDeleted()
     {
-        return $this->andWhere(['is_deleted' => false]);
+        return $this->andWhere(['{{%author}}.is_deleted' => false]);
     }
 }

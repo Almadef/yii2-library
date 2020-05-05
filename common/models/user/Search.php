@@ -4,12 +4,11 @@ namespace common\models\user;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\User;
 
 /**
- * Search represents the model behind the search form of `common\models\User`.
+ * Search represents the model behind the search form of `common\models\user\ActiveRecord`.
  */
-class Search extends User
+final class Search extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -27,7 +26,6 @@ class Search extends User
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -40,9 +38,7 @@ class Search extends User
      */
     public function search($params)
     {
-        $query = User::find()->isNoDeleted();
-
-        // add conditions that should always apply here
+        $query = self::find()->isNoDeleted();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -51,12 +47,9 @@ class Search extends User
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,

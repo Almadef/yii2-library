@@ -1,8 +1,9 @@
 <?php
 
-namespace common\models;
+namespace common\models\user_book;
 
-use common\models\user_book\Query;
+use common\models\Book;
+use common\models\User;
 use Yii;
 
 /**
@@ -14,8 +15,10 @@ use Yii;
  * @property Book $book
  * @property User $user
  */
-class UserBook extends \yii\db\ActiveRecord
+abstract class ActiveRecord extends \yii\db\ActiveRecord
 {
+    use Relations;
+
     /**
      * {@inheritdoc}
      */

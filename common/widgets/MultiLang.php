@@ -5,7 +5,7 @@ namespace common\widgets;
 use Yii;
 use \yii\bootstrap\Widget;
 
-class MultiLang extends Widget
+final class MultiLang extends Widget
 {
 
     public function run()

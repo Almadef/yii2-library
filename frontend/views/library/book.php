@@ -6,7 +6,6 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $book \common\models\Book */
 /* @var $categories \common\models\Category[] */
-/* @var $fvBtn array */
 
 $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
 ?>
@@ -34,15 +33,15 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                     <br>
                     <div class="text-center">
                         <?= (Yii::$app->user->isGuest) ? '' :
-                            Html::a(Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
+                            Html::a(Yii::t('app', ($book->currentUser) ? 'Delete from favorites' : 'Add to favorites'),
                                 '#',
                                 [
-                                    'title' => Yii::t('app', ($fvBtn['is']) ? 'Delete from favorites' : 'Add to favorites'),
-                                    'class' => 'btn btn-' . (($fvBtn['is']) ? 'danger' : 'success'),
+                                    'title' => Yii::t('app', ($book->currentUser) ? 'Delete from favorites' : 'Add to favorites'),
+                                    'class' => 'btn btn-' . (($book->currentUser) ? 'danger' : 'success'),
                                     'id' => 'favorite-btn',
-                                    'data-lng' => $fvBtn['lng'],
+                                    'data-lng' => \common\helpers\LanguagesHelper::getCurrentLanguage(),
                                     'data-book_id' => $book->id,
-                                    'data-action' => ($fvBtn['is']) ? 'del' : 'add',
+                                    'data-action' => ($book->currentUser) ? 'del' : 'add',
                                 ]);
                         ?>
                     </div>

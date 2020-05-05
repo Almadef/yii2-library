@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\controllers\interfaces\MergeBaseActionInterface;
+use backend\controllers\traits\CacheManagementTraits;
 use Yii;
 use common\models\Publisher;
 use common\models\publisher\Search;
@@ -19,9 +21,9 @@ use backend\actions\DeleteAction;
 /**
  * PublisherController implements the CRUD actions for Publisher model.
  */
-final class PublisherController extends Controller
+final class PublisherController extends Controller implements MergeBaseActionInterface
 {
-    use CacheManagement;
+    use CacheManagementTraits;
 
     /**
      * @return array

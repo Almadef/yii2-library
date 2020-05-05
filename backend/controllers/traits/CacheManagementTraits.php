@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\controllers;
+namespace backend\controllers\traits;
 
 use Yii;
 use yii\caching\TagDependency;
 
-trait CacheManagement
+trait CacheManagementTraits
 {
     public function getCacheTags()
     {

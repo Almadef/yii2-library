@@ -9,13 +9,8 @@ use common\models\auth\ItemChild;
  *
  * @see \common\models\auth\ItemChild
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return ItemChild[]|array

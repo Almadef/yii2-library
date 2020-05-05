@@ -3,19 +3,15 @@
 namespace common\models\category;
 
 use common\models\Category;
+use common\models\interfaces\QuerySafeDeleteInterface;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Category]].
+ * This is the ActiveQuery class for [[\common\models\category\ActiveRecord]].
  *
  * @see \common\models\Category
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends \yii\db\ActiveQuery implements QuerySafeDeleteInterface
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return Category[]|array
@@ -35,10 +31,10 @@ class Query extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return Query
+     * {@inheritdoc}
      */
     public function isNoDeleted()
     {
-        return $this->andWhere(['is_deleted' => false]);
+        return $this->andWhere(['{{%category}}.is_deleted' => false]);
     }
 }

@@ -9,13 +9,8 @@ use common\models\auth\Assignment;
  *
  * @see \common\models\auth\Assignment
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return Assignment[]|array

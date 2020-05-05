@@ -1,11 +1,10 @@
 <?php
 
-namespace common\models;
+namespace common\models\book_author;
 
-use common\models\book_author\Query;
-use common\models\book_author\Relations;
+use common\models\Author;
+use common\models\Book;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%book_author}}".
@@ -17,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property Author $author
  * @property Book $book
  */
-class BookAuthor extends \yii\db\ActiveRecord
+final class ActiveRecord extends \yii\db\ActiveRecord
 {
     use Relations;
 
