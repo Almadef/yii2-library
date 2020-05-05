@@ -1,7 +1,7 @@
 <?php
 
-use yii\db\Migration;
 use common\models\auth\Item as AuthItem;
+use yii\db\Migration;
 
 /**
  * Class m200227_183704_del_user_role
@@ -25,9 +25,12 @@ class m200227_183704_del_user_role extends Migration
      */
     public function safeDown()
     {
-        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}',
-            ['name', 'type', 'description', 'created_at', 'updated_at'], [
+        Yii::$app->db->createCommand()->batchInsert(
+            '{{%auth_item}}',
+            ['name', 'type', 'description', 'created_at', 'updated_at'],
+            [
                 ['user', 1, 'User role', 1577973888, 1577973888],
-            ])->execute();
+            ]
+        )->execute();
     }
 }

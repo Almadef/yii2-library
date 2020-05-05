@@ -1,8 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
 use common\helpers\RoleHelper;
+use common\helpers\UserHelper;
+use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\user\Search */
@@ -21,41 +22,43 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            'id',
-            'username',
-            'email:email',
-            [
-                'attribute' => 'status',
-                'value' => function ($model) {
-                    /**
-                     * @var $model \common\models\user\Search
-                     */
-                    return \common\helpers\UserHelper::getStatusName($model->status);
-                },
-                'filter' => $selectStatus,
+    <?= GridView::widget(
+        [
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                'id',
+                'username',
+                'email:email',
+                [
+                    'attribute' => 'status',
+                    'value' => function ($model) {
+                        /**
+                         * @var $model \common\models\user\Search
+                         */
+                        return UserHelper::getStatusName($model->status);
+                    },
+                    'filter' => $selectStatus,
+                ],
+                [
+                    'value' => function ($model) {
+                        /**
+                         * @var $model \common\models\user\Search
+                         */
+                        if (isset($model->role)) {
+                            $roleName = RoleHelper::getRoleName($model->role->item_name);
+                        } else {
+                            $roleName = RoleHelper::getRoleName(RoleHelper::ROLE_USER);
+                        }
+                        return $roleName;
+                    },
+                    'label' => Yii::t('app', 'Role'),
+                    'filter' => $selectRole,
+                ],
+                ['class' => 'yii\grid\ActionColumn'],
             ],
-            [
-                'value' => function ($model) {
-                    /**
-                     * @var $model \common\models\user\Search
-                     */
-                    if (isset($model->role)) {
-                        $roleName = RoleHelper::getRoleName($model->role->item_name);
-                    } else {
-                        $roleName = RoleHelper::getRoleName(RoleHelper::ROLE_USER);
-                    }
-                    return $roleName;
-                },
-                'label' => Yii::t('app', 'Role'),
-                'filter' => $selectRole,
-            ],
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+        ]
+    ); ?>
 
 
 </div>

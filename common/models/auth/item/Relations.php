@@ -51,8 +51,10 @@ trait Relations
      */
     public function getChildren()
     {
-        return $this->hasMany(Item::class, ['name' => 'child'])->viaTable('{{%auth_item_child}}',
-            ['parent' => 'name']);
+        return $this->hasMany(Item::class, ['name' => 'child'])->viaTable(
+            '{{%auth_item_child}}',
+            ['parent' => 'name']
+        );
     }
 
     /**
@@ -60,7 +62,9 @@ trait Relations
      */
     public function getParents()
     {
-        return $this->hasMany(Item::class, ['name' => 'parent'])->viaTable('{{%auth_item_child}}',
-            ['child' => 'name']);
+        return $this->hasMany(Item::class, ['name' => 'parent'])->viaTable(
+            '{{%auth_item_child}}',
+            ['child' => 'name']
+        );
     }
 }

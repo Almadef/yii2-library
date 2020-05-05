@@ -25,7 +25,7 @@ final class IdxLibrary extends ActiveRecord
      * @param string $param
      * @return array
      */
-    public static function search(string $param):array
+    public static function search(string $param): array
     {
         $idxBooks = self::find()
             ->match(

@@ -3,6 +3,7 @@
 namespace common\models\author;
 
 use common\helpers\LanguagesHelper;
+use Exception;
 
 /**
  * Trait Multilang
@@ -12,7 +13,7 @@ trait Multilang
 {
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getSurname(): string
     {
@@ -22,7 +23,7 @@ trait Multilang
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getName(): string
     {
@@ -33,7 +34,7 @@ trait Multilang
 
     /**
      * @return string|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function getPatronymic()
     {

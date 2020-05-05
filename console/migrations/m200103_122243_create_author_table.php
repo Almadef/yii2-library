@@ -18,14 +18,18 @@ class m200103_122243_create_author_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%author}}', [
-            'id' => $this->primaryKey(),
-            'name' => $this->string()->notNull(),
-            'surname' => $this->string()->notNull(),
-            'patronymic' => $this->string()->defaultValue(null),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        $this->createTable(
+            '{{%author}}',
+            [
+                'id' => $this->primaryKey(),
+                'name' => $this->string()->notNull(),
+                'surname' => $this->string()->notNull(),
+                'patronymic' => $this->string()->defaultValue(null),
+                'created_at' => $this->integer()->notNull(),
+                'updated_at' => $this->integer()->notNull(),
+            ],
+            $tableOptions
+        );
     }
 
     /**

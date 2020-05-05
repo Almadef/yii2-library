@@ -1,4 +1,5 @@
 <?php
+
 return [
     'The requested page does not exist.' => 'Запрошенная страница не существует.',
     'Cache could not be cleared' => 'Кэш не удалось очистить',

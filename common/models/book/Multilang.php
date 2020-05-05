@@ -3,12 +3,13 @@
 namespace common\models\book;
 
 use common\helpers\LanguagesHelper;
+use Exception;
 
 trait Multilang
 {
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getTitle(): string
     {
@@ -18,7 +19,7 @@ trait Multilang
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getDescription(): string
     {

@@ -4,8 +4,8 @@ namespace backend\models;
 
 use common\helpers\RoleHelper;
 use common\helpers\UserHelper;
-use common\models\User;
 use common\models\user\ActiveRecord;
+use Exception;
 use Yii;
 
 /**
@@ -82,10 +82,13 @@ final class SaveUserForm extends ActiveRecord
      */
     public function attributeLabels()
     {
-        return array_merge(parent::attributeLabels(), [
-            'password' => Yii::t('app', 'Password'),
-            'role_name' => Yii::t('app', 'Role'),
-        ]);
+        return array_merge(
+            parent::attributeLabels(),
+            [
+                'password' => Yii::t('app', 'Password'),
+                'role_name' => Yii::t('app', 'Role'),
+            ]
+        );
     }
 
     /**
@@ -110,7 +113,7 @@ final class SaveUserForm extends ActiveRecord
 
     /**
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function saveRoleInsert()
     {
@@ -122,7 +125,7 @@ final class SaveUserForm extends ActiveRecord
 
     /**
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function saveRoleUpdate()
     {

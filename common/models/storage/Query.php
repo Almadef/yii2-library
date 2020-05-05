@@ -3,13 +3,14 @@
 namespace common\models\storage;
 
 use common\models\interfaces\QuerySafeDeleteInterface;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\storage\ActiveRecord]].
  *
  * @see \common\models\storage\ActiveRecord
  */
-final class Query extends \yii\db\ActiveQuery implements QuerySafeDeleteInterface
+final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
     /**
      * {@inheritdoc}

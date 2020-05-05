@@ -16,12 +16,15 @@ class m200103_151027_create_junction_table_for_book_and_author_tables extends Mi
      */
     public function safeUp()
     {
-        $this->createTable('{{%book_author}}', [
-            'book_id' => $this->integer()->notNull(),
-            'author_id' => $this->integer()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'PRIMARY KEY(book_id, author_id)',
-        ]);
+        $this->createTable(
+            '{{%book_author}}',
+            [
+                'book_id' => $this->integer()->notNull(),
+                'author_id' => $this->integer()->notNull(),
+                'created_at' => $this->integer()->notNull(),
+                'PRIMARY KEY(book_id, author_id)',
+            ]
+        );
 
         // creates index for column `book_id`
         $this->createIndex(

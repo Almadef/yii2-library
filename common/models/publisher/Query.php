@@ -3,13 +3,14 @@
 namespace common\models\publisher;
 
 use common\models\interfaces\QuerySafeDeleteInterface;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\publisher\ActiveRecord]].
  *
  * @see \common\models\Publisher
  */
-final class Query extends \yii\db\ActiveQuery implements QuerySafeDeleteInterface
+final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
     /**
      * {@inheritdoc}

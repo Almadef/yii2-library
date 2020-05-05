@@ -3,13 +3,14 @@
 namespace common\models\auth\assignment;
 
 use common\models\auth\Assignment;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\auth\Assignment]].
  *
  * @see \common\models\auth\Assignment
  */
-final class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
     /**
      * {@inheritdoc}

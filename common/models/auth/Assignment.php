@@ -2,9 +2,10 @@
 
 namespace common\models\auth;
 
-use Yii;
 use common\models\auth\assignment\Query;
 use common\models\auth\assignment\Relations;
+use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%auth_assignment}}".
@@ -15,7 +16,7 @@ use common\models\auth\assignment\Relations;
  *
  * @property Item $itemName
  */
-final class Assignment extends \yii\db\ActiveRecord
+final class Assignment extends ActiveRecord
 {
     use Relations;
 
@@ -25,6 +26,15 @@ final class Assignment extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%auth_assignment}}';
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 
     /**
@@ -57,14 +67,5 @@ final class Assignment extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'created_at' => Yii::t('app', 'Created At'),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 }

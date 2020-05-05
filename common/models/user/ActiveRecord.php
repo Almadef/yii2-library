@@ -44,6 +44,15 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     * @return Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -87,14 +96,5 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 }

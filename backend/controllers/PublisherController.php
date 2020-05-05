@@ -2,21 +2,21 @@
 
 namespace backend\controllers;
 
+use backend\actions\CreateAction;
+use backend\actions\DeleteAction;
+use backend\actions\IndexAction;
+use backend\actions\UpdateAction;
+use backend\actions\ViewAction;
 use backend\controllers\interfaces\MergeBaseActionInterface;
 use backend\controllers\traits\CacheManagementTraits;
-use Yii;
 use common\models\Publisher;
 use common\models\publisher\Search;
+use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use backend\actions\IndexAction;
-use backend\actions\ViewAction;
-use backend\actions\CreateAction;
-use backend\actions\UpdateAction;
-use backend\actions\DeleteAction;
 
 /**
  * PublisherController implements the CRUD actions for Publisher model.
@@ -30,13 +30,16 @@ final class PublisherController extends Controller implements MergeBaseActionInt
      */
     public function actions()
     {
-        return ArrayHelper::merge(parent::actions(), [
-            'index' => IndexAction::class,
-            'view' => ViewAction::class,
-            'create' => CreateAction::class,
-            'update' => UpdateAction::class,
-            'delete' => DeleteAction::class,
-        ]);
+        return ArrayHelper::merge(
+            parent::actions(),
+            [
+                'index' => IndexAction::class,
+                'view' => ViewAction::class,
+                'create' => CreateAction::class,
+                'update' => UpdateAction::class,
+                'delete' => DeleteAction::class,
+            ]
+        );
     }
 
     /**

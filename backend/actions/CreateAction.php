@@ -2,8 +2,8 @@
 
 namespace backend\actions;
 
-use yii\base\Action;
 use Yii;
+use yii\base\Action;
 
 /**
  * Class CreateAction
@@ -25,9 +25,12 @@ final class CreateAction extends Action
             $this->controller->clearCache();
             return $this->controller->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->controller->render('create', [
-                'model' => $model,
-            ]);
+            return $this->controller->render(
+                'create',
+                [
+                    'model' => $model,
+                ]
+            );
         }
     }
 }

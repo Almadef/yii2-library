@@ -5,8 +5,10 @@ namespace frontend\controllers;
 use common\api\Controller;
 use common\models\Book;
 use common\models\User;
+use Throwable;
 use Yii;
 use yii\caching\TagDependency;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -49,8 +51,8 @@ final class FavoriteController extends Controller
 
     /**
      * @return json
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function actionDel()
     {

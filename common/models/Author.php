@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\author\ActiveRecord;
 use common\models\author\Multilang;
+use Exception;
 use yii\helpers\ArrayHelper;
 
 
@@ -36,13 +37,15 @@ final class Author extends ActiveRecord
     public static function getForSelector(): array
     {
         return ArrayHelper::map(
-            self::find()->isNoDeleted()->all(), 'id', 'fullName'
+            self::find()->isNoDeleted()->all(),
+            'id',
+            'fullName'
         );
     }
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getFullName(): string
     {

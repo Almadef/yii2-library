@@ -1,11 +1,13 @@
 <?php
 
-use yii\helpers\Url;
+use common\helpers\LanguagesHelper;
+use common\models\Category;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $book \common\models\Book */
-/* @var $categories \common\models\Category[] */
+/* @var $categories Category[] */
 
 $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
 ?>
@@ -15,34 +17,45 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
             <div class="col-10 col-md-10">
                 <div class="col-4 col-sm-4">
                     <div class="book-page-cover">
-                        <?= Html::img(Yii::$app->storage->getUrl($book->fileCover->description,
-                            $book->fileCover->file_path),
-                            ['alt' => $book->title, 'height' => 250]) ?>
+                        <?= Html::img(
+                            Yii::$app->storage->getUrl(
+                                $book->fileCover->description,
+                                $book->fileCover->file_path
+                            ),
+                            ['alt' => $book->title, 'height' => 250]
+                        ) ?>
                     </div>
                     <div class="text-center">
                         <?=
-                        Html::a(Yii::t('app', 'Read book'),
+                        Html::a(
+                            Yii::t('app', 'Read book'),
                             Yii::$app->storage->getUrl($book->fileBook->description, $book->fileBook->file_path),
                             [
                                 'title' => Yii::t('app', 'Read book'),
                                 'target' => '_blank',
                                 'class' => 'btn btn-primary'
-                            ]);
+                            ]
+                        );
                         ?>
                     </div>
                     <br>
                     <div class="text-center">
                         <?= (Yii::$app->user->isGuest) ? '' :
-                            Html::a(Yii::t('app', ($book->currentUser) ? 'Delete from favorites' : 'Add to favorites'),
+                            Html::a(
+                                Yii::t('app', ($book->currentUser) ? 'Delete from favorites' : 'Add to favorites'),
                                 '#',
                                 [
-                                    'title' => Yii::t('app', ($book->currentUser) ? 'Delete from favorites' : 'Add to favorites'),
+                                    'title' => Yii::t(
+                                        'app',
+                                        ($book->currentUser) ? 'Delete from favorites' : 'Add to favorites'
+                                    ),
                                     'class' => 'btn btn-' . (($book->currentUser) ? 'danger' : 'success'),
                                     'id' => 'favorite-btn',
-                                    'data-lng' => \common\helpers\LanguagesHelper::getCurrentLanguage(),
+                                    'data-lng' => LanguagesHelper::getCurrentLanguage(),
                                     'data-book_id' => $book->id,
                                     'data-action' => ($book->currentUser) ? 'del' : 'add',
-                                ]);
+                                ]
+                            );
                         ?>
                     </div>
                 </div>
@@ -50,20 +63,34 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                     <div class="book-page-content">
                         <h1><?= $book->title ?></h1>
                         <p><?= Yii::t('app', 'Author(s): {author}', ['author' => $book->getAuthorsStringLink()]) ?></p>
-                        <p><?= Yii::t('app', 'Publisher: {name}', [
-                                'name' => Html::a($book->publisher->name,
-                                    Url::to(['library/index', 'publisher_id' => $book->publisher->id]))
-                            ]) ?></p>
-                        <p><?= Yii::t('app', 'Category(ies): {category}',
-                                ['category' => $book->getCategoriesStringLink()]) ?></p>
+                        <p><?= Yii::t(
+                                'app',
+                                'Publisher: {name}',
+                                [
+                                    'name' => Html::a(
+                                        $book->publisher->name,
+                                        Url::to(['library/index', 'publisher_id' => $book->publisher->id])
+                                    )
+                                ]
+                            ) ?></p>
+                        <p><?= Yii::t(
+                                'app',
+                                'Category(ies): {category}',
+                                ['category' => $book->getCategoriesStringLink()]
+                            ) ?></p>
                         <p><?= Yii::t('app', 'Pages: {pages}', ['pages' => $book->pages]) ?></p>
-                        <p><?= Yii::t('app', 'Release date: {release}',
-                                ['release' => Yii::$app->formatter->asDate($book->release, 'php:Y m d')]) ?></p>
+                        <p><?= Yii::t(
+                                'app',
+                                'Release date: {release}',
+                                ['release' => Yii::$app->formatter->asDate($book->release, 'php:Y m d')]
+                            ) ?></p>
                         <p><?= Yii::t('app', 'ISBN: {isbn}', ['isbn' => $book->isbn]) ?></p>
-                        <?php if (isset($book->description) && $book->description !== '') : ?>
+                        <?php
+                        if (isset($book->description) && $book->description !== '') : ?>
                             <h3><?= Yii::t('app', 'Description') ?></h3>
                             <p><?= $book->description ?></p>
-                        <?php endif; ?>
+                        <?php
+                        endif; ?>
                     </div>
                 </div>
             </div>

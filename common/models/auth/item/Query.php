@@ -3,13 +3,14 @@
 namespace common\models\auth\item;
 
 use common\models\auth\Item;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\auth\Item]].
  *
  * @see \common\models\auth\Item
  */
-final class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
     /**
      * {@inheritdoc}

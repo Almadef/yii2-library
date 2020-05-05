@@ -4,11 +4,11 @@ namespace common\models;
 
 use common\helpers\UserHelper;
 use common\models\auth\Assignment;
+use common\models\user\ActiveRecord;
 use Yii;
 use yii\base\Exception;
 use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
-use common\models\user\ActiveRecord;
 
 /**
  * User model
@@ -97,21 +97,6 @@ final class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by verification email token
-     *
-     * @param string $token verify email token
-     * @return static|null
-     */
-    public static function findByVerificationToken($token)
-    {
-        return static::find()
-            ->byVerificationToken($token)
-            ->byStatus(self::STATUS_INACTIVE)
-            ->isNoDeleted()
-            ->one();
-    }
-
-    /**
      * Finds out if password reset token is valid
      *
      * @param string $token password reset token
@@ -129,6 +114,21 @@ final class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Finds user by verification email token
+     *
+     * @param string $token verify email token
+     * @return static|null
+     */
+    public static function findByVerificationToken($token)
+    {
+        return static::find()
+            ->byVerificationToken($token)
+            ->byStatus(self::STATUS_INACTIVE)
+            ->isNoDeleted()
+            ->one();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getId()
@@ -139,17 +139,17 @@ final class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthKey()
+    public function validateAuthKey($authKey)
     {
-        return $this->auth_key;
+        return $this->getAuthKey() === $authKey;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function validateAuthKey($authKey)
+    public function getAuthKey()
     {
-        return $this->getAuthKey() === $authKey;
+        return $this->auth_key;
     }
 
     /**

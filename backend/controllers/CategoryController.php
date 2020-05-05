@@ -9,14 +9,14 @@ use backend\actions\UpdateAction;
 use backend\actions\ViewAction;
 use backend\controllers\interfaces\MergeBaseActionInterface;
 use backend\controllers\traits\CacheManagementTraits;
-use Yii;
 use common\models\Category;
 use common\models\category\Search;
+use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -30,13 +30,16 @@ final class CategoryController extends Controller implements MergeBaseActionInte
      */
     public function actions()
     {
-        return ArrayHelper::merge(parent::actions(), [
-            'index' => IndexAction::class,
-            'view' => ViewAction::class,
-            'create' => CreateAction::class,
-            'update' => UpdateAction::class,
-            'delete' => DeleteAction::class,
-        ]);
+        return ArrayHelper::merge(
+            parent::actions(),
+            [
+                'index' => IndexAction::class,
+                'view' => ViewAction::class,
+                'create' => CreateAction::class,
+                'update' => UpdateAction::class,
+                'delete' => DeleteAction::class,
+            ]
+        );
     }
 
     /**

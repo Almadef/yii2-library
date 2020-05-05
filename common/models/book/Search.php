@@ -41,9 +41,11 @@ final class Search extends ActiveRecord
         $query = self::find()
             ->isNoDeleted();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         $this->load($params);
 
@@ -51,14 +53,16 @@ final class Search extends ActiveRecord
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'publisher_id' => $this->publisher_id,
-            'release' => $this->release,
-            'pages' => $this->pages,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id' => $this->id,
+                'publisher_id' => $this->publisher_id,
+                'release' => $this->release,
+                'pages' => $this->pages,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'isbn', $this->isbn]);
 

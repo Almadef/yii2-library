@@ -1,33 +1,37 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 
 /* @var $content string */
 
+use common\widgets\Alert;
 use common\widgets\MultiLang;
-use yii\helpers\Html;
+use frontend\assets\AppAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
-use common\widgets\Alert;
+use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 AppAsset::register($this);
 ?>
-<?php $this->beginPage() ?>
+<?php
+$this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php $this->registerCsrfMetaTags() ?>
+    <?php
+    $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+    <?php
+    $this->head() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
+<?php
+$this->beginBody() ?>
 
 <div class="wrap">
     <?php
@@ -36,13 +40,15 @@ AppAsset::register($this);
     echo Html::input('text', 'search', '', ['class' => 'form-control']);
     echo Html::endForm();
     $this->endBlock();
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
+    NavBar::begin(
+        [
+            'brandLabel' => Yii::$app->name,
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar-inverse navbar-fixed-top',
+            ],
+        ]
+    );
     $menuItems = [];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
@@ -52,22 +58,30 @@ AppAsset::register($this);
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                Yii::t('app', 'Logout ({username})', [
-                    'username' => Yii::$app->user->identity->username,
-                ]),
+                Yii::t(
+                    'app',
+                    'Logout ({username})',
+                    [
+                        'username' => Yii::$app->user->identity->username,
+                    ]
+                ),
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
             . '</li>';
     }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-right'],
-        'items' => array($this->blocks['search']),
-    ]);
+    echo Nav::widget(
+        [
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => $menuItems,
+        ]
+    );
+    echo Nav::widget(
+        [
+            'options' => ['class' => 'navbar-right'],
+            'items' => array($this->blocks['search']),
+        ]
+    );
     NavBar::end();
     ?>
     <form class="pull-xs-right">
@@ -87,7 +101,9 @@ AppAsset::register($this);
     </div>
 </footer>
 
-<?php $this->endBody() ?>
+<?php
+$this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+<?php
+$this->endPage() ?>

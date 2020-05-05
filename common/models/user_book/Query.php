@@ -2,12 +2,14 @@
 
 namespace common\models\user_book;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[\common\models\user_book\ActiveRecord]].
  *
  * @see \common\models\user_book\ActiveRecord
  */
-final class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
     /**
      * {@inheritdoc}
@@ -26,6 +28,7 @@ final class Query extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
     /**
      * @param $bookId
      * @return Query
@@ -34,6 +37,7 @@ final class Query extends \yii\db\ActiveQuery
     {
         return $this->andWhere(['{{%user_book}}.book_id' => $bookId]);
     }
+
     /**
      * @param $userId
      * @return Query

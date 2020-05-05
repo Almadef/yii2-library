@@ -4,13 +4,14 @@ namespace common\models\user;
 
 use common\models\interfaces\QuerySafeDeleteInterface;
 use common\models\User;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\User]].
  *
  * @see \common\models\User
  */
-final class Query extends \yii\db\ActiveQuery implements QuerySafeDeleteInterface
+final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
     /**
      * {@inheritdoc}

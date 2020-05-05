@@ -2,6 +2,7 @@
 
 namespace common\helpers;
 
+use Exception;
 use Yii;
 
 /**
@@ -14,19 +15,6 @@ final class LanguagesHelper
     const EN = 'en';
 
     /**
-     * @return string
-     * @throws \Exception
-     */
-    public static function getCurrentLanguage(): string
-    {
-        switch(mb_strtolower(Yii::$app->language)) {
-            case 'ru': case 'ru-ru': return self::RU;
-            case 'en': case 'en-us': return self::EN;
-            default: throw new \Exception('Languages no find');
-        }
-    }
-
-    /**
      * @param string $attributeName
      * @return string
      */
@@ -34,8 +22,26 @@ final class LanguagesHelper
     {
         try {
             return $attributeName . '_' . self::getCurrentLanguage();
-        } catch (\Exception $e) {
-            throw new \Exception('Languages no find');
+        } catch (Exception $e) {
+            throw new Exception('Languages no find');
+        }
+    }
+
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public static function getCurrentLanguage(): string
+    {
+        switch (mb_strtolower(Yii::$app->language)) {
+            case 'ru':
+            case 'ru-ru':
+                return self::RU;
+            case 'en':
+            case 'en-us':
+                return self::EN;
+            default:
+                throw new Exception('Languages no find');
         }
     }
 }

@@ -20,9 +20,12 @@ final class IndexAction extends Action
         $searchModel = $this->controller->getSearchModel();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->controller->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->controller->render(
+            'index',
+            [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]
+        );
     }
 }

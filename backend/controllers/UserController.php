@@ -9,14 +9,14 @@ use backend\controllers\traits\CacheManagementTraits;
 use backend\models\SaveUserForm;
 use common\helpers\RoleHelper;
 use common\models\User;
-use Yii;
 use common\models\user\Search;
+use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -37,12 +37,15 @@ final class UserController extends Controller implements MergeBaseActionInterfac
         $selectRole = RoleHelper::getForSelector();
         $selectStatus = User::getStatusForSelector();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'selectRole' => $selectRole,
-            'selectStatus' => $selectStatus,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'selectRole' => $selectRole,
+                'selectStatus' => $selectStatus,
+            ]
+        );
     }
 
     /**
@@ -62,11 +65,14 @@ final class UserController extends Controller implements MergeBaseActionInterfac
         $selectRole = RoleHelper::getForSelector();
         $selectStatus = User::getStatusForSelector();
 
-        return $this->render('create', [
-            'model' => $model,
-            'selectRole' => $selectRole,
-            'selectStatus' => $selectStatus,
-        ]);
+        return $this->render(
+            'create',
+            [
+                'model' => $model,
+                'selectRole' => $selectRole,
+                'selectStatus' => $selectStatus,
+            ]
+        );
     }
 
     /**
@@ -93,11 +99,28 @@ final class UserController extends Controller implements MergeBaseActionInterfac
         $selectRole = RoleHelper::getForSelector();
         $selectStatus = User::getStatusForSelector();
 
-        return $this->render('update', [
-            'model' => $model,
-            'selectRole' => $selectRole,
-            'selectStatus' => $selectStatus,
-        ]);
+        return $this->render(
+            'update',
+            [
+                'model' => $model,
+                'selectRole' => $selectRole,
+                'selectStatus' => $selectStatus,
+            ]
+        );
+    }
+
+    /**
+     * @param $id
+     * @return SaveUserForm|null
+     * @throws NotFoundHttpException
+     */
+    public function findModel($id)
+    {
+        if (($model = SaveUserForm::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist.'));
     }
 
     /**
@@ -105,10 +128,13 @@ final class UserController extends Controller implements MergeBaseActionInterfac
      */
     public function actions()
     {
-        return ArrayHelper::merge(parent::actions(), [
-            'view' => ViewAction::class,
-            'delete' => DeleteAction::class,
-        ]);
+        return ArrayHelper::merge(
+            parent::actions(),
+            [
+                'view' => ViewAction::class,
+                'delete' => DeleteAction::class,
+            ]
+        );
     }
 
     /**
@@ -125,20 +151,6 @@ final class UserController extends Controller implements MergeBaseActionInterfac
     public function getModelClass()
     {
         return User::class;
-    }
-
-    /**
-     * @param $id
-     * @return SaveUserForm|null
-     * @throws NotFoundHttpException
-     */
-    public function findModel($id)
-    {
-        if (($model = SaveUserForm::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist.'));
     }
 
     /**

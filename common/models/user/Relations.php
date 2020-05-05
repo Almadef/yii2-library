@@ -4,8 +4,8 @@ namespace common\models\user;
 
 use common\models\auth\Assignment;
 use common\models\Book;
-use yii\db\ActiveQuery;
 use common\models\user_book\ActiveRecord as UserBook;
+use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
@@ -27,7 +27,7 @@ trait Relations
     public function getBooks()
     {
         return $this->hasMany(Book::class, ['id' => 'book_id'])
-        ->viaTable(UserBook::tableName(), ['user_id' => 'id'])
+            ->viaTable(UserBook::tableName(), ['user_id' => 'id'])
             ->andWhere(['{{%book}}.is_deleted' => false]);
     }
 }

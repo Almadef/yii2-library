@@ -3,10 +3,10 @@
 namespace common\behavior;
 
 use common\models\Storage;
+use Yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
-use Yii;
 
 final class StorageBehavior extends Behavior
 {

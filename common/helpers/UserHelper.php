@@ -4,6 +4,7 @@ namespace common\helpers;
 
 use common\models\User;
 use Yii;
+use yii\base\Exception;
 
 /**
  * Class UserHelper
@@ -14,25 +15,25 @@ final class UserHelper
     /**
      * @param string $password
      * @return string
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
-    public static function generatePasswordHash(string $password):string
+    public static function generatePasswordHash(string $password): string
     {
         return Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
      * @return string
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
-    public static function generateAuthKey():string
+    public static function generateAuthKey(): string
     {
         return Yii::$app->security->generateRandomString();
     }
 
     /**
      * @return string
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
     public static function generatePasswordResetToken(): string
     {
@@ -41,9 +42,9 @@ final class UserHelper
 
     /**
      * @return string
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
-    public static function generateEmailVerificationToken():string
+    public static function generateEmailVerificationToken(): string
     {
         return Yii::$app->security->generateRandomString() . '_' . time();
     }
@@ -52,7 +53,7 @@ final class UserHelper
      * @param string $status
      * @return string
      */
-    public static function getStatusName(string $status):string
+    public static function getStatusName(string $status): string
     {
         return User::getStatusForSelector()[$status];
     }

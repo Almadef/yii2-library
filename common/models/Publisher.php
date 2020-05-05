@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\publisher\ActiveRecord;
 use common\models\publisher\Multilang;
+use Exception;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -26,12 +27,14 @@ final class Publisher extends ActiveRecord
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getForSelector(): array
     {
         return ArrayHelper::map(
-            self::find()->isNoDeleted()->all(), 'id', 'name'
+            self::find()->isNoDeleted()->all(),
+            'id',
+            'name'
         );
     }
 }

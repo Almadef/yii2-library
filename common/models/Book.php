@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\book\ActiveRecord;
 use common\models\book\Multilang;
+use Exception;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -41,7 +42,7 @@ final class Book extends ActiveRecord
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getAuthorsString(): string
     {
@@ -58,7 +59,7 @@ final class Book extends ActiveRecord
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getAuthorsStringLink(): string
     {
@@ -75,7 +76,7 @@ final class Book extends ActiveRecord
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getCategoriesStringLink(): string
     {

@@ -3,6 +3,7 @@
 namespace common\models\category;
 
 use common\helpers\LanguagesHelper;
+use Exception;
 
 /**
  * Trait Multilang
@@ -12,7 +13,7 @@ trait Multilang
 {
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getTitle(): string
     {

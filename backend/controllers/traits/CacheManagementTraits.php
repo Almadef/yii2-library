@@ -7,15 +7,15 @@ use yii\caching\TagDependency;
 
 trait CacheManagementTraits
 {
-    public function getCacheTags()
-    {
-        return [];
-    }
-
     public function clearCache()
     {
         if ($this->getCacheTags()) {
             TagDependency::invalidate(Yii::$app->cache, $this->getCacheTags());
         }
+    }
+
+    public function getCacheTags()
+    {
+        return [];
     }
 }

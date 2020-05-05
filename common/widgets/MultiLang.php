@@ -3,7 +3,7 @@
 namespace common\widgets;
 
 use Yii;
-use \yii\bootstrap\Widget;
+use yii\bootstrap\Widget;
 
 final class MultiLang extends Widget
 {
@@ -17,7 +17,7 @@ final class MultiLang extends Widget
             foreach (Yii::$app->request->get() as $key => $value) {
                 $nowUrl .= $key . '=' . $value . '&';
             }
-            $nowUrl = substr($nowUrl,0,-1);
+            $nowUrl = substr($nowUrl, 0, -1);
         }
         return $this->render('multilang_link', ['nowLanguage' => $nowLanguage, 'nowUrl' => $nowUrl]);
     }

@@ -4,13 +4,14 @@ namespace common\models\category;
 
 use common\models\Category;
 use common\models\interfaces\QuerySafeDeleteInterface;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\category\ActiveRecord]].
  *
  * @see \common\models\Category
  */
-final class Query extends \yii\db\ActiveQuery implements QuerySafeDeleteInterface
+final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
     /**
      * {@inheritdoc}

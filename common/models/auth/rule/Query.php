@@ -3,13 +3,14 @@
 namespace common\models\auth\rule;
 
 use common\models\auth\Rule;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\auth\Rule]].
  *
  * @see \common\models\auth\Rule
  */
-final class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
     /**
      * {@inheritdoc}

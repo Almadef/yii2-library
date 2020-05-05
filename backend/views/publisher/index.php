@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\publisher\Search */
@@ -18,16 +18,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Publisher'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            'id',
-            'name_ru',
-            'name_en',
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <?= GridView::widget(
+        [
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                'id',
+                'name_ru',
+                'name_en',
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]
+    ); ?>
 
 
 </div>

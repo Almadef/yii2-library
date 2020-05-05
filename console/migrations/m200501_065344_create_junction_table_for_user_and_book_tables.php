@@ -16,11 +16,14 @@ class m200501_065344_create_junction_table_for_user_and_book_tables extends Migr
      */
     public function safeUp()
     {
-        $this->createTable('{{%user_book}}', [
-            'user_id' => $this->integer(),
-            'book_id' => $this->integer(),
-            'PRIMARY KEY(user_id, book_id)',
-        ]);
+        $this->createTable(
+            '{{%user_book}}',
+            [
+                'user_id' => $this->integer(),
+                'book_id' => $this->integer(),
+                'PRIMARY KEY(user_id, book_id)',
+            ]
+        );
 
         // creates index for column `user_id`
         $this->createIndex(

@@ -31,8 +31,7 @@ final class LibraryController extends Controller
         int $category_id = null,
         int $author_id = null,
         int $publisher_id = null
-    )
-    {
+    ) {
         $queryBook = Book::find()
             ->isNoDeleted();
 
@@ -62,11 +61,14 @@ final class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
-        return $this->render('index', [
-            'pages' => $pages,
-            'books' => $books,
-            'categories' => $categories,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'pages' => $pages,
+                'books' => $books,
+                'categories' => $categories,
+            ]
+        );
     }
 
     /**
@@ -88,11 +90,14 @@ final class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
-        return $this->render('index', [
-            'pages' => $pages,
-            'books' => $books,
-            'categories' => $categories,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'pages' => $pages,
+                'books' => $books,
+                'categories' => $categories,
+            ]
+        );
     }
 
     /**
@@ -112,10 +117,13 @@ final class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
-        return $this->render('book', [
-            'book' => $book,
-            'categories' => $categories,
-        ]);
+        return $this->render(
+            'book',
+            [
+                'book' => $book,
+                'categories' => $categories,
+            ]
+        );
     }
 
     /**

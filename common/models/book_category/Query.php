@@ -2,12 +2,14 @@
 
 namespace common\models\book_category;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[\common\models\book_category\ActiveRecord]].
  *
  * @see \common\models\ActiveRecord
  */
-final class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
     /**
      * {@inheritdoc}

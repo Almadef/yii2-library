@@ -74,6 +74,15 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     * @return Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -178,14 +187,5 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
                 ]
             ],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 }

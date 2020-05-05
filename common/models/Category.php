@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\category\ActiveRecord;
 use common\models\category\Multilang;
+use Exception;
 use yii\helpers\ArrayHelper;
 
 
@@ -25,12 +26,14 @@ final class Category extends ActiveRecord
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getForSelector(): array
     {
         return ArrayHelper::map(
-            self::find()->isNoDeleted()->all(), 'id', 'title'
+            self::find()->isNoDeleted()->all(),
+            'id',
+            'title'
         );
     }
 }

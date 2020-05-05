@@ -16,12 +16,15 @@ class m200103_151105_create_junction_table_for_book_and_category_tables extends 
      */
     public function safeUp()
     {
-        $this->createTable('{{%book_category}}', [
-            'book_id' => $this->integer()->notNull(),
-            'category_id' => $this->integer()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'PRIMARY KEY(book_id, category_id)',
-        ]);
+        $this->createTable(
+            '{{%book_category}}',
+            [
+                'book_id' => $this->integer()->notNull(),
+                'category_id' => $this->integer()->notNull(),
+                'created_at' => $this->integer()->notNull(),
+                'PRIMARY KEY(book_id, category_id)',
+            ]
+        );
 
         // creates index for column `book_id`
         $this->createIndex(

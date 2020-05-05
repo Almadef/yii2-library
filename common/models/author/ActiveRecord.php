@@ -33,12 +33,25 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     * @return Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['name_ru', 'surname_ru', 'name_en', 'surname_en'], 'required'],
-            [['name_ru', 'surname_ru', 'patronymic_ru', 'name_en', 'surname_en', 'patronymic_en'], 'string', 'max' => 255],
+            [
+                ['name_ru', 'surname_ru', 'patronymic_ru', 'name_en', 'surname_en', 'patronymic_en'],
+                'string',
+                'max' => 255
+            ],
             [['created_at', 'updated_at'], 'integer'],
             [['is_deleted'], 'boolean'],
         ];
@@ -77,14 +90,5 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
                 'replaceRegularDelete' => true
             ],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 }
