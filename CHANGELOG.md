@@ -1,3 +1,13 @@
+### Версия 1.4.0
+Изменения:
+* Реализована мудьтиязычность данных в БД;
+* Массированный рефакторинг;
+* Переоформил код с PSR-2 на PSR-12.
+
+[Задача в GitHub](https://github.com/Almadef/yii2-library/issues/28)
+
+[Pull Request](https://github.com/Almadef/yii2-library/pull/31)
+
 ### Версия 1.3.0
 Изменения:
 * В проект добавлен memcached;
