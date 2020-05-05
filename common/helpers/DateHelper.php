@@ -3,6 +3,7 @@
 namespace common\helpers;
 
 use Yii;
+use yii\base\InvalidConfigException;
 
 /**
  * Class DateHelper
@@ -13,7 +14,7 @@ final class DateHelper
     /**
      * @param int $unixDate
      * @return string
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public static function convertUnixToDatetime(int $unixDate): string
     {

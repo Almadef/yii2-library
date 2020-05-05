@@ -2,20 +2,17 @@
 
 namespace common\models\user;
 
+use common\models\interfaces\QuerySafeDeleteInterface;
 use common\models\User;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\User]].
  *
  * @see \common\models\User
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return User[]|array
@@ -35,11 +32,11 @@ class Query extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return Query
+     * {@inheritdoc}
      */
     public function isNoDeleted()
     {
-        return $this->andWhere(['is_deleted' => false]);
+        return $this->andWhere(['{{%user}}.is_deleted' => false]);
     }
 
     /**
@@ -48,7 +45,7 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byId($id)
     {
-        return $this->andWhere(['id' => $id]);
+        return $this->andWhere(['{{%user}}.id' => $id]);
     }
 
     /**
@@ -57,7 +54,7 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byUsername($username)
     {
-        return $this->andWhere(['username' => $username]);
+        return $this->andWhere(['{{%user}}.username' => $username]);
     }
 
     /**
@@ -66,7 +63,7 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byStatus($status)
     {
-        return $this->andWhere(['status' => $status]);
+        return $this->andWhere(['{{%user}}.status' => $status]);
     }
 
     /**
@@ -75,7 +72,7 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byPasswordResetToken($passwordResetToken)
     {
-        return $this->andWhere(['password_reset_token' => $passwordResetToken]);
+        return $this->andWhere(['{{%user}}.password_reset_token' => $passwordResetToken]);
     }
 
     /**
@@ -84,6 +81,6 @@ class Query extends \yii\db\ActiveQuery
      */
     public function byVerificationToken($verificationToken)
     {
-        return $this->andWhere(['verification_token' => $verificationToken]);
+        return $this->andWhere(['{{%user}}.verification_token' => $verificationToken]);
     }
 }

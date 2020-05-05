@@ -13,13 +13,16 @@ class m200102_140130_add_author_permission extends Migration
      */
     public function safeUp()
     {
-        Yii::$app->db->createCommand()->batchInsert('{{%auth_item}}',
-            ['name', 'type', 'description', 'created_at', 'updated_at'], [
+        Yii::$app->db->createCommand()->batchInsert(
+            '{{%auth_item}}',
+            ['name', 'type', 'description', 'created_at', 'updated_at'],
+            [
                 ['viewAuthor', 2, 'View an author', 1577973884, 1577973884],
                 ['createAuthor', 2, 'Create an author', 1577973884, 1577973884],
                 ['updateAuthor', 2, 'Update an author', 1577973884, 1577973884],
                 ['deleteAuthor', 2, 'Delete an author', 1577973884, 1577973884],
-            ])->execute();
+            ]
+        )->execute();
     }
 
     /**

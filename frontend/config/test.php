@@ -1,4 +1,5 @@
 <?php
+
 return [
     'id' => 'app-frontend-tests',
     'basePath' => dirname(__DIR__),

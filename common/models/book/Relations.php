@@ -5,12 +5,14 @@ namespace common\models\book;
 use common\helpers\StorageHelper;
 use common\models\Author;
 use common\models\Book;
-use common\models\BookAuthor;
-use common\models\BookCategory;
+use common\models\book_author\ActiveRecord as BookAuthor;
+use common\models\book_category\ActiveRecord as BookCategory;
 use common\models\Category;
 use common\models\Publisher;
 use common\models\Storage;
-use common\models\UserBook;
+use common\models\User;
+use common\models\user_book\ActiveRecord as UserBook;
+use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -24,8 +26,8 @@ trait Relations
      */
     public function getPublisher()
     {
-        return $this->hasOne(Publisher::class,
-            ['id' => 'publisher_id'])->andWhere(['{{%publisher}}.is_deleted' => false]);
+        return $this->hasOne(Publisher::class, ['id' => 'publisher_id'])
+            ->andWhere(['{{%publisher}}.is_deleted' => false]);
     }
 
     /**
@@ -34,7 +36,8 @@ trait Relations
     public function getCategories()
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])
-            ->viaTable(BookCategory::tableName(), ['book_id' => 'id'])->andWhere(['{{%category}}.is_deleted' => false]);
+            ->viaTable(BookCategory::tableName(), ['book_id' => 'id'])
+            ->andWhere(['{{%category}}.is_deleted' => false]);
     }
 
     /**
@@ -43,7 +46,8 @@ trait Relations
     public function getAuthors()
     {
         return $this->hasMany(Author::class, ['id' => 'author_id'])
-            ->viaTable(BookAuthor::tableName(), ['book_id' => 'id'])->andWhere(['{{%author}}.is_deleted' => false]);
+            ->viaTable(BookAuthor::tableName(), ['book_id' => 'id'])
+            ->andWhere(['{{%author}}.is_deleted' => false]);
     }
 
     /**
@@ -81,8 +85,21 @@ trait Relations
     /**
      * @return ActiveQuery
      */
-    public function getUserBook()
+    public function getCurrentUser()
     {
-        return $this->hasMany(UserBook::class, ['book_id' => 'id']);
+        return $this->hasOne(User::class, ['id' => 'user_id'])
+            ->viaTable(UserBook::tableName(), ['book_id' => 'id'])
+            ->andWhere(['{{%user}}.id' => Yii::$app->user->id])
+            ->andWhere(['{{%user}}.is_deleted' => false]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])
+            ->viaTable(UserBook::tableName(), ['book_id' => 'id'])
+            ->andWhere(['{{%user}}.is_deleted' => false]);
     }
 }

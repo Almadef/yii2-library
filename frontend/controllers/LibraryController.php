@@ -31,8 +31,7 @@ final class LibraryController extends Controller
         int $category_id = null,
         int $author_id = null,
         int $publisher_id = null
-    )
-    {
+    ) {
         $queryBook = Book::find()
             ->isNoDeleted();
 
@@ -62,11 +61,14 @@ final class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
-        return $this->render('index', [
-            'pages' => $pages,
-            'books' => $books,
-            'categories' => $categories,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'pages' => $pages,
+                'books' => $books,
+                'categories' => $categories,
+            ]
+        );
     }
 
     /**
@@ -76,11 +78,7 @@ final class LibraryController extends Controller
     {
         $userId = Yii::$app->user->id;
         $queryBook = Book::find()
-            ->joinWith([
-                'userBook' => function ($query) use ($userId) {
-                    $query->byUserId($userId);
-                },
-            ])
+            ->joinWith('currentUser')
             ->isNoDeleted();
 
         $pages = new Pagination(['totalCount' => $queryBook->count(), 'pageSize' => 8]);
@@ -92,11 +90,14 @@ final class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
-        return $this->render('index', [
-            'pages' => $pages,
-            'books' => $books,
-            'categories' => $categories,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'pages' => $pages,
+                'books' => $books,
+                'categories' => $categories,
+            ]
+        );
     }
 
     /**
@@ -116,17 +117,13 @@ final class LibraryController extends Controller
             ->isNoDeleted()
             ->all();
 
-        $fvBtn['is'] = UserBook::find()
-            ->byBookId($book_id)
-            ->byUserId(Yii::$app->user->id)
-            ->exists();
-        $fvBtn['lng'] = Yii::$app->language;
-
-        return $this->render('book', [
-            'book' => $book,
-            'categories' => $categories,
-            'fvBtn' => $fvBtn,
-        ]);
+        return $this->render(
+            'book',
+            [
+                'book' => $book,
+                'categories' => $categories,
+            ]
+        );
     }
 
     /**

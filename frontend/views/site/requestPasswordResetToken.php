@@ -1,11 +1,14 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\PasswordResetRequestForm */
 
-use yii\helpers\Html;
+/* @var $form yii\bootstrap\ActiveForm */
+
+/* @var $model PasswordResetRequestForm */
+
+use frontend\models\PasswordResetRequestForm;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Request password reset');
 ?>
@@ -16,15 +19,17 @@ $this->title = Yii::t('app', 'Request password reset');
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+            <?php
+            $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Send'), ['class' => 'btn btn-primary']) ?>
-                </div>
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('app', 'Send'), ['class' => 'btn btn-primary']) ?>
+            </div>
 
-            <?php ActiveForm::end(); ?>
+            <?php
+            ActiveForm::end(); ?>
         </div>
     </div>
 </div>

@@ -1,11 +1,10 @@
 <?php
 
-namespace common\models;
+namespace common\models\book_category;
 
-use common\models\book_category\Query;
-use common\models\book_category\Relations;
+use common\models\Book;
+use common\models\Category;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%book_category}}".
@@ -17,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property Book $book
  * @property Category $category
  */
-class BookCategory extends \yii\db\ActiveRecord
+abstract class ActiveRecord extends \yii\db\ActiveRecord
 {
     use Relations;
 
@@ -27,6 +26,15 @@ class BookCategory extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%book_category}}';
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 
     /**
@@ -79,14 +87,5 @@ class BookCategory extends \yii\db\ActiveRecord
             ],
             'value' => time(),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 }

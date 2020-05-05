@@ -18,12 +18,16 @@ class m200103_122246_create_publisher_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%publisher}}', [
-            'id' => $this->primaryKey(),
-            'name' => $this->string()->notNull()->unique(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        $this->createTable(
+            '{{%publisher}}',
+            [
+                'id' => $this->primaryKey(),
+                'name' => $this->string()->notNull()->unique(),
+                'created_at' => $this->integer()->notNull(),
+                'updated_at' => $this->integer()->notNull(),
+            ],
+            $tableOptions
+        );
     }
 
     /**

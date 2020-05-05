@@ -2,15 +2,13 @@
 
 namespace common\models;
 
+use common\helpers\UserHelper;
 use common\models\auth\Assignment;
-use common\models\user\Relations;
+use common\models\user\ActiveRecord;
 use Yii;
 use yii\base\Exception;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * User model
@@ -29,81 +27,10 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property bool $is_deleted
  *
  * @property Assignment $role
+ * @property Book[] $books
  */
-class User extends ActiveRecord implements IdentityInterface
+final class User extends ActiveRecord implements IdentityInterface
 {
-    use Relations;
-
-    const STATUS_BANNED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
-
-    public $password;
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%user}}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::class,
-            [
-                'class' => SoftDeleteBehavior::class,
-                'softDeleteAttributeValues' => [
-                    'is_deleted' => true
-                ],
-                'replaceRegularDelete' => true
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_BANNED]],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'username' => Yii::t('app', 'Username'),
-            'password_hash' => Yii::t('app', 'Password Hash'),
-            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
-            'verification_token' => Yii::t('app', 'Verification Token'),
-            'email' => Yii::t('app', 'Email'),
-            'auth_key' => Yii::t('app', 'Auth Key'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\user\Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\user\Query(get_called_class());
-    }
-
     /**
      * @return array
      */
@@ -114,14 +41,6 @@ class User extends ActiveRecord implements IdentityInterface
             self::STATUS_INACTIVE => Yii::t('app', 'Inactive'),
             self::STATUS_ACTIVE => Yii::t('app', 'Active'),
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatusName(): string
-    {
-        return $this->getStatusForSelector()[$this->status];
     }
 
     /**
@@ -178,21 +97,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by verification email token
-     *
-     * @param string $token verify email token
-     * @return static|null
-     */
-    public static function findByVerificationToken($token)
-    {
-        return static::find()
-            ->byVerificationToken($token)
-            ->byStatus(self::STATUS_INACTIVE)
-            ->isNoDeleted()
-            ->one();
-    }
-
-    /**
      * Finds out if password reset token is valid
      *
      * @param string $token password reset token
@@ -210,6 +114,21 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Finds user by verification email token
+     *
+     * @param string $token verify email token
+     * @return static|null
+     */
+    public static function findByVerificationToken($token)
+    {
+        return static::find()
+            ->byVerificationToken($token)
+            ->byStatus(self::STATUS_INACTIVE)
+            ->isNoDeleted()
+            ->one();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getId()
@@ -220,17 +139,17 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthKey()
+    public function validateAuthKey($authKey)
     {
-        return $this->auth_key;
+        return $this->getAuthKey() === $authKey;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function validateAuthKey($authKey)
+    public function getAuthKey()
     {
-        return $this->getAuthKey() === $authKey;
+        return $this->auth_key;
     }
 
     /**
@@ -252,7 +171,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->password_hash = UserHelper::generatePasswordHash($password);
     }
 
     /**
@@ -261,7 +180,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->auth_key = UserHelper::generateAuthKey();
     }
 
     /**
@@ -270,7 +189,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->password_reset_token = UserHelper::generatePasswordResetToken();
     }
 
     /**
@@ -279,7 +198,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateEmailVerificationToken()
     {
-        $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->verification_token = UserHelper::generateEmailVerificationToken();
     }
 
     /**

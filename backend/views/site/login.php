@@ -1,12 +1,14 @@
 <?php
 
 /* @var $this yii\web\View */
+
 /* @var $form yii\bootstrap\ActiveForm */
 
-/* @var $model \common\models\LoginForm */
+/* @var $model LoginForm */
 
-use yii\helpers\Html;
+use common\models\LoginForm;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Login');
 ?>
@@ -17,7 +19,8 @@ $this->title = Yii::t('app', 'Login');
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?php
+            $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
             <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
@@ -26,11 +29,14 @@ $this->title = Yii::t('app', 'Login');
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Login'),
-                    ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton(
+                    Yii::t('app', 'Login'),
+                    ['class' => 'btn btn-primary', 'name' => 'login-button']
+                ) ?>
             </div>
 
-            <?php ActiveForm::end(); ?>
+            <?php
+            ActiveForm::end(); ?>
         </div>
     </div>
 </div>

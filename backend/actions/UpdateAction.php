@@ -2,8 +2,8 @@
 
 namespace backend\actions;
 
-use yii\base\Action;
 use Yii;
+use yii\base\Action;
 
 /**
  * Class UpdateAction
@@ -25,9 +25,12 @@ final class UpdateAction extends Action
             $this->controller->clearCache();
             return $this->controller->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->controller->render('update', [
-                'model' => $model,
-            ]);
+            return $this->controller->render(
+                'update',
+                [
+                    'model' => $model,
+                ]
+            );
         }
     }
 }

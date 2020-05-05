@@ -6,7 +6,7 @@ use common\models\User;
 use yii\base\InvalidArgumentException;
 use yii\base\Model;
 
-class VerifyEmailForm extends Model
+final class VerifyEmailForm extends Model
 {
     /**
      * @var string

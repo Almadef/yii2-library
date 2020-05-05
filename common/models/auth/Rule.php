@@ -5,6 +5,7 @@ namespace common\models\auth;
 use common\models\auth\rule\Query;
 use common\models\auth\rule\Relations;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%auth_rule}}".
@@ -16,7 +17,7 @@ use Yii;
  *
  * @property Item[] $authItems
  */
-class Rule extends \yii\db\ActiveRecord
+final class Rule extends ActiveRecord
 {
     use Relations;
 
@@ -26,6 +27,15 @@ class Rule extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%auth_rule}}';
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 
     /**
@@ -53,14 +63,5 @@ class Rule extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 }

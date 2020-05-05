@@ -3,30 +3,36 @@
 namespace backend\controllers;
 
 use backend\actions\DeleteAction;
+use backend\controllers\interfaces\MergeBaseActionInterface;
+use backend\controllers\traits\CacheManagementTraits;
 use common\models\Author;
+use common\models\Book;
+use common\models\book\Search;
 use common\models\Category;
 use common\models\Publisher;
 use common\models\Storage;
+use Exception;
+use Throwable;
 use Yii;
-use common\models\Book;
-use common\models\book\Search;
 use yii\data\ActiveDataProvider;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * BookController implements the CRUD actions for Book model.
  */
-final class BookController extends Controller
+final class BookController extends Controller implements MergeBaseActionInterface
 {
-    use CacheManagement;
+    use CacheManagementTraits;
 
     /**
      * Lists all Book models.
      * @return mixed
+     * @throws Exception
      */
     public function actionIndex()
     {
@@ -35,11 +41,14 @@ final class BookController extends Controller
 
         $selectPublisher = Publisher::getForSelector();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'selectPublisher' => $selectPublisher,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'selectPublisher' => $selectPublisher,
+            ]
+        );
     }
 
     /**
@@ -52,22 +61,47 @@ final class BookController extends Controller
     {
         $model = $this->findModel($id);
 
-        $authorDataProvider = new ActiveDataProvider([
-            'query' => $model->getAuthors(),
-        ]);
-        $categoryDataProvider = new ActiveDataProvider([
-            'query' => $model->getCategories(),
-        ]);
-        $fileDataProvider = new ActiveDataProvider([
-            'query' => $model->getFiles(),
-        ]);
+        $authorDataProvider = new ActiveDataProvider(
+            [
+                'query' => $model->getAuthors(),
+            ]
+        );
+        $categoryDataProvider = new ActiveDataProvider(
+            [
+                'query' => $model->getCategories(),
+            ]
+        );
+        $fileDataProvider = new ActiveDataProvider(
+            [
+                'query' => $model->getFiles(),
+            ]
+        );
 
-        return $this->render('view', [
-            'model' => $model,
-            'authorDataProvider' => $authorDataProvider,
-            'categoryDataProvider' => $categoryDataProvider,
-            'fileDataProvider' => $fileDataProvider,
-        ]);
+        return $this->render(
+            'view',
+            [
+                'model' => $model,
+                'authorDataProvider' => $authorDataProvider,
+                'categoryDataProvider' => $categoryDataProvider,
+                'fileDataProvider' => $fileDataProvider,
+            ]
+        );
+    }
+
+    /**
+     * Finds the Book model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Book the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function findModel($id)
+    {
+        if (($model = Book::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
@@ -88,12 +122,15 @@ final class BookController extends Controller
         $selectAuthor = Author::getForSelector();
         $selectPublisher = Publisher::getForSelector();
 
-        return $this->render('create', [
-            'model' => $model,
-            'selectCategory' => $selectCategory,
-            'selectAuthor' => $selectAuthor,
-            'selectPublisher' => $selectPublisher,
-        ]);
+        return $this->render(
+            'create',
+            [
+                'model' => $model,
+                'selectCategory' => $selectCategory,
+                'selectAuthor' => $selectAuthor,
+                'selectPublisher' => $selectPublisher,
+            ]
+        );
     }
 
     /**
@@ -103,8 +140,8 @@ final class BookController extends Controller
      * @param int|null $fileDeleteId
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function actionUpdate($id, $fileDeleteId = null)
     {
@@ -124,46 +161,15 @@ final class BookController extends Controller
         $selectAuthor = Author::getForSelector();
         $selectPublisher = Publisher::getForSelector();
 
-        return $this->render('update', [
-            'model' => $model,
-            'selectCategory' => $selectCategory,
-            'selectAuthor' => $selectAuthor,
-            'selectPublisher' => $selectPublisher,
-        ]);
-    }
-
-    /**
-     * @return array
-     */
-    public function actions()
-    {
-        return ArrayHelper::merge(parent::actions(), [
-            'delete' => DeleteAction::class,
-        ]);
-    }
-
-    /**
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        return ['library_index'];
-    }
-
-    /**
-     * Finds the Book model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Book the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function findModel($id)
-    {
-        if (($model = Book::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return $this->render(
+            'update',
+            [
+                'model' => $model,
+                'selectCategory' => $selectCategory,
+                'selectAuthor' => $selectAuthor,
+                'selectPublisher' => $selectPublisher,
+            ]
+        );
     }
 
     /**
@@ -180,6 +186,43 @@ final class BookController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist.'));
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return ArrayHelper::merge(
+            parent::actions(),
+            [
+                'delete' => DeleteAction::class,
+            ]
+        );
+    }
+
+    /**
+     * @return Search
+     */
+    public function getSearchModel()
+    {
+        return new Search();
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelClass()
+    {
+        return Book::class;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return ['library_index'];
     }
 
     /**

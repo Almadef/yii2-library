@@ -11,7 +11,7 @@ use yii\sphinx\MatchExpression;
  *
  * @property int $id
  */
-class IdxLibrary extends ActiveRecord
+final class IdxLibrary extends ActiveRecord
 {
     /**
      * @return string the name of the index associated with this ActiveRecord class.
@@ -25,7 +25,7 @@ class IdxLibrary extends ActiveRecord
      * @param string $param
      * @return array
      */
-    public static function search(string $param):array
+    public static function search(string $param): array
     {
         $idxBooks = self::find()
             ->match(

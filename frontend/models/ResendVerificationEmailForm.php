@@ -3,11 +3,11 @@
 
 namespace frontend\models;
 
-use Yii;
 use common\models\User;
+use Yii;
 use yii\base\Model;
 
-class ResendVerificationEmailForm extends Model
+final class ResendVerificationEmailForm extends Model
 {
     /**
      * @var string
@@ -24,7 +24,9 @@ class ResendVerificationEmailForm extends Model
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'exist',
+            [
+                'email',
+                'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_INACTIVE],
                 'message' => 'There is no user with this email address.'
@@ -49,10 +51,12 @@ class ResendVerificationEmailForm extends Model
      */
     public function sendEmail()
     {
-        $user = User::findOne([
-            'email' => $this->email,
-            'status' => User::STATUS_INACTIVE
-        ]);
+        $user = User::findOne(
+            [
+                'email' => $this->email,
+                'status' => User::STATUS_INACTIVE
+            ]
+        );
 
         if ($user === null) {
             return false;

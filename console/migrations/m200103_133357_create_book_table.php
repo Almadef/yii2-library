@@ -18,17 +18,21 @@ class m200103_133357_create_book_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%book}}', [
-            'id' => $this->primaryKey(),
-            'publisher_id' => $this->integer()->notNull(),
-            'title' => $this->string()->notNull(),
-            'release' => $this->date()->notNull(),
-            'isbn' => $this->string(64)->notNull(),
-            'pages' => $this->integer()->notNull(),
-            'description' => $this->text()->defaultValue(null),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        $this->createTable(
+            '{{%book}}',
+            [
+                'id' => $this->primaryKey(),
+                'publisher_id' => $this->integer()->notNull(),
+                'title' => $this->string()->notNull(),
+                'release' => $this->date()->notNull(),
+                'isbn' => $this->string(64)->notNull(),
+                'pages' => $this->integer()->notNull(),
+                'description' => $this->text()->defaultValue(null),
+                'created_at' => $this->integer()->notNull(),
+                'updated_at' => $this->integer()->notNull(),
+            ],
+            $tableOptions
+        );
 
         $this->addForeignKey(
             'fk-book-publisher_id',

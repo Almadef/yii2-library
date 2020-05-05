@@ -2,23 +2,18 @@
 
 namespace common\models\book_author;
 
-use common\models\BookAuthor;
+use yii\db\ActiveQuery;
 
 /**
- * This is the ActiveQuery class for [[\common\models\BookAuthor]].
+ * This is the ActiveQuery class for [[\common\models\ActiveRecord]].
  *
- * @see \common\models\BookAuthor
+ * @see \common\models\ActiveRecord
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
-     * @return BookAuthor[]|array
+     * @return ActiveRecord[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +22,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return BookAuthor|array|null
+     * @return ActiveRecord|array|null
      */
     public function one($db = null)
     {

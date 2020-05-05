@@ -3,6 +3,8 @@
 namespace console\controllers;
 
 use common\models\User;
+use Exception;
+use Throwable;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -15,7 +17,7 @@ final class RbacController extends Controller
 {
     /**
      * Create default admin and librarian
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionCreateDefaultUser()
     {
@@ -48,15 +50,17 @@ final class RbacController extends Controller
             $auth->assign($auth->getRole('admin'), $admin->getId());
             $auth->assign($auth->getRole('librarian'), $librarian->getId());
             $transaction->commit();
-            $this->stdout($this->ansiFormat('Success!' . PHP_EOL, Console::FG_GREEN)
+            $this->stdout(
+                $this->ansiFormat('Success!' . PHP_EOL, Console::FG_GREEN)
                 . 'Admin login: admin' . PHP_EOL
                 . 'Admin password: adminadmin' . PHP_EOL
                 . 'Librarian login: librarian' . PHP_EOL
-                . 'Librarian password: librarian' . PHP_EOL);
-        } catch (\Exception $e) {
+                . 'Librarian password: librarian' . PHP_EOL
+            );
+        } catch (Exception $e) {
             $transaction->rollBack();
             throw $e;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $transaction->rollBack();
         }
     }

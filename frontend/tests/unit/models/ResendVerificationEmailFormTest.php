@@ -6,23 +6,27 @@ namespace frontend\tests\unit\models;
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
 use frontend\models\ResendVerificationEmailForm;
+use frontend\tests\UnitTester;
+use Yii;
 
 class ResendVerificationEmailFormTest extends Unit
 {
     /**
-     * @var \frontend\tests\UnitTester
+     * @var UnitTester
      */
     protected $tester;
 
 
     public function _before()
     {
-        $this->tester->haveFixtures([
-            'user' => [
-                'class' => UserFixture::className(),
-                'dataFile' => codecept_data_dir() . 'user.php'
+        $this->tester->haveFixtures(
+            [
+                'user' => [
+                    'class' => UserFixture::className(),
+                    'dataFile' => codecept_data_dir() . 'user.php'
+                ]
             ]
-        ]);
+        );
     }
 
     public function testWrongEmailAddress()
@@ -78,8 +82,8 @@ class ResendVerificationEmailFormTest extends Unit
 
         expect('valid email is sent', $mail)->isInstanceOf('yii\mail\MessageInterface');
         expect($mail->getTo())->hasKey('test@mail.com');
-        expect($mail->getFrom())->hasKey(\Yii::$app->params['supportEmail']);
-        expect($mail->getSubject())->equals('Account registration at ' . \Yii::$app->name);
+        expect($mail->getFrom())->hasKey(Yii::$app->params['supportEmail']);
+        expect($mail->getSubject())->equals('Account registration at ' . Yii::$app->name);
         expect($mail->toString())->stringContainsString('4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330');
     }
 }

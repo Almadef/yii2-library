@@ -15,6 +15,15 @@ final class RoleHelper
     const ROLE_USER = 'user';
 
     /**
+     * @param string $role
+     * @return string
+     */
+    public static function getRoleName(string $role): string
+    {
+        return self::getForSelector()[$role];
+    }
+
+    /**
      * @return array
      */
     public static function getForSelector(): array
@@ -24,14 +33,5 @@ final class RoleHelper
             self::ROLE_LIBRARIAN => Yii::t('app', 'Librarian'),
             self::ROLE_USER => Yii::t('app', 'User'),
         ];
-    }
-
-    /**
-     * @param string $role
-     * @return string
-     */
-    public static function getRoleName(string $role): string
-    {
-        return self::getForSelector()[$role];
     }
 }

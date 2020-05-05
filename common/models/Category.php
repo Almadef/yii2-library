@@ -2,90 +2,38 @@
 
 namespace common\models;
 
-use common\models\category\Query;
-use Yii;
-use yii\behaviors\TimestampBehavior;
+use common\models\category\ActiveRecord;
+use common\models\category\Multilang;
+use Exception;
 use yii\helpers\ArrayHelper;
-use yii2tech\ar\softdelete\SoftDeleteBehavior;
+
 
 /**
- * This is the model class for table "{{%category}}".
+ * Class Category
+ * @package common\models
  *
  * @property int $id
  * @property string $title
+ * @property string $title_ru
+ * @property string $title_en
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
  */
-class Category extends \yii\db\ActiveRecord
+final class Category extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%category}}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['title'], 'required'],
-            [['title'], 'string', 'max' => 255],
-            [['created_at', 'updated_at'], 'integer'],
-            [['is_deleted'], 'boolean'],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'title' => Yii::t('app', 'Title'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::class,
-            [
-                'class' => SoftDeleteBehavior::class,
-                'softDeleteAttributeValues' => [
-                    'is_deleted' => true
-                ],
-                'replaceRegularDelete' => true
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
-    }
+    use Multilang;
 
     /**
      * @return array
+     * @throws Exception
      */
     public static function getForSelector(): array
     {
         return ArrayHelper::map(
-            self::find()->isNoDeleted()->all(), 'id', 'title'
+            self::find()->isNoDeleted()->all(),
+            'id',
+            'title'
         );
     }
 }

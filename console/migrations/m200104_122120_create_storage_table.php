@@ -12,19 +12,22 @@ class m200104_122120_create_storage_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%storage}}', [
-            'id' => $this->primaryKey(),
-            'model_id' => $this->integer()->notNull(),
-            'model_name' => $this->string()->notNull(),
-            'description' => $this->string()->notNull(),
-            'file_name' => $this->string()->notNull(),
-            'file_type' => $this->string()->notNull(),
-            'file_size' => $this->integer()->notNull(),
-            'file_path' => $this->string()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-            'is_deleted' => $this->boolean()->notNull()->defaultValue(false),
-        ]);
+        $this->createTable(
+            '{{%storage}}',
+            [
+                'id' => $this->primaryKey(),
+                'model_id' => $this->integer()->notNull(),
+                'model_name' => $this->string()->notNull(),
+                'description' => $this->string()->notNull(),
+                'file_name' => $this->string()->notNull(),
+                'file_type' => $this->string()->notNull(),
+                'file_size' => $this->integer()->notNull(),
+                'file_path' => $this->string()->notNull(),
+                'created_at' => $this->integer()->notNull(),
+                'updated_at' => $this->integer()->notNull(),
+                'is_deleted' => $this->boolean()->notNull()->defaultValue(false),
+            ]
+        );
 
         $this->createIndex(
             'idx-storage-model_id',

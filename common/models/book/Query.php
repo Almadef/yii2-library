@@ -2,23 +2,19 @@
 
 namespace common\models\book;
 
-use common\models\Book;
+use common\models\interfaces\QuerySafeDeleteInterface;
+use yii\db\ActiveQuery;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Book]].
+ * This is the ActiveQuery class for [[\common\models\book\ActiveRecord]].
  *
- * @see \common\models\Book
+ * @see \common\models\book\ActiveRecord
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
-     * @return Book[]|array
+     * @return ActiveRecord[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +23,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Book|array|null
+     * @return ActiveRecord|array|null
      */
     public function one($db = null)
     {
@@ -35,7 +31,7 @@ class Query extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return Query
+     * {@inheritdoc}
      */
     public function isNoDeleted()
     {

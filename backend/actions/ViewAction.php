@@ -2,8 +2,8 @@
 
 namespace backend\actions;
 
-use yii\base\Action;
 use Yii;
+use yii\base\Action;
 
 /**
  * Class ViewAction
@@ -20,8 +20,11 @@ final class ViewAction extends Action
         $id = Yii::$app->request->get('id');
         $model = $this->controller->findModel($id);
 
-        return $this->controller->render('view', [
-            'model' => $model,
-        ]);
+        return $this->controller->render(
+            'view',
+            [
+                'model' => $model,
+            ]
+        );
     }
 }

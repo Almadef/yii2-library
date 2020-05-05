@@ -5,6 +5,7 @@ namespace common\models\auth;
 use common\models\auth\item\Query;
 use common\models\auth\item\Relations;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%auth_item}}".
@@ -24,7 +25,7 @@ use Yii;
  * @property Item[] $children
  * @property Item[] $parents
  */
-class Item extends \yii\db\ActiveRecord
+final class Item extends ActiveRecord
 {
     use Relations;
 
@@ -37,6 +38,15 @@ class Item extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%auth_item}}';
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return Query the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 
     /**
@@ -74,14 +84,5 @@ class Item extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 }

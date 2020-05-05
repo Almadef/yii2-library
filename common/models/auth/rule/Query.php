@@ -3,19 +3,15 @@
 namespace common\models\auth\rule;
 
 use common\models\auth\Rule;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\auth\Rule]].
  *
  * @see \common\models\auth\Rule
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return Rule[]|array

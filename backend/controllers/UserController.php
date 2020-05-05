@@ -4,23 +4,27 @@ namespace backend\controllers;
 
 use backend\actions\DeleteAction;
 use backend\actions\ViewAction;
+use backend\controllers\interfaces\MergeBaseActionInterface;
+use backend\controllers\traits\CacheManagementTraits;
 use backend\models\SaveUserForm;
 use common\helpers\RoleHelper;
 use common\models\User;
-use Yii;
 use common\models\user\Search;
+use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * UserController implements the CRUD actions for User model.
  */
-final class UserController extends Controller
+final class UserController extends Controller implements MergeBaseActionInterface
 {
+    use CacheManagementTraits;
+
     /**
      * Lists all User models.
      * @return mixed
@@ -33,12 +37,15 @@ final class UserController extends Controller
         $selectRole = RoleHelper::getForSelector();
         $selectStatus = User::getStatusForSelector();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'selectRole' => $selectRole,
-            'selectStatus' => $selectStatus,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'selectRole' => $selectRole,
+                'selectStatus' => $selectStatus,
+            ]
+        );
     }
 
     /**
@@ -58,11 +65,14 @@ final class UserController extends Controller
         $selectRole = RoleHelper::getForSelector();
         $selectStatus = User::getStatusForSelector();
 
-        return $this->render('create', [
-            'model' => $model,
-            'selectRole' => $selectRole,
-            'selectStatus' => $selectStatus,
-        ]);
+        return $this->render(
+            'create',
+            [
+                'model' => $model,
+                'selectRole' => $selectRole,
+                'selectStatus' => $selectStatus,
+            ]
+        );
     }
 
     /**
@@ -89,22 +99,14 @@ final class UserController extends Controller
         $selectRole = RoleHelper::getForSelector();
         $selectStatus = User::getStatusForSelector();
 
-        return $this->render('update', [
-            'model' => $model,
-            'selectRole' => $selectRole,
-            'selectStatus' => $selectStatus,
-        ]);
-    }
-
-    /**
-     * @return array
-     */
-    public function actions()
-    {
-        return ArrayHelper::merge(parent::actions(), [
-            'view' => ViewAction::class,
-            'delete' => DeleteAction::class,
-        ]);
+        return $this->render(
+            'update',
+            [
+                'model' => $model,
+                'selectRole' => $selectRole,
+                'selectStatus' => $selectStatus,
+            ]
+        );
     }
 
     /**
@@ -119,6 +121,36 @@ final class UserController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist.'));
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return ArrayHelper::merge(
+            parent::actions(),
+            [
+                'view' => ViewAction::class,
+                'delete' => DeleteAction::class,
+            ]
+        );
+    }
+
+    /**
+     * @return Search
+     */
+    public function getSearchModel()
+    {
+        return new Search();
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelClass()
+    {
+        return User::class;
     }
 
     /**

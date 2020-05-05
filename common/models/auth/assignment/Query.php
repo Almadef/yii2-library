@@ -3,19 +3,15 @@
 namespace common\models\auth\assignment;
 
 use common\models\auth\Assignment;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[\common\models\auth\Assignment]].
  *
  * @see \common\models\auth\Assignment
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return Assignment[]|array

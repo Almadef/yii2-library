@@ -18,12 +18,16 @@ class m200103_122213_create_category_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%category}}', [
-            'id' => $this->primaryKey(),
-            'title' => $this->string()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        $this->createTable(
+            '{{%category}}',
+            [
+                'id' => $this->primaryKey(),
+                'title' => $this->string()->notNull(),
+                'created_at' => $this->integer()->notNull(),
+                'updated_at' => $this->integer()->notNull(),
+            ],
+            $tableOptions
+        );
     }
 
     /**

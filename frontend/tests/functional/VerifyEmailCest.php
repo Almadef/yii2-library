@@ -3,6 +3,7 @@
 namespace frontend\tests\functional;
 
 use common\fixtures\UserFixture;
+use common\models\User;
 use frontend\tests\FunctionalTester;
 
 class VerifyEmailCest
@@ -10,9 +11,9 @@ class VerifyEmailCest
     /**
      * Load fixtures before db transaction begin
      * Called in _before()
-     * @see \Codeception\Module\Yii2::_before()
-     * @see \Codeception\Module\Yii2::loadFixtures()
      * @return array
+     * @see \Codeception\Module\Yii2::loadFixtures()
+     * @see \Codeception\Module\Yii2::_before()
      */
     public function _fixtures()
     {
@@ -58,10 +59,13 @@ class VerifyEmailCest
         $I->canSee('Your email has been confirmed!');
         $I->see('Logout (test.test)', 'form button[type=submit]');
 
-        $I->seeRecord('common\models\User', [
-           'username' => 'test.test',
-           'email' => 'test@mail.com',
-           'status' => \common\models\User::STATUS_ACTIVE
-        ]);
+        $I->seeRecord(
+            'common\models\User',
+            [
+                'username' => 'test.test',
+                'email' => 'test@mail.com',
+                'status' => User::STATUS_ACTIVE
+            ]
+        );
     }
 }

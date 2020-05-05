@@ -2,23 +2,19 @@
 
 namespace common\models\storage;
 
-use common\models\Storage;
+use common\models\interfaces\QuerySafeDeleteInterface;
+use yii\db\ActiveQuery;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Storage]].
+ * This is the ActiveQuery class for [[\common\models\storage\ActiveRecord]].
  *
- * @see \common\models\Storage
+ * @see \common\models\storage\ActiveRecord
  */
-class Query extends \yii\db\ActiveQuery
+final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
-     * @return Storage[]|array
+     * @return ActiveRecord[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +23,7 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Storage|array|null
+     * @return ActiveRecord|array|null
      */
     public function one($db = null)
     {
@@ -36,7 +32,7 @@ class Query extends \yii\db\ActiveQuery
 
 
     /**
-     * @return Query
+     * {@inheritdoc}
      */
     public function isNoDeleted()
     {
