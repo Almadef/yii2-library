@@ -7,6 +7,7 @@ use Codeception\Lib\Friend;
 
 /**
  * Inherited Methods
+ *
  * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
@@ -23,7 +24,6 @@ use Codeception\Lib\Friend;
 class FunctionalTester extends Actor
 {
     use _generated\FunctionalTesterActions;
-
 
     public function seeValidationError($message)
     {

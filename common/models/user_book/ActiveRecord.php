@@ -11,7 +11,6 @@ use Yii;
  *
  * @property int $user_id
  * @property int $book_id
- *
  * @property Book $book
  * @property User $user
  */
@@ -29,6 +28,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

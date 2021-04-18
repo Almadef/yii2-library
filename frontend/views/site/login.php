@@ -30,9 +30,9 @@ $this->title = Yii::t('app', 'Login');
 
             <div style="color:#999;margin:1em 0">
                 <?= Yii::t('app', 'If you forgot your password you can') ?> <?= Html::a(
-                    Yii::t('app', 'reset it'),
-                    ['site/request-password-reset']
-                ) ?>.
+    Yii::t('app', 'reset it'),
+    ['site/request-password-reset']
+) ?>.
                 <br>
                 <?= Yii::t('app', 'Need new verification email?') ?> <?= Html::a(
                     Yii::t('app', 'Resend'),

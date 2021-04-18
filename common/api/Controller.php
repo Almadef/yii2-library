@@ -31,6 +31,7 @@ abstract class Controller extends BaseController
         );
 
         $this->initResponse();
+
         return parent::beforeAction($action);
     }
 
@@ -43,6 +44,7 @@ abstract class Controller extends BaseController
         Yii::$app->response->statusCode = 400;
         $this->response->result = 'fail';
         $this->response->error_message = $message;
+
         return $this->response;
     }
 
@@ -59,6 +61,7 @@ abstract class Controller extends BaseController
     protected function getSuccessResponse()
     {
         $this->response->result = 'success';
+
         return $this->response;
     }
 }

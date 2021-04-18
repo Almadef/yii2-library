@@ -12,7 +12,6 @@ use yii\db\ActiveRecord;
  *
  * @property string $parent
  * @property string $child
- *
  * @property Item $parent0
  * @property Item $child0
  */
@@ -30,6 +29,7 @@ final class ItemChild extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

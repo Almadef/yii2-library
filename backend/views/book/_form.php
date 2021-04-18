@@ -24,14 +24,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'publisher_id')->widget(
-        Select2::class,
-        [
+    Select2::class,
+    [
             'data' => $selectPublisher,
             'options' => [
                 'placeholder' => Yii::t('app', 'Select...'),
             ],
         ]
-    )->label(Yii::t('app', 'Publisher')) ?>
+)->label(Yii::t('app', 'Publisher')) ?>
 
     <?= $form->field($model, 'release')->textInput() ?>
 
@@ -98,9 +98,9 @@ use yii\widgets\ActiveForm;
     } else {
         $url = Url::toRoute(['update', 'id' => $model->id, 'fileDeleteId' => $model->fileCover->id]);
         echo '<p>' . Html::a(
-                Yii::t('app', 'Deleted cover'),
-                $url
-            ) . ' ' . Html::a(
+            Yii::t('app', 'Deleted cover'),
+            $url
+        ) . ' ' . Html::a(
                 Yii::t('app', 'Watch file'),
                 Yii::$app->storage->getUrl($model->fileCover->description, $model->fileCover->file_path),
                 ['target' => '_blank']
@@ -114,9 +114,9 @@ use yii\widgets\ActiveForm;
     } else {
         $url = Url::toRoute(['update', 'id' => $model->id, 'fileDeleteId' => $model->fileBook->id]);
         echo '<p>' . Html::a(
-                Yii::t('app', 'Deleted book'),
-                $url
-            ) . ' ' . Html::a(
+            Yii::t('app', 'Deleted book'),
+            $url
+        ) . ' ' . Html::a(
                 Yii::t('app', 'Watch file'),
                 Yii::$app->storage->getUrl($model->fileBook->description, $model->fileBook->file_path),
                 ['target' => '_blank']

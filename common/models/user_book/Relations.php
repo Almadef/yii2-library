@@ -8,6 +8,7 @@ use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
+ *
  * @package common\models\user_book
  */
 trait Relations

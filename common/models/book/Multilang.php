@@ -8,22 +8,26 @@ use Exception;
 trait Multilang
 {
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getTitle(): string
     {
         $title = LanguagesHelper::getCurrentAttribute('title');
+
         return $this->$title;
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getDescription(): string
     {
         $description = LanguagesHelper::getCurrentAttribute('description');
+
         return $this->$description;
     }
 }

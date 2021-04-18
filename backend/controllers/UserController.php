@@ -27,6 +27,7 @@ final class UserController extends Controller implements MergeBaseActionInterfac
 
     /**
      * Lists all User models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -51,8 +52,10 @@ final class UserController extends Controller implements MergeBaseActionInterfac
     /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function actionCreate()
     {
@@ -78,10 +81,13 @@ final class UserController extends Controller implements MergeBaseActionInterfac
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
-     * @return mixed
+     *
      * @throws NotFoundHttpException if the model cannot be found
      * @throws Exception
+     *
+     * @return mixed
      */
     public function actionUpdate($id)
     {
@@ -111,8 +117,10 @@ final class UserController extends Controller implements MergeBaseActionInterfac
 
     /**
      * @param $id
-     * @return SaveUserForm|null
+     *
      * @throws NotFoundHttpException
+     *
+     * @return SaveUserForm|null
      */
     public function findModel($id)
     {

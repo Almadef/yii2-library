@@ -45,7 +45,6 @@ final class Alert extends Widget
      */
     public $closeButton = [];
 
-
     /**
      * {@inheritdoc}
      */

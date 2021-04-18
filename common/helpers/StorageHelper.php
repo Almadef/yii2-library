@@ -4,8 +4,8 @@ namespace common\helpers;
 
 final class StorageHelper
 {
-    const BOOK_COVER_DESCRIPTION = 'cover';
-    const BOOK_BOOK_DESCRIPTION = 'book';
+    public const BOOK_COVER_DESCRIPTION = 'cover';
+    public const BOOK_BOOK_DESCRIPTION = 'book';
 
     public static function convertDescriptionToLabel(string $description): string
     {

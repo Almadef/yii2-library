@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class Publisher
+ *
  * @package common\models
  *
  * @property int $id
@@ -18,7 +19,6 @@ use yii\helpers\ArrayHelper;
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
- *
  * @property Book[] $books
  */
 final class Publisher extends ActiveRecord
@@ -26,8 +26,9 @@ final class Publisher extends ActiveRecord
     use Multilang;
 
     /**
-     * @return array
      * @throws Exception
+     *
+     * @return array
      */
     public static function getForSelector(): array
     {

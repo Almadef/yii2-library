@@ -14,6 +14,7 @@ final class Query extends ActiveQuery
 {
     /**
      * {@inheritdoc}
+     *
      * @return Assignment[]|array
      */
     public function all($db = null)
@@ -23,6 +24,7 @@ final class Query extends ActiveQuery
 
     /**
      * {@inheritdoc}
+     *
      * @return Assignment|array|null
      */
     public function one($db = null)

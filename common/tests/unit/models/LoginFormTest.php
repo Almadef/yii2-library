@@ -18,7 +18,6 @@ class LoginFormTest extends Unit
      */
     protected $tester;
 
-
     /**
      * @return array
      */

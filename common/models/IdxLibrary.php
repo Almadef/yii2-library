@@ -7,6 +7,7 @@ use yii\sphinx\MatchExpression;
 
 /**
  * Class IdxLibrary
+ *
  * @package common\models
  *
  * @property int $id
@@ -23,6 +24,7 @@ final class IdxLibrary extends ActiveRecord
 
     /**
      * @param string $param
+     *
      * @return array
      */
     public static function search(string $param): array
@@ -38,10 +40,11 @@ final class IdxLibrary extends ActiveRecord
                     ->orMatch(['a_patronymic' => $param])
             )
             ->all();
-        $ids = array();
+        $ids = [];
         foreach ($idxBooks as $idxBook) {
             $ids[] = $idxBook->id;
         }
+
         return $ids;
     }
 }

@@ -13,7 +13,6 @@ use yii\db\ActiveRecord;
  * @property string $item_name
  * @property string $user_id
  * @property int|null $created_at
- *
  * @property Item $itemName
  */
 final class Assignment extends ActiveRecord
@@ -30,6 +29,7 @@ final class Assignment extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

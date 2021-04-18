@@ -9,6 +9,7 @@ class m200103_141439_add_publisher_permission extends Migration
 {
     /**
      * {@inheritdoc}
+     *
      * @throws \yii\db\Exception
      */
     public function safeUp()

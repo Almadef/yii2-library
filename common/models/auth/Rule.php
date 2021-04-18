@@ -14,7 +14,6 @@ use yii\db\ActiveRecord;
  * @property resource|null $data
  * @property int|null $created_at
  * @property int|null $updated_at
- *
  * @property Item[] $authItems
  */
 final class Rule extends ActiveRecord
@@ -31,6 +30,7 @@ final class Rule extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

@@ -37,16 +37,15 @@ final class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        } else {
-            $model->password = '';
+        }
+        $model->password = '';
 
-            return $this->render(
-                'login',
-                [
+        return $this->render(
+            'login',
+            [
                     'model' => $model,
                 ]
-            );
-        }
+        );
     }
 
     /**
@@ -64,8 +63,9 @@ final class SiteController extends Controller
     /**
      * Signs user up.
      *
-     * @return mixed
      * @throws Exception
+     *
+     * @return mixed
      */
     public function actionSignup()
     {
@@ -75,6 +75,7 @@ final class SiteController extends Controller
                 'success',
                 Yii::t('app', 'Thank you for registration. Please check your inbox for verification email.')
             );
+
             return $this->goHome();
         }
 
@@ -99,12 +100,11 @@ final class SiteController extends Controller
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Check your email for further instructions.'));
 
                 return $this->goHome();
-            } else {
-                Yii::$app->session->setFlash(
-                    'error',
-                    Yii::t('error', 'Sorry, we are unable to reset password for the provided email address.')
-                );
             }
+            Yii::$app->session->setFlash(
+                'error',
+                Yii::t('error', 'Sorry, we are unable to reset password for the provided email address.')
+            );
         }
 
         return $this->render(
@@ -119,8 +119,10 @@ final class SiteController extends Controller
      * Resets password.
      *
      * @param string $token
-     * @return mixed
+     *
      * @throws BadRequestHttpException
+     *
+     * @return mixed
      */
     public function actionResetPassword($token)
     {
@@ -148,8 +150,10 @@ final class SiteController extends Controller
      * Verify email address
      *
      * @param string $token
-     * @return yii\web\Response
+     *
      * @throws BadRequestHttpException
+     *
+     * @return yii\web\Response
      */
     public function actionVerifyEmail($token)
     {
@@ -161,6 +165,7 @@ final class SiteController extends Controller
         if ($user = $model->verifyEmail()) {
             if (Yii::$app->user->login($user)) {
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Your email has been confirmed!'));
+
                 return $this->goHome();
             }
         }
@@ -169,6 +174,7 @@ final class SiteController extends Controller
             'error',
             Yii::t('error', 'Sorry, we are unable to verify your account with provided token.')
         );
+
         return $this->goHome();
     }
 
@@ -183,6 +189,7 @@ final class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Check your email for further instructions.'));
+
                 return $this->goHome();
             }
             Yii::$app->session->setFlash(
@@ -241,5 +248,4 @@ final class SiteController extends Controller
             ],
         ];
     }
-
 }

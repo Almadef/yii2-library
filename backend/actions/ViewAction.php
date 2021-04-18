@@ -7,12 +7,14 @@ use yii\base\Action;
 
 /**
  * Class ViewAction
+ *
  * @package backend\actions
  */
 final class ViewAction extends Action
 {
     /**
      * Displays a single Category model.
+     *
      * @return mixed
      */
     public function run()

@@ -11,12 +11,14 @@ use yii\helpers\Console;
 
 /**
  * Manages RBAC
+ *
  * @package console\controllers
  */
 final class RbacController extends Controller
 {
     /**
      * Create default admin and librarian
+     *
      * @throws Exception
      */
     public function actionCreateDefaultUser()

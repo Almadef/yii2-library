@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= GridView::widget(
-        [
+    [
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         } else {
                             $roleName = RoleHelper::getRoleName(RoleHelper::ROLE_USER);
                         }
+
                         return $roleName;
                     },
                     'label' => Yii::t('app', 'Role'),
@@ -58,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]
-    ); ?>
+); ?>
 
 
 </div>

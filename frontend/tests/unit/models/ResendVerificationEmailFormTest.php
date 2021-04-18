@@ -2,7 +2,6 @@
 
 namespace frontend\tests\unit\models;
 
-
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
 use frontend\models\ResendVerificationEmailForm;
@@ -15,7 +14,6 @@ class ResendVerificationEmailFormTest extends Unit
      * @var UnitTester
      */
     protected $tester;
-
 
     public function _before()
     {

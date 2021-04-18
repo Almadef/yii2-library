@@ -22,7 +22,6 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  * @property bool $is_deleted
- *
  * @property Assignment $role
  * @property Book[] $books
  */
@@ -30,9 +29,9 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 {
     use Relations;
 
-    const STATUS_BANNED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
+    public const STATUS_BANNED = 0;
+    public const STATUS_INACTIVE = 9;
+    public const STATUS_ACTIVE = 10;
 
     /**
      * {@inheritdoc}
@@ -44,6 +43,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

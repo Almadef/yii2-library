@@ -21,14 +21,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email')->textInput() ?>
 
     <?= $form->field($model, 'status')->widget(
-        Select2::class,
-        [
+    Select2::class,
+    [
             'data' => $selectStatus,
             'options' => [
                 'placeholder' => Yii::t('app', 'Select...'),
             ],
         ]
-    ) ?>
+) ?>
 
     <?= $form->field($model, 'role_name')->widget(
         Select2::class,

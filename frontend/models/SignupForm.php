@@ -16,7 +16,6 @@ final class SignupForm extends Model
     public $email;
     public $password;
 
-
     /**
      * {@inheritdoc}
      */
@@ -64,8 +63,9 @@ final class SignupForm extends Model
     /**
      * Signs user up.
      *
-     * @return bool whether the creating new account was successful and email was sent
      * @throws Exception
+     *
+     * @return bool whether the creating new account was successful and email was sent
      */
     public function signup()
     {
@@ -82,12 +82,15 @@ final class SignupForm extends Model
         if ($user->save() && $this->sendEmail($user)) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Sends confirmation email to user
+     *
      * @param User $user user model to with email should be send
+     *
      * @return bool whether the email was sent
      */
     protected function sendEmail($user)

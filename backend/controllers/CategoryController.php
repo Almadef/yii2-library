@@ -68,8 +68,10 @@ final class CategoryController extends Controller implements MergeBaseActionInte
 
     /**
      * @param $id
-     * @return Category|null
+     *
      * @throws NotFoundHttpException
+     *
+     * @return Category|null
      */
     public function findModel($id)
     {

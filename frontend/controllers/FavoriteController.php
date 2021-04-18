@@ -39,20 +39,21 @@ final class FavoriteController extends Controller
 
         if (isset($userBook)) {
             return $this->getErrorResponse('Book is favorite');
-        } else {
-            $user->link('books', $book);
-
-            TagDependency::invalidate(Yii::$app->cache, ['library_favourites_' . $userId]);
-
-            $this->addToResponseData(Yii::t('app', 'Delete from favorites'), 'textBtn');
-            return $this->getSuccessResponse();
         }
+        $user->link('books', $book);
+
+        TagDependency::invalidate(Yii::$app->cache, ['library_favourites_' . $userId]);
+
+        $this->addToResponseData(Yii::t('app', 'Delete from favorites'), 'textBtn');
+
+        return $this->getSuccessResponse();
     }
 
     /**
-     * @return json
      * @throws Throwable
      * @throws StaleObjectException
+     *
+     * @return json
      */
     public function actionDel()
     {
@@ -76,10 +77,11 @@ final class FavoriteController extends Controller
             TagDependency::invalidate(Yii::$app->cache, ['library_favourites_' . $userId]);
 
             $this->addToResponseData(Yii::t('app', 'Add to favorites'), 'textBtn');
+
             return $this->getSuccessResponse();
-        } else {
-            return $this->getErrorResponse('Book is not favorite');
         }
+
+        return $this->getErrorResponse('Book is not favorite');
     }
 
     /**

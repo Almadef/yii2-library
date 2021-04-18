@@ -13,6 +13,7 @@ final class Query extends ActiveQuery
 {
     /**
      * {@inheritdoc}
+     *
      * @return ActiveRecord[]|array
      */
     public function all($db = null)
@@ -22,6 +23,7 @@ final class Query extends ActiveQuery
 
     /**
      * {@inheritdoc}
+     *
      * @return ActiveRecord|array|null
      */
     public function one($db = null)
@@ -31,6 +33,7 @@ final class Query extends ActiveQuery
 
     /**
      * @param $bookId
+     *
      * @return Query
      */
     public function byBookId($bookId)
@@ -40,6 +43,7 @@ final class Query extends ActiveQuery
 
     /**
      * @param $userId
+     *
      * @return Query
      */
     public function byUserId($userId)

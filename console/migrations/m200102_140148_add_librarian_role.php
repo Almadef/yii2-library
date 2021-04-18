@@ -9,6 +9,7 @@ class m200102_140148_add_librarian_role extends Migration
 {
     /**
      * {@inheritdoc}
+     *
      * @throws \yii\db\Exception
      */
     public function safeUp()

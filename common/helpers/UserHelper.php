@@ -8,14 +8,17 @@ use yii\base\Exception;
 
 /**
  * Class UserHelper
+ *
  * @package common\helpers
  */
 final class UserHelper
 {
     /**
      * @param string $password
-     * @return string
+     *
      * @throws Exception
+     *
+     * @return string
      */
     public static function generatePasswordHash(string $password): string
     {
@@ -23,8 +26,9 @@ final class UserHelper
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public static function generateAuthKey(): string
     {
@@ -32,8 +36,9 @@ final class UserHelper
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public static function generatePasswordResetToken(): string
     {
@@ -41,8 +46,9 @@ final class UserHelper
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public static function generateEmailVerificationToken(): string
     {
@@ -51,6 +57,7 @@ final class UserHelper
 
     /**
      * @param string $status
+     *
      * @return string
      */
     public static function getStatusName(string $status): string

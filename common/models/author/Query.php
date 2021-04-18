@@ -15,6 +15,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
     /**
      * {@inheritdoc}
+     *
      * @return Author[]|array
      */
     public function all($db = null)
@@ -24,6 +25,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 
     /**
      * {@inheritdoc}
+     *
      * @return Author|array|null
      */
     public function one($db = null)

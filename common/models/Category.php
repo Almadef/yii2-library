@@ -7,9 +7,9 @@ use common\models\category\Multilang;
 use Exception;
 use yii\helpers\ArrayHelper;
 
-
 /**
  * Class Category
+ *
  * @package common\models
  *
  * @property int $id
@@ -25,8 +25,9 @@ final class Category extends ActiveRecord
     use Multilang;
 
     /**
-     * @return array
      * @throws Exception
+     *
+     * @return array
      */
     public static function getForSelector(): array
     {

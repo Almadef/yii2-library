@@ -1,6 +1,5 @@
 <?php
 
-
 namespace frontend\models;
 
 use common\models\User;
@@ -13,7 +12,6 @@ final class ResendVerificationEmailForm extends Model
      * @var string
      */
     public $email;
-
 
     /**
      * {@inheritdoc}

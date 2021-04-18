@@ -7,7 +7,6 @@ use yii\bootstrap\Widget;
 
 final class MultiLang extends Widget
 {
-
     public function run()
     {
         $nowLanguage = Yii::$app->language;
@@ -19,6 +18,7 @@ final class MultiLang extends Widget
             }
             $nowUrl = substr($nowUrl, 0, -1);
         }
+
         return $this->render('multilang_link', ['nowLanguage' => $nowLanguage, 'nowUrl' => $nowUrl]);
     }
 }

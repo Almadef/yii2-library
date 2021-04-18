@@ -7,9 +7,9 @@ use common\models\author\Multilang;
 use Exception;
 use yii\helpers\ArrayHelper;
 
-
 /**
  * Class Author
+ *
  * @package common\models
  *
  * @property int $id
@@ -44,8 +44,9 @@ final class Author extends ActiveRecord
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getFullName(): string
     {

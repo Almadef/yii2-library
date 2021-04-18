@@ -7,38 +7,44 @@ use Exception;
 
 /**
  * Trait Multilang
+ *
  * @package common\models\author
  */
 trait Multilang
 {
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getSurname(): string
     {
         $surname = LanguagesHelper::getCurrentAttribute('surname');
+
         return $this->$surname;
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getName(): string
     {
         $name = LanguagesHelper::getCurrentAttribute('name');
+
         return $this->$name;
     }
 
-
     /**
-     * @return string|null
      * @throws Exception
+     *
+     * @return string|null
      */
     public function getPatronymic()
     {
         $patronymic = LanguagesHelper::getCurrentAttribute('patronymic');
+
         return $this->$patronymic;
     }
 }

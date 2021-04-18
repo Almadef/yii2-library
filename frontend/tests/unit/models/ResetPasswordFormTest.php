@@ -14,7 +14,6 @@ class ResetPasswordFormTest extends Unit
      */
     protected $tester;
 
-
     public function _before()
     {
         $this->tester->haveFixtures(
@@ -50,5 +49,4 @@ class ResetPasswordFormTest extends Unit
         $form = new ResetPasswordForm($user['password_reset_token']);
         expect_that($form->resetPassword());
     }
-
 }

@@ -25,7 +25,6 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property bool $is_deleted
- *
  * @property Assignment $role
  * @property Book[] $books
  */
@@ -67,6 +66,7 @@ final class User extends ActiveRecord implements IdentityInterface
      * Finds user by username
      *
      * @param string $username
+     *
      * @return static|null
      */
     public static function findByUsername($username)
@@ -82,6 +82,7 @@ final class User extends ActiveRecord implements IdentityInterface
      * Finds user by password reset token
      *
      * @param string $token password reset token
+     *
      * @return static|null
      */
     public static function findByPasswordResetToken($token)
@@ -89,6 +90,7 @@ final class User extends ActiveRecord implements IdentityInterface
         if (!static::isPasswordResetTokenValid($token)) {
             return null;
         }
+
         return static::find()
             ->byPasswordResetToken($token)
             ->byStatus(self::STATUS_ACTIVE)
@@ -100,6 +102,7 @@ final class User extends ActiveRecord implements IdentityInterface
      * Finds out if password reset token is valid
      *
      * @param string $token password reset token
+     *
      * @return bool
      */
     public static function isPasswordResetTokenValid($token)
@@ -110,6 +113,7 @@ final class User extends ActiveRecord implements IdentityInterface
 
         $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+
         return $timestamp + $expire >= time();
     }
 
@@ -117,6 +121,7 @@ final class User extends ActiveRecord implements IdentityInterface
      * Finds user by verification email token
      *
      * @param string $token verify email token
+     *
      * @return static|null
      */
     public static function findByVerificationToken($token)
@@ -156,6 +161,7 @@ final class User extends ActiveRecord implements IdentityInterface
      * Validates password
      *
      * @param string $password password to validate
+     *
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password)
@@ -167,6 +173,7 @@ final class User extends ActiveRecord implements IdentityInterface
      * Generates password hash from password and sets it to the model
      *
      * @param string $password
+     *
      * @throws Exception
      */
     public function setPassword($password)
@@ -176,6 +183,7 @@ final class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates "remember me" authentication key
+     *
      * @throws Exception
      */
     public function generateAuthKey()
@@ -185,6 +193,7 @@ final class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates new password reset token
+     *
      * @throws Exception
      */
     public function generatePasswordResetToken()
@@ -194,6 +203,7 @@ final class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates new token for email verification
+     *
      * @throws Exception
      */
     public function generateEmailVerificationToken()

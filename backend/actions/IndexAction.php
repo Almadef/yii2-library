@@ -7,12 +7,14 @@ use yii\base\Action;
 
 /**
  * Class IndexAction
+ *
  * @package backend\actions
  */
 final class IndexAction extends Action
 {
     /**
      * Lists all Category models.
+     *
      * @return mixed
      */
     public function run()

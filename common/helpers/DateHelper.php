@@ -7,14 +7,17 @@ use yii\base\InvalidConfigException;
 
 /**
  * Class DateHelper
+ *
  * @package common\helpers
  */
 final class DateHelper
 {
     /**
      * @param int $unixDate
-     * @return string
+     *
      * @throws InvalidConfigException
+     *
+     * @return string
      */
     public static function convertUnixToDatetime(int $unixDate): string
     {

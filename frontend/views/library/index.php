@@ -33,12 +33,12 @@ $this->title = Yii::t('app', 'Home');
                                     <div class="panel panel-primary panel-main">
                                         <div class="panel-body">
                                             <?= Html::img(
-                                                Yii::$app->storage->getUrl(
+                            Yii::$app->storage->getUrl(
                                                     $book->fileCover->description,
                                                     $book->fileCover->file_path
                                                 ),
-                                                ['alt' => $book->title, 'height' => 250]
-                                            ) ?>
+                            ['alt' => $book->title, 'height' => 250]
+                        ) ?>
                                             <?= mb_strimwidth(
                                                 Yii::t(
                                                     'app',
@@ -68,10 +68,10 @@ $this->title = Yii::t('app', 'Home');
                 ?>
                 <div class="col-12 col-sm-12 text-center">
                     <?= LinkPager::widget(
-                        [
+                    [
                             'pagination' => $pages,
                         ]
-                    ); ?>
+                ); ?>
                 </div>
             </div>
             <div class="col-2 col-md-2">

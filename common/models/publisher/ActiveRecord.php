@@ -16,7 +16,6 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
- *
  * @property Book[] $books
  */
 abstract class ActiveRecord extends \yii\db\ActiveRecord
@@ -33,6 +32,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

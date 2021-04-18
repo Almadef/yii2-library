@@ -79,7 +79,7 @@ $this->beginBody() ?>
     echo Nav::widget(
         [
             'options' => ['class' => 'navbar-right'],
-            'items' => array($this->blocks['search']),
+            'items' => [$this->blocks['search']],
         ]
     );
     NavBar::end();

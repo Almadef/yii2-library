@@ -16,7 +16,6 @@ final class LoginForm extends Model
 
     private $_user;
 
-
     /**
      * {@inheritdoc}
      */

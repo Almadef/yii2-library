@@ -10,6 +10,7 @@ use yii\helpers\Url;
 
 /**
  * Class Book
+ *
  * @package common\models
  *
  * @property int $id
@@ -26,7 +27,6 @@ use yii\helpers\Url;
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
- *
  * @property Publisher $publisher
  * @property Storage $fileCover
  * @property Storage $fileBook
@@ -41,8 +41,9 @@ final class Book extends ActiveRecord
     use Multilang;
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getAuthorsString(): string
     {
@@ -54,12 +55,14 @@ final class Book extends ActiveRecord
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);
         }
+
         return $return;
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getAuthorsStringLink(): string
     {
@@ -71,12 +74,14 @@ final class Book extends ActiveRecord
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);
         }
+
         return $return;
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getCategoriesStringLink(): string
     {
@@ -88,6 +93,7 @@ final class Book extends ActiveRecord
         if ($return !== '') {
             $return = mb_substr($return, 0, -2);
         }
+
         return $return;
     }
 }

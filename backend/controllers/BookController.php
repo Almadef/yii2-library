@@ -31,8 +31,10 @@ final class BookController extends Controller implements MergeBaseActionInterfac
 
     /**
      * Lists all Book models.
-     * @return mixed
+     *
      * @throws Exception
+     *
+     * @return mixed
      */
     public function actionIndex()
     {
@@ -53,9 +55,12 @@ final class BookController extends Controller implements MergeBaseActionInterfac
 
     /**
      * Displays a single Book model.
+     *
      * @param integer $id
-     * @return mixed
+     *
      * @throws NotFoundHttpException if the model cannot be found
+     *
+     * @return mixed
      */
     public function actionView($id)
     {
@@ -91,9 +96,12 @@ final class BookController extends Controller implements MergeBaseActionInterfac
     /**
      * Finds the Book model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
-     * @return Book the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
+     *
+     * @return Book the loaded model
      */
     public function findModel($id)
     {
@@ -107,6 +115,7 @@ final class BookController extends Controller implements MergeBaseActionInterfac
     /**
      * Creates a new Book model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -115,6 +124,7 @@ final class BookController extends Controller implements MergeBaseActionInterfac
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->clearCache();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -136,12 +146,15 @@ final class BookController extends Controller implements MergeBaseActionInterfac
     /**
      * Updates an existing Book model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @param int|null $fileDeleteId
-     * @return mixed
+     *
      * @throws NotFoundHttpException if the model cannot be found
      * @throws Throwable
      * @throws StaleObjectException
+     *
+     * @return mixed
      */
     public function actionUpdate($id, $fileDeleteId = null)
     {
@@ -154,6 +167,7 @@ final class BookController extends Controller implements MergeBaseActionInterfac
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->clearCache();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -175,9 +189,12 @@ final class BookController extends Controller implements MergeBaseActionInterfac
     /**
      * Finds the Storage model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
-     * @return Storage the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
+     *
+     * @return Storage the loaded model
      */
     protected function findFileModel($id)
     {

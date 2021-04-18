@@ -9,7 +9,6 @@ use common\models\Category;
 use common\models\Publisher;
 use common\models\Storage;
 use common\models\User;
-use common\models\UserBook;
 use voskobovich\behaviors\ManyToManyBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -31,7 +30,6 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property int $created_at
  * @property int $updated_at
  * @property bool $is_deleted
- *
  * @property Publisher $publisher
  * @property Storage $fileCover
  * @property Storage $fileBook
@@ -48,11 +46,11 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
     /**
      * @var string
      */
-    const FILE_COVER_EXTENSIONS = 'png, jpg, jpeg';
+    public const FILE_COVER_EXTENSIONS = 'png, jpg, jpeg';
     /**
      * @var string
      */
-    const FILE_MAX_SIZE = 12 * 1024 * 1024;
+    public const FILE_MAX_SIZE = 12 * 1024 * 1024;
 
     /**
      * @var UploadedFile
@@ -74,6 +72,7 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

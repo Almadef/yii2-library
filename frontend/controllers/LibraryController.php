@@ -5,7 +5,6 @@ namespace frontend\controllers;
 use common\models\Book;
 use common\models\Category;
 use common\models\IdxLibrary;
-use common\models\UserBook;
 use Yii;
 use yii\caching\TagDependency;
 use yii\data\Pagination;
@@ -24,6 +23,7 @@ final class LibraryController extends Controller
      * @param int|null $category_id
      * @param int|null $author_id
      * @param int|null $publisher_id
+     *
      * @return mixed
      */
     public function actionIndex(
@@ -104,6 +104,7 @@ final class LibraryController extends Controller
      * Displays book.
      *
      * @param int $book_id
+     *
      * @return mixed
      */
     public function actionBook(int $book_id)

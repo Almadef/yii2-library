@@ -6,16 +6,18 @@ use Yii;
 
 /**
  * Class RoleHelper
+ *
  * @package common\helpers
  */
 final class RoleHelper
 {
-    const ROLE_ADMIN = 'admin';
-    const ROLE_LIBRARIAN = 'librarian';
-    const ROLE_USER = 'user';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_LIBRARIAN = 'librarian';
+    public const ROLE_USER = 'user';
 
     /**
      * @param string $role
+     *
      * @return string
      */
     public static function getRoleName(string $role): string

@@ -4,6 +4,7 @@ namespace backend\controllers\interfaces;
 
 /**
  * Interface MergeBaseActionInterface
+ *
  * @package backend\controllers\interfaces
  */
 interface MergeBaseActionInterface
@@ -25,6 +26,7 @@ interface MergeBaseActionInterface
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function findModel($id);

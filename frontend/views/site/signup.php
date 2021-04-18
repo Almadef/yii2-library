@@ -30,9 +30,9 @@ $this->title = Yii::t('app', 'Signup');
 
             <div class="form-group">
                 <?= Html::submitButton(
-                    Yii::t('app', 'Signup'),
-                    ['class' => 'btn btn-primary', 'name' => 'signup-button']
-                ) ?>
+    Yii::t('app', 'Signup'),
+    ['class' => 'btn btn-primary', 'name' => 'signup-button']
+) ?>
             </div>
 
             <?php

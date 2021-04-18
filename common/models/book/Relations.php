@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
+ *
  * @package common\models\book
  */
 trait Relations

@@ -15,7 +15,6 @@ class VerifyEmailFormTest extends Unit
      */
     protected $tester;
 
-
     public function _before()
     {
         $this->tester->haveFixtures(

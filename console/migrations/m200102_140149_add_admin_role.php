@@ -9,6 +9,7 @@ class m200102_140149_add_admin_role extends Migration
 {
     /**
      * {@inheritdoc}
+     *
      * @throws \yii\db\Exception
      */
     public function safeUp()

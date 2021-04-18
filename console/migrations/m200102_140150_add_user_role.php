@@ -9,6 +9,7 @@ class m200102_140150_add_user_role extends Migration
 {
     /**
      * {@inheritdoc}
+     *
      * @throws \yii\db\Exception
      */
     public function safeUp()

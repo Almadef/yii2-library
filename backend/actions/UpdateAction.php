@@ -7,6 +7,7 @@ use yii\base\Action;
 
 /**
  * Class UpdateAction
+ *
  * @package backend\actions
  */
 final class UpdateAction extends Action
@@ -14,6 +15,7 @@ final class UpdateAction extends Action
     /**
      * Updates an existing Category model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function run()
@@ -23,14 +25,15 @@ final class UpdateAction extends Action
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->controller->clearCache();
+
             return $this->controller->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->controller->render(
-                'update',
-                [
+        }
+
+        return $this->controller->render(
+            'update',
+            [
                     'model' => $model,
                 ]
-            );
-        }
+        );
     }
 }

@@ -39,16 +39,15 @@ final class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        } else {
-            $model->password = '';
+        }
+        $model->password = '';
 
-            return $this->render(
-                'login',
-                [
+        return $this->render(
+            'login',
+            [
                     'model' => $model,
                 ]
-            );
-        }
+        );
     }
 
     /**
@@ -74,6 +73,7 @@ final class SiteController extends Controller
         } catch (Exception $e) {
             Yii::$app->session->setFlash('error', Yii::t('error', 'Cache could not be cleared'));
         }
+
         return $this->goHome();
     }
 

@@ -7,6 +7,7 @@ use yii\db\ActiveQuery;
 
 /**
  * Trait Relations
+ *
  * @package common\models\auth\item_child
  */
 trait Relations

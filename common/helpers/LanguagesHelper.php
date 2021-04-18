@@ -7,15 +7,17 @@ use Yii;
 
 /**
  * Class LanguagesHelper
+ *
  * @package common\helpers
  */
 final class LanguagesHelper
 {
-    const RU = 'ru';
-    const EN = 'en';
+    public const RU = 'ru';
+    public const EN = 'en';
 
     /**
      * @param string $attributeName
+     *
      * @return string
      */
     public static function getCurrentAttribute(string $attributeName): string
@@ -28,8 +30,9 @@ final class LanguagesHelper
     }
 
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public static function getCurrentLanguage(): string
     {

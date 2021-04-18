@@ -9,6 +9,7 @@ class m200102_140130_add_author_permission extends Migration
 {
     /**
      * {@inheritdoc}
+     *
      * @throws \yii\db\Exception
      */
     public function safeUp()

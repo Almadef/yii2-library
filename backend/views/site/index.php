@@ -14,7 +14,7 @@ $this->title = Yii::t('app', 'Home');
             if (Yii::$app->user->can('viewBook')) : ?>
                 <div class="col-lg-4 link">
                     <?= Html::a(
-                        '
+    '
                     <div class="panel panel-primary panel-main">
                                 <div class="panel-heading panel-heading-main">
                                     ' . Yii::t('app', 'Books') . '
@@ -24,9 +24,9 @@ $this->title = Yii::t('app', 'Home');
                                 </div>
                             </div>
                     ',
-                        Url::to(['/book']),
-                        ['class' => 'a-no-decoration', 'style' => 'text-decoration: none;']
-                    ) ?>
+    Url::to(['/book']),
+    ['class' => 'a-no-decoration', 'style' => 'text-decoration: none;']
+) ?>
                 </div>
             <?php
             endif; ?>

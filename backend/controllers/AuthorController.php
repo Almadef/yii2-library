@@ -68,8 +68,10 @@ final class AuthorController extends Controller implements MergeBaseActionInterf
 
     /**
      * @param $id
-     * @return Author|null
+     *
      * @throws NotFoundHttpException
+     *
+     * @return Author|null
      */
     public function findModel($id)
     {

@@ -49,6 +49,7 @@ final class StorageBehavior extends Behavior
         $storage->file_type = $fileType;
         $storage->file_size = $file->size;
         $storage->file_path = $path;
+
         return $storage->save();
     }
 }

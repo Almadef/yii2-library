@@ -11,10 +11,10 @@ use yii\helpers\Url;
     <?php
     foreach ($categories as $category): ?>
         <?= Html::a(
-            $category->title,
-            Url::to(['library/index', 'category_id' => $category->id]),
-            ['title' => $category->title, 'class' => 'btn btn-default']
-        ) ?>
+    $category->title,
+    Url::to(['library/index', 'category_id' => $category->id]),
+    ['title' => $category->title, 'class' => 'btn btn-default']
+) ?>
     <?php
     endforeach; ?>
 </div>

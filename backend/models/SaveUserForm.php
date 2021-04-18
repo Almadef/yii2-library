@@ -10,6 +10,7 @@ use Yii;
 
 /**
  * Class SaveUserForm
+ *
  * @package backend\modules\user\models
  *
  * @property integer $id
@@ -112,7 +113,6 @@ final class SaveUserForm extends ActiveRecord
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function saveRoleInsert()
@@ -124,7 +124,6 @@ final class SaveUserForm extends ActiveRecord
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function saveRoleUpdate()

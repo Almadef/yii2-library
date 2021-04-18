@@ -15,6 +15,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 {
     /**
      * {@inheritdoc}
+     *
      * @return User[]|array
      */
     public function all($db = null)
@@ -24,6 +25,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 
     /**
      * {@inheritdoc}
+     *
      * @return User|array|null
      */
     public function one($db = null)
@@ -41,6 +43,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 
     /**
      * @param $id
+     *
      * @return Query
      */
     public function byId($id)
@@ -50,6 +53,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 
     /**
      * @param $username
+     *
      * @return Query
      */
     public function byUsername($username)
@@ -59,6 +63,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 
     /**
      * @param $status
+     *
      * @return Query
      */
     public function byStatus($status)
@@ -68,6 +73,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 
     /**
      * @param $passwordResetToken
+     *
      * @return Query
      */
     public function byPasswordResetToken($passwordResetToken)
@@ -77,6 +83,7 @@ final class Query extends ActiveQuery implements QuerySafeDeleteInterface
 
     /**
      * @param $verificationToken
+     *
      * @return Query
      */
     public function byVerificationToken($verificationToken)

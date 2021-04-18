@@ -7,17 +7,20 @@ use Exception;
 
 /**
  * Trait Multilang
+ *
  * @package common\models\publisher
  */
 trait Multilang
 {
     /**
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function getName(): string
     {
         $name = LanguagesHelper::getCurrentAttribute('name');
+
         return $this->$name;
     }
 }

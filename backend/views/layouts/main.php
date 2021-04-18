@@ -35,15 +35,15 @@ $this->beginBody() ?>
 <div class="wrap">
     <?php
     NavBar::begin(
-        [
+    [
             'brandLabel' => Yii::$app->name,
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
         ]
-    );
-    $menuItems = array();
+);
+    $menuItems = [];
     if (!Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => Yii::$app->homeUrl];
     }
@@ -91,10 +91,10 @@ $this->beginBody() ?>
 
     <div class="container">
         <?= Breadcrumbs::widget(
-            [
+        [
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]
-        ) ?>
+    ) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>

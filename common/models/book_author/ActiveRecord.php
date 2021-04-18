@@ -12,7 +12,6 @@ use yii\behaviors\TimestampBehavior;
  * @property int $book_id
  * @property int $author_id
  * @property int $created_at
- *
  * @property Author $author
  * @property Book $book
  */
@@ -30,6 +29,7 @@ final class ActiveRecord extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

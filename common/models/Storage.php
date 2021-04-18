@@ -6,6 +6,7 @@ use common\models\storage\ActiveRecord;
 
 /**
  * Class Storage
+ *
  * @package common\models
  *
  * @property int $id
@@ -22,5 +23,4 @@ use common\models\storage\ActiveRecord;
  */
 final class Storage extends ActiveRecord
 {
-
 }

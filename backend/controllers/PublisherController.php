@@ -68,8 +68,10 @@ final class PublisherController extends Controller implements MergeBaseActionInt
 
     /**
      * @param $id
-     * @return Publisher|null
+     *
      * @throws NotFoundHttpException
+     *
+     * @return Publisher|null
      */
     public function findModel($id)
     {

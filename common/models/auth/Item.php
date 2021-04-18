@@ -17,7 +17,6 @@ use yii\db\ActiveRecord;
  * @property resource|null $data
  * @property int|null $created_at
  * @property int|null $updated_at
- *
  * @property Assignment[] $authAssignments
  * @property Rule $ruleName
  * @property ItemChild[] $authItemChildren
@@ -29,8 +28,8 @@ final class Item extends ActiveRecord
 {
     use Relations;
 
-    const TYPE_ROLE = 1;
-    const TYPE_PERMISSION = 2;
+    public const TYPE_ROLE = 1;
+    public const TYPE_PERMISSION = 2;
 
     /**
      * {@inheritdoc}
@@ -42,6 +41,7 @@ final class Item extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return Query the active query used by this AR class.
      */
     public static function find()

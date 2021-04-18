@@ -18,12 +18,12 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                 <div class="col-4 col-sm-4">
                     <div class="book-page-cover">
                         <?= Html::img(
-                            Yii::$app->storage->getUrl(
+    Yii::$app->storage->getUrl(
                                 $book->fileCover->description,
                                 $book->fileCover->file_path
                             ),
-                            ['alt' => $book->title, 'height' => 250]
-                        ) ?>
+    ['alt' => $book->title, 'height' => 250]
+) ?>
                     </div>
                     <div class="text-center">
                         <?=
@@ -64,15 +64,15 @@ $this->title = Yii::t('app', 'Book {name}', ['name' => $book->title]);
                         <h1><?= $book->title ?></h1>
                         <p><?= Yii::t('app', 'Author(s): {author}', ['author' => $book->getAuthorsStringLink()]) ?></p>
                         <p><?= Yii::t(
-                                'app',
-                                'Publisher: {name}',
-                                [
+                            'app',
+                            'Publisher: {name}',
+                            [
                                     'name' => Html::a(
                                         $book->publisher->name,
                                         Url::to(['library/index', 'publisher_id' => $book->publisher->id])
                                     )
                                 ]
-                            ) ?></p>
+                        ) ?></p>
                         <p><?= Yii::t(
                                 'app',
                                 'Category(ies): {category}',

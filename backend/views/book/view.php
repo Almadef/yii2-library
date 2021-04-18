@@ -26,20 +26,20 @@ YiiAsset::register($this);
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(
-            Yii::t('app', 'Delete'),
-            ['delete', 'id' => $model->id],
-            [
+    Yii::t('app', 'Delete'),
+    ['delete', 'id' => $model->id],
+    [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                     'method' => 'post',
                 ],
             ]
-        ) ?>
+) ?>
     </p>
 
     <?= DetailView::widget(
-        [
+            [
             'model' => $model,
             'attributes' => [
                 'id',
@@ -71,7 +71,7 @@ YiiAsset::register($this);
                 ],
             ],
         ]
-    ) ?>
+        ) ?>
 
     <h4><?= Yii::t('app', 'Authors') ?></h4>
     <?= GridView::widget(
