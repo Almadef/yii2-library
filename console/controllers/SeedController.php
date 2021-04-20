@@ -2,11 +2,13 @@
 
 namespace console\controllers;
 
+use common\helpers\StorageHelper;
 use common\models\{
     Author,
     Category,
     Publisher,
-    Book
+    Book,
+    Storage
 };
 use Exception;
 use Throwable;
@@ -83,17 +85,37 @@ final class SeedController extends Controller
 
                 $usedAuthors = [];
                 for ($j = 0; $j < rand(1, 3); $j++) {
-                    $authorNumber = $this->getNewObjectId($usedAuthors, self::COUNT_AUTHORS);
+                    $authorNumber = $this->getNewObjectNumber($usedAuthors, self::COUNT_AUTHORS);
                     $usedAuthors[] = $authorNumber;
                     $book->link('authors', $authors[$authorNumber], ['created_at' => time()]);
                 }
 
                 $usedCategories = [];
                 for ($j = 0; $j < rand(1, 2); $j++) {
-                    $categoryNumber = $this->getNewObjectId($usedCategories, self::COUNT_CATEGORIES);
+                    $categoryNumber = $this->getNewObjectNumber($usedCategories, self::COUNT_CATEGORIES);
                     $usedCategories[] = $categoryNumber;
                     $book->link('categories', $categories[$categoryNumber], ['created_at' => time()]);
                 }
+
+                $bookFile = new Storage();
+                $bookFile->model_id = $book->id;
+                $bookFile->model_name = Book::class;
+                $bookFile->description = StorageHelper::BOOK_BOOK_DESCRIPTION;
+                $bookFile->file_name = $faker->word . '.pdf';
+                $bookFile->file_type = 'pdf';
+                $bookFile->file_size = 133668;
+                $bookFile->file_path = '/seed/book.pdf';
+                $bookFile->save();
+
+                $coverFile = new Storage();
+                $coverFile->model_id = $book->id;
+                $coverFile->model_name = Book::class;
+                $coverFile->description = StorageHelper::BOOK_COVER_DESCRIPTION;
+                $coverFile->file_name = $faker->word . '.png';
+                $coverFile->file_type = 'png';
+                $coverFile->file_size = 433668;
+                $coverFile->file_path = '/seed/book_cover.png';
+                $coverFile->save();
             }
 
             $transaction->commit();
@@ -109,15 +131,15 @@ final class SeedController extends Controller
     }
 
     /**
-     * @param array $usedObjectNumbers
+     * @param array $numbers
      * @param int $count
      * @return int
      */
-    private function getNewObjectId(array $usedObjectNumbers, int $count): int
+    private function getNewObjectNumber(array $numbers, int $count): int
     {
         while (true) {
             $number = $this->getRandomNumberForArray($count);
-            if (!in_array($number, $usedObjectNumbers)) {
+            if (!in_array($number, $numbers)) {
                 return $number;
             }
         }
