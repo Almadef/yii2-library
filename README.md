@@ -36,7 +36,7 @@
     1. `docker-compose exec php-fpm php yii_test migrate-rbac`;
     2. `docker-compose exec php-fpm php yii_test migrate`, после появления новых миграций ее нужно снова выполнять, для поддержки в актуальном состоянии и этой базы.
 
-Запустить все тесты `docker-compose exec php-fpm vendor/bin/codecept run`.
+Запустить все тесты `docker-compose exec php-fpm composer run-script test`.
 
 Запустить тесты определенного блока программы `docker-compose exec php-fpm vendor/bin/codecept run -c [frontend, backend, common]`.
 
@@ -45,5 +45,5 @@
 * `docker-compose exec php-fpm php yii user/create-admin <login> <email> <password>` - создать администратора;
 * `docker-compose exec php-fpm php yii user/create-librarian <login> <email> <password>` - создать библиотекаря;
 * `docker-compose exec php-fpm php yii seed/library` - загрузить сиды авторов, издателей, категорий и книг;
-* `docker-compose exec php-fpm php ./vendor/bin/phpcs --standard=PSR12 -p --ignore=*/vendor/*,*.css,*.js ./` - проверить форматирование кода.
-* `docker-compose exec php-fpm php ./vendor/bin/phpcbf --standard=PSR12 -p --ignore=*/vendor/*,*.css,*.js ./` - исправить форматирование кода.
+* `docker-compose exec php-fpm php composer run-script codesniffer-analysis` - проверить форматирование кода;
+* `docker-compose exec php-fpm php composer run-script codesniffer-fix` - исправить форматирование кода.
